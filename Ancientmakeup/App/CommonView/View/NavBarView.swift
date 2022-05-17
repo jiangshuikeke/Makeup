@@ -19,7 +19,7 @@ class NavBarView: UIView {
     }
     
     convenience init(title:String?){
-        self.init(frame: CGRect(origin: CGPoint(x: 0, y: StatusHeight), size: CGSize(width: ScreenWidth, height: fitHeight(height: 40))))
+        self.init(frame: CGRect(origin: CGPoint(x: 0, y: StatusHeight), size: CGSize(width: ScreenWidth, height: NavBarViewHeight)))
         if title != nil{
             titleLabel.text = title
         }
@@ -29,6 +29,7 @@ class NavBarView: UIView {
     
     convenience init(icon:String?,nickname:String?){
         self.init(frame: CGRect(origin: CGPoint(x: 0, y: StatusHeight), size: CGSize(width: ScreenWidth, height: fitHeight(height: 50))))
+        addCurve(color: SkinColor)
         isDetail = true
         initView()
     }
@@ -37,11 +38,11 @@ class NavBarView: UIView {
     private lazy var backImageView:UIImageView = {
         let imageView = UIImageView()
         imageView.frame.size = CGSize(width: 50, height: 50)
-        imageView.layer.backgroundColor = BlackColor.cgColor
-        imageView.layer.cornerRadius = 18
-        imageView.contentMode = .center
-        imageView.image = UIImage(named: "backArrow")
-        imageView.padding(15)
+//        imageView.layer.backgroundColor = BlackColor.cgColor
+//        imageView.layer.cornerRadius = 18
+//        imageView.contentMode = .center
+        imageView.image = UIImage(named: "back_arrow")
+//        imageView.padding(15)
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backViewController)))
         return imageView
@@ -76,6 +77,12 @@ class NavBarView: UIView {
         label.text = "Greg"
         return label
     }()
+    
+    var title:String?{
+        didSet{
+            titleLabel.text = title
+        }
+    }
     
     //是否是详细动态页的导航栏
     private var isDetail:Bool = false

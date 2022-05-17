@@ -34,4 +34,9 @@ extension UIImageView{
         UIGraphicsEndImageContext()
         self.image = new
     }
+    
+    ///设置图片大小
+    func imageSize(_ size:CGSize){
+        
+    }
 }

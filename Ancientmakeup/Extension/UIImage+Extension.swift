@@ -22,14 +22,5 @@ extension UIImage{
         self.init(cgImage: image.cgImage!)
     }
     
-    //圆角矩形
-//    convenience init(radius:CGFloat,rect:CGRect){
-//        UIGraphicsBeginImageContext(rect.size)
-//        let context = UIGraphicsGetCurrentContext()!
-//        let path = UIBezierPath(roundedRect: rect, cornerRadius: 20)
-//        context.setFillColor(baseColor.cgColor)
-//        context.fill(rect)
-//        let image = UIGraphicsGetImageFromCurrentImageContext()
-//        
-//    }
+    
 }

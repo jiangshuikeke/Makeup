@@ -22,6 +22,7 @@ class DIYTabBar: UITabBar {
         super.layoutSubviews()
         //自己配置TabBarItems
         myItemWidth = frame.width / CGFloat(myItems.count)
+    
         configureItem()
         configureRect()
     }
@@ -65,6 +66,12 @@ class DIYTabBar: UITabBar {
 //MARK: - UI
 private extension DIYTabBar{
     func initView(){
+        //移除所有items
+        for sub in subviews{
+            if sub.isKind(of: DIYTabBarItem.self){
+                sub.removeFromSuperview()
+            }
+        }
         for item in myItems {
             addSubview(item)
         }
@@ -94,8 +101,10 @@ private extension DIYTabBar{
         UIView.animate(withDuration: 0.5) {
             self.roundedRect.frame.origin.x = itemX
         }completion: {[weak self] flag in
-            let strongSel = self
-            strongSel?.myItems[strongSel?.currentIndex ?? 0].isSelected = true
+            guard let self = self else{
+                return
+            }
+            self.myItems[self.currentIndex].isSelected = true
         }
     }
 

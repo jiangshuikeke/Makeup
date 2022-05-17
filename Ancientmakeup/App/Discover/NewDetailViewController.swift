@@ -7,7 +7,7 @@
 
 import UIKit
 ///动态详细界面
-class NewDetailViewController: UIViewController {
+class NewDetailViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,21 +22,17 @@ class NewDetailViewController: UIViewController {
     
 
     //MARK: - 懒加载以及变量
-    private lazy var navBarView:NavBarView = {
-        let navBar = NavBarView(icon: nil, nickname: nil)
-        return navBar
-    }()
     
-    private lazy var backView:UIView = {
-        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: 120)))
-        view.backgroundColor = SkinColor
-        let shape = CAShapeLayer()
-        shape.path = UIBezierPath(arcCenter: navBarView.center, radius: 60, startAngle: 0, endAngle: Double.pi, clockwise: true).cgPath
-        shape.fillColor = SkinColor.cgColor
-        view.layer.addSublayer(shape)
-        
-        return view
-    }()
+//    private lazy var backView:UIView = {
+//        let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: 120)))
+//        view.backgroundColor = SkinColor
+//        let shape = CAShapeLayer()
+//        shape.path = UIBezierPath(arcCenter: navBarView.center, radius: 60, startAngle: 0, endAngle: Double.pi, clockwise: true).cgPath
+//        shape.fillColor = SkinColor.cgColor
+//        view.layer.addSublayer(shape)
+//
+//        return view
+//    }()
     
     private lazy var viewScrollView:UIScrollView = {
         let scrollView = UIScrollView(frame: view.frame)
@@ -175,9 +171,8 @@ class NewDetailViewController: UIViewController {
 extension NewDetailViewController{
     func initView(){
         view.backgroundColor = LightGrayColor
-        navigationController?.isNavigationBarHidden = true
-        view.addSubview(backView)
-        view.sendSubviewToBack(backView)
+        navBarView = NavBarView(icon: nil, nickname: "Peter")
+        navBarView.delegate = self
         view.addSubview(navBarView)
         view.addSubview(viewScrollView)
         viewScrollView.addSubview(titleLabel)

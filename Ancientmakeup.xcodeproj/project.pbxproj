@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0BEA7802AEFE4B1306E433AC /* libPods-Ancientmakeup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED99C6D1E041174F21ABB7B4 /* libPods-Ancientmakeup.a */; };
+		2A4DC8C5282BE32F00DCB64C /* HardwareDetect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DC8C4282BE32F00DCB64C /* HardwareDetect.swift */; };
+		2A4DC8C7282CB19F00DCB64C /* CameraTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DC8C6282CB19F00DCB64C /* CameraTool.swift */; };
+		2A4DC8C9282CEDEB00DCB64C /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DC8C8282CEDEB00DCB64C /* CameraPreviewView.swift */; };
+		2A4DC8CB282DFD3A00DCB64C /* PhotoCaptureProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DC8CA282DFD3A00DCB64C /* PhotoCaptureProcessor.swift */; };
+		2A4DC8CF282E388100DCB64C /* RecommendHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DC8CE282E388100DCB64C /* RecommendHeaderView.swift */; };
+		2A4DC8D1282E86D400DCB64C /* RecommendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DC8D0282E86D400DCB64C /* RecommendDetailViewController.swift */; };
 		2A5E5C7A2818EF3E003C8445 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5E5C6E2818EF3E003C8445 /* DiscoverViewController.swift */; };
 		2A5E5C7B2818EF3E003C8445 /* FoucsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5E5C6F2818EF3E003C8445 /* FoucsViewController.swift */; };
 		2A5E5C7C2818EF3E003C8445 /* WaterfallFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5E5C702818EF3E003C8445 /* WaterfallFlowLayout.swift */; };
@@ -34,7 +40,10 @@
 		2A88C9E728266CB300A13BCE /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88C9E628266CB300A13BCE /* AnalysisViewController.swift */; };
 		2A88C9E9282786A800A13BCE /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88C9E8282786A800A13BCE /* RecommendViewController.swift */; };
 		2A88C9EB282790F200A13BCE /* MainFaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88C9EA282790F200A13BCE /* MainFaceViewController.swift */; };
-		2A88C9ED2827923D00A13BCE /* BaseTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88C9EC2827923D00A13BCE /* BaseTabBarViewController.swift */; };
+		2A88C9ED2827923D00A13BCE /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88C9EC2827923D00A13BCE /* BaseTabBarController.swift */; };
+		2A88C9EF2828F01E00A13BCE /* OrgansView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88C9EE2828F01E00A13BCE /* OrgansView.swift */; };
+		2A88C9F1282A08FC00A13BCE /* OrgansTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88C9F0282A08FC00A13BCE /* OrgansTopView.swift */; };
+		2A88C9F7282BACD800A13BCE /* RecommendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88C9F6282BACD700A13BCE /* RecommendViewCell.swift */; };
 		2A90D7502809470900E79596 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90D74F2809470900E79596 /* AppDelegate.swift */; };
 		2A90D7522809470900E79596 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90D7512809470900E79596 /* SceneDelegate.swift */; };
 		2A90D7572809470900E79596 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A90D7552809470900E79596 /* Main.storyboard */; };
@@ -55,6 +64,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A4DC8C4282BE32F00DCB64C /* HardwareDetect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareDetect.swift; sourceTree = "<group>"; };
+		2A4DC8C6282CB19F00DCB64C /* CameraTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTool.swift; sourceTree = "<group>"; };
+		2A4DC8C8282CEDEB00DCB64C /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		2A4DC8CA282DFD3A00DCB64C /* PhotoCaptureProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureProcessor.swift; sourceTree = "<group>"; };
+		2A4DC8CE282E388100DCB64C /* RecommendHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendHeaderView.swift; sourceTree = "<group>"; };
+		2A4DC8D0282E86D400DCB64C /* RecommendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDetailViewController.swift; sourceTree = "<group>"; };
 		2A5E5C6E2818EF3E003C8445 /* DiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		2A5E5C6F2818EF3E003C8445 /* FoucsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoucsViewController.swift; sourceTree = "<group>"; };
 		2A5E5C702818EF3E003C8445 /* WaterfallFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterfallFlowLayout.swift; sourceTree = "<group>"; };
@@ -81,7 +96,10 @@
 		2A88C9E628266CB300A13BCE /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		2A88C9E8282786A800A13BCE /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
 		2A88C9EA282790F200A13BCE /* MainFaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFaceViewController.swift; sourceTree = "<group>"; };
-		2A88C9EC2827923D00A13BCE /* BaseTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarViewController.swift; sourceTree = "<group>"; };
+		2A88C9EC2827923D00A13BCE /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
+		2A88C9EE2828F01E00A13BCE /* OrgansView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrgansView.swift; sourceTree = "<group>"; };
+		2A88C9F0282A08FC00A13BCE /* OrgansTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrgansTopView.swift; sourceTree = "<group>"; };
+		2A88C9F6282BACD700A13BCE /* RecommendViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewCell.swift; sourceTree = "<group>"; };
 		2A90D74C2809470900E79596 /* Ancientmakeup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ancientmakeup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A90D74F2809470900E79596 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2A90D7512809470900E79596 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -147,6 +165,7 @@
 				2A5E5C712818EF3E003C8445 /* NewsCollectionViewCell.swift */,
 				2A88C9DC2824ABB100A13BCE /* CommentViewCell.swift */,
 				2A88C9DE2824B43400A13BCE /* SubCommentViewCell.swift */,
+				2A88C9F6282BACD700A13BCE /* RecommendViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -157,13 +176,6 @@
 				2A5E5C702818EF3E003C8445 /* WaterfallFlowLayout.swift */,
 			);
 			path = Layout;
-			sourceTree = "<group>";
-		};
-		2A5E5C89281B8178003C8445 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		2A88C9D3282206B200A13BCE /* Model */ = {
@@ -211,7 +223,6 @@
 			isa = PBXGroup;
 			children = (
 				2A88C9D3282206B200A13BCE /* Model */,
-				2A5E5C89281B8178003C8445 /* New Group */,
 				2A90D806280EAC5900E79596 /* BaseClass */,
 				2A90D774280A681200E79596 /* CommonView */,
 				2A90D76C2809530200E79596 /* Home */,
@@ -229,6 +240,9 @@
 				2A90D765280947BB00E79596 /* Hue.swift */,
 				2A90D76A28094F4200E79596 /* ScreenParameter.swift */,
 				2A5E5C8C281BD0A2003C8445 /* Global.swift */,
+				2A4DC8C4282BE32F00DCB64C /* HardwareDetect.swift */,
+				2A4DC8C6282CB19F00DCB64C /* CameraTool.swift */,
+				2A4DC8CA282DFD3A00DCB64C /* PhotoCaptureProcessor.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -250,9 +264,11 @@
 			children = (
 				2A90D775280A686200E79596 /* HomeViewController.swift */,
 				2A88C9E028260C9600A13BCE /* FaceAnalyzeViewController.swift */,
+				2A88C9EA282790F200A13BCE /* MainFaceViewController.swift */,
 				2A88C9E628266CB300A13BCE /* AnalysisViewController.swift */,
 				2A88C9E8282786A800A13BCE /* RecommendViewController.swift */,
-				2A88C9EA282790F200A13BCE /* MainFaceViewController.swift */,
+				2A4DC8CE282E388100DCB64C /* RecommendHeaderView.swift */,
+				2A4DC8D0282E86D400DCB64C /* RecommendDetailViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -268,6 +284,9 @@
 				2A90D77D280C106800E79596 /* RoundedRectView.swift */,
 				2A5E5C8A281B8196003C8445 /* NavView.swift */,
 				2A88C96728210FAD00A13BCE /* NavBarView.swift */,
+				2A88C9EE2828F01E00A13BCE /* OrgansView.swift */,
+				2A88C9F0282A08FC00A13BCE /* OrgansTopView.swift */,
+				2A4DC8C8282CEDEB00DCB64C /* CameraPreviewView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -287,7 +306,7 @@
 			children = (
 				2A90D807280EAC8600E79596 /* BaseScrollViewController.swift */,
 				2A88C9E4282653D800A13BCE /* BaseViewController.swift */,
-				2A88C9EC2827923D00A13BCE /* BaseTabBarViewController.swift */,
+				2A88C9EC2827923D00A13BCE /* BaseTabBarController.swift */,
 			);
 			path = BaseClass;
 			sourceTree = "<group>";
@@ -409,21 +428,28 @@
 				2A88C9E32826507400A13BCE /* UIViewController+Extension.swift in Sources */,
 				2A5E5C842818EF3E003C8445 /* CollectionViewController.swift in Sources */,
 				2A5E5C802818EF3E003C8445 /* PersonalHeaderView.swift in Sources */,
+				2A4DC8C5282BE32F00DCB64C /* HardwareDetect.swift in Sources */,
 				2A5E5C7E2818EF3E003C8445 /* NewDetailViewController.swift in Sources */,
 				2A5E5C86281AA927003C8445 /* NavViewController.swift in Sources */,
 				2A90D771280955E600E79596 /* MainViewController.swift in Sources */,
+				2A4DC8C9282CEDEB00DCB64C /* CameraPreviewView.swift in Sources */,
 				2A88C9E728266CB300A13BCE /* AnalysisViewController.swift in Sources */,
 				2A90D7502809470900E79596 /* AppDelegate.swift in Sources */,
 				2A88C9E128260C9600A13BCE /* FaceAnalyzeViewController.swift in Sources */,
 				2A88C9DD2824ABB100A13BCE /* CommentViewCell.swift in Sources */,
+				2A4DC8CF282E388100DCB64C /* RecommendHeaderView.swift in Sources */,
 				2A90D77E280C106800E79596 /* RoundedRectView.swift in Sources */,
 				2A90D808280EAC8600E79596 /* BaseScrollViewController.swift in Sources */,
+				2A88C9EF2828F01E00A13BCE /* OrgansView.swift in Sources */,
 				2A88C9E5282653D800A13BCE /* BaseViewController.swift in Sources */,
+				2A88C9F1282A08FC00A13BCE /* OrgansTopView.swift in Sources */,
 				2A88C96628210EF800A13BCE /* CommunityViewController.swift in Sources */,
 				2A5E5C832818EF3E003C8445 /* DisplayView.swift in Sources */,
 				2A90D766280947BB00E79596 /* Hue.swift in Sources */,
+				2A4DC8CB282DFD3A00DCB64C /* PhotoCaptureProcessor.swift in Sources */,
 				2A90D776280A686200E79596 /* HomeViewController.swift in Sources */,
 				2A88C9E9282786A800A13BCE /* RecommendViewController.swift in Sources */,
+				2A4DC8D1282E86D400DCB64C /* RecommendDetailViewController.swift in Sources */,
 				2A88C9EB282790F200A13BCE /* MainFaceViewController.swift in Sources */,
 				2A90D77328095A0500E79596 /* DIYTabBar.swift in Sources */,
 				2A5E5C812818EF3E003C8445 /* PersonalViewController.swift in Sources */,
@@ -435,18 +461,20 @@
 				2A90D782280D55BC00E79596 /* UIView+Extension.swift in Sources */,
 				2A88C9DB2823AB6A00A13BCE /* DetailBottomView.swift in Sources */,
 				2A5E5C7A2818EF3E003C8445 /* DiscoverViewController.swift in Sources */,
-				2A88C9ED2827923D00A13BCE /* BaseTabBarViewController.swift in Sources */,
+				2A88C9ED2827923D00A13BCE /* BaseTabBarController.swift in Sources */,
 				2A5E5C8B281B8196003C8445 /* NavView.swift in Sources */,
 				2A5E5C7F2818EF3E003C8445 /* SegmentView.swift in Sources */,
 				2A88C9D9282372E000A13BCE /* UIImageView+Extension.swift in Sources */,
 				2A90D76B28094F4200E79596 /* ScreenParameter.swift in Sources */,
 				2A5E5C7C2818EF3E003C8445 /* WaterfallFlowLayout.swift in Sources */,
+				2A4DC8C7282CB19F00DCB64C /* CameraTool.swift in Sources */,
 				2A90D7522809470900E79596 /* SceneDelegate.swift in Sources */,
 				2A88C9DF2824B43400A13BCE /* SubCommentViewCell.swift in Sources */,
 				2A90D784280E7AF900E79596 /* UIImage+Extension.swift in Sources */,
 				2A90D7692809486100E79596 /* UIColor+Extension.swift in Sources */,
 				2A88C96828210FAD00A13BCE /* NavBarView.swift in Sources */,
 				2A5E5C7D2818EF3E003C8445 /* NewsCollectionViewCell.swift in Sources */,
+				2A88C9F7282BACD800A13BCE /* RecommendViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,7 +551,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -578,7 +606,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -605,6 +633,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -635,6 +664,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

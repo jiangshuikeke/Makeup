@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: BaseViewController {
+class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +22,12 @@ class HomeViewController: BaseViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("主视图隐藏")
        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        hiddenTabbar(by: false)
     }
     
     
@@ -166,8 +170,8 @@ extension HomeViewController{
     @objc func clickComponentView(sender:UITapGestureRecognizer){
         let view = sender.view
         //切换到不同的界面
+        hiddenTabbar(by: true)
         if view?.tag == 0 {
-            NotificationCenter.default.post(name: PushViewControllerTabbarIsHidden, object: true)
             navigationController?.pushViewController(FaceAnalyzeViewController(), animated: true)
         }else{
             

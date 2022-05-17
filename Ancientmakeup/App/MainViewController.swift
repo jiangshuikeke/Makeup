@@ -8,13 +8,12 @@
 import UIKit
 import SnapKit
 //作为主ViewController
-class MainViewController :BaseTabBarViewController{
+class MainViewController :BaseTabBarController{
 
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
     }
-    
     
     //MARK: - 懒加载
     private lazy var myItems : [DIYTabBarItem] = {

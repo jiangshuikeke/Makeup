@@ -12,7 +12,7 @@ class BaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationController?.isNavigationBarHidden = true
         // Do any additional setup after loading the view.
     }
     
@@ -26,15 +26,20 @@ class BaseViewController: UIViewController {
     }
     
     // MARK: - 懒加载以及变量
-   
+    open lazy var navBarView:NavBarView = {
+        let view = NavBarView(title: nil)
+        view.delegate = self
+        return view
+    }()
+    
 }
 
 extension BaseViewController:NavBarViewDelegate{
     func back() {
         if view.tag == 0{
-            navigationController?.popViewController(animated: true)
-            NotificationCenter.default.post(name: PushViewControllerTabbarIsHidden, object: false)
+            hiddenTabbar(by: false)
         }
+        navigationController?.popViewController(animated: true)
         
     }
 }

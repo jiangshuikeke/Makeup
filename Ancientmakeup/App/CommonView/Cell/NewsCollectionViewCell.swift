@@ -45,7 +45,7 @@ class NewsCollectionViewCell: UICollectionViewCell {
     ///昵称
     private lazy var nicknameLabel:UILabel = {
         let label = UILabel()
-        label.font = littleFont
+        label.font = LittleFont
         label.text = "bLacKpinK"
         return label
     }()
@@ -72,7 +72,7 @@ class NewsCollectionViewCell: UICollectionViewCell {
     ///点赞数
     private lazy var likeNumLabel:UILabel = {
         let label = UILabel()
-        label.font = littleFont
+        label.font = LittleFont
         label.text = "189"
         return label
     }()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseTabBarViewController: UITabBarController {
+class BaseTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareForTabBarController()
@@ -38,7 +38,7 @@ class BaseTabBarViewController: UITabBarController {
 }
 
 //MARK: - UI
-extension BaseTabBarViewController{
+extension BaseTabBarController{
     
     func prepareForTabBarController(){
         //1.使用自定义Tabbar
@@ -47,11 +47,11 @@ extension BaseTabBarViewController{
         registerNotification()
         //3.
         view.addSubview(diyTabBar)
-        initLayout()
+        setTabBarLayout()
        
     }
     
-    func initLayout(){
+    func setTabBarLayout(){
         diyTabBar.snp.makeConstraints { make in
             make.left.equalTo(view).offset(fitWidth(width: 20))
             make.right.equalTo(view).offset(-fitWidth(width: 20))
@@ -84,7 +84,7 @@ extension BaseTabBarViewController{
 }
 
 //MARK: - 私有方法处理
-extension BaseTabBarViewController{
+extension BaseTabBarController{
     //将所有的item标记为未选择
     func clearSelected(){
         for it in items!{
@@ -94,7 +94,7 @@ extension BaseTabBarViewController{
 }
 
 //MARK: - 按键事件处理
-extension BaseTabBarViewController{
+extension BaseTabBarController{
     @objc func itemClick(sender:UITapGestureRecognizer){
         let item = sender.view as! DIYTabBarItem
         diyTabBar.currentIndex = item.tag

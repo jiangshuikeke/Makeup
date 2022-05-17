@@ -86,6 +86,7 @@ class PersonalViewController: UIViewController{
         let collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
         collectionView.backgroundColor = LightGrayColor
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCellId)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
@@ -174,9 +175,13 @@ extension PersonalViewController:UICollectionViewDataSource,UICollectionViewDele
         cell.layer.shadowOpacity = 0.5
         cell.layer.shadowOffset = CGSize(width: 2, height: 2)
 
-        
-        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //跳转到详细界面
+        hiddenTabbar(by: true)
+        navigationController?.pushViewController(NewDetailViewController(), animated: true)
     }
 
 }
