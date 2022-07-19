@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "国风试妆.png",
+      "filename" : "Group 113.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Group 113@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Group 113@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

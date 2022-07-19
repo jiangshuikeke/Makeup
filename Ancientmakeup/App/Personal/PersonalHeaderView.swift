@@ -10,7 +10,7 @@ import UIKit
 class PersonalHeaderView: UIView {
     
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame:CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: 0)) )
         initView()
     }
     
@@ -20,7 +20,6 @@ class PersonalHeaderView: UIView {
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         layoutIfNeeded()
-        
         let viewHeight = fansDisplayView.frame.maxY
         return CGSize(width: ScreenWidth, height: viewHeight)
     }
@@ -31,12 +30,11 @@ class PersonalHeaderView: UIView {
     
     ///背景圆角矩形
     public lazy var roundedRect : RoundedRectView = {
-//        return RoundedRectView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: fitHeight(height: 195)),type: .BottomRounded,radius: 30,color: SkinColor)
         return RoundedRectView(type: .BottomRounded, radius: 30, image: UIImage(named: "page0")!)
     }()
     
     ///头像框
-    private lazy var iconImageView:UIImageView = {
+    lazy var iconImageView:UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.layer.cornerRadius = fitWidth(width: 44)
@@ -77,6 +75,10 @@ class PersonalHeaderView: UIView {
     private lazy var foucsDisplayView:DisplayView = {
         return DisplayView(title: "关注", number: "108")
     }()
+    
+    var viewHeight:CGFloat {
+        return fansDisplayView.frame.maxY + 15
+    }
 
 }
 

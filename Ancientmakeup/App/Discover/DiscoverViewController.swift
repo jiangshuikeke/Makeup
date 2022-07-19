@@ -14,6 +14,13 @@ class DiscoverViewController: UIViewController {
         initView()
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if bannerView.timer.isValid{
+            bannerView.stopLoop()
+        }
+    }
 
     
     //MARK: - 懒加载以及变量
@@ -28,7 +35,7 @@ class DiscoverViewController: UIViewController {
         }
         field.backgroundColor = .clear
         search.backgroundImage = UIImage(color: .white)
-        search.layer.cornerRadius = 20
+        search.layer.cornerRadius = fitHeight(height: 15)
         search.layer.masksToBounds = true
         search.setImage(UIImage(named: "search"), for: .search, state: .normal)
         return search
@@ -50,6 +57,12 @@ class DiscoverViewController: UIViewController {
         scrollView.contentSize = CGSize(width: 2 * ScreenWidth, height: ScreenHeight)
         return scrollView
     }()
+    
+    //轮播图
+    private lazy var bannerView:BannerView = {
+        let view = BannerView(frame: .zero)
+        return view
+    }()
 
 }
 
@@ -62,6 +75,7 @@ extension DiscoverViewController{
         view.addSubview(segmentView)
         view.addSubview(horizontalScrollView)
         view.backgroundColor = LightGrayColor
+        horizontalScrollView.addSubview(bannerView)
         navigationController?.isNavigationBarHidden = true
         initLayout()
     }
@@ -84,6 +98,13 @@ extension DiscoverViewController{
             make.top.equalTo(segmentView.snp.bottom).offset(10)
             make.left.equalTo(view)
             make.right.equalTo(view)
+            make.bottom.equalTo(view)
+        }
+        
+        bannerView.snp.makeConstraints { make in
+            make.top.equalTo(horizontalScrollView)
+            make.left.right.equalTo(view)
+            make.height.equalTo(140)
         }
     }
 }

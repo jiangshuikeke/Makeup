@@ -13,12 +13,22 @@ class BaseTabBarController: UITabBarController {
         prepareForTabBarController()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("隐藏View")
+    }
+    
     deinit{
         //移除通知
         NotificationCenter.default.removeObserver(self, name: PushViewControllerTabbarIsHidden, object: nil)
     }
     
     //MARK: - 懒加载以及变量
+    open lazy var navBarView:NavBarView = {
+        let view = NavBarView(title: nil)
+        view.delegate = self
+        return view
+    }()
     
     //自定义Tabbar
     var diyTabBar:DIYTabBar = {
@@ -47,6 +57,7 @@ extension BaseTabBarController{
         registerNotification()
         //3.
         view.addSubview(diyTabBar)
+        view.addSubview(navBarView)
         setTabBarLayout()
        
     }
@@ -55,16 +66,15 @@ extension BaseTabBarController{
         diyTabBar.snp.makeConstraints { make in
             make.left.equalTo(view).offset(fitWidth(width: 20))
             make.right.equalTo(view).offset(-fitWidth(width: 20))
-            make.bottom.equalTo(view).offset(-fitHeight(height: 30))
-            make.height.equalTo(fitHeight(height: 80))
-            
+            make.bottom.equalTo(view).offset(-fitHeight(height: 20))
+            make.height.equalTo(DIYTabBarHeight)
         }
     }
     
     //配置每一个item
-    func makeItem(title:String,image:String,selectedImage:String?   ,tag:Int) -> DIYTabBarItem{
+    func makeItem(title:String?,image:String,selectedImage:String?,tag:Int) -> DIYTabBarItem{
         let ima = UIImage(named: image)
-        let item = DIYTabBarItem(image: ima, title: title, selectedImage: selectedImage)
+        let item = DIYTabBarItem(image: ima, title: title, tintColor: DeepGrayColor)
         item.isUserInteractionEnabled = true
         item.tag = tag
         let tap = UITapGestureRecognizer(target: self, action: #selector(itemClick(sender:)))
@@ -77,8 +87,14 @@ extension BaseTabBarController{
             guard let self = self else{
                 return
             }
-            let bool = notification.object as! Bool
-            self.diyTabBar.isHidden = bool
+            if let tag = notification.userInfo?["tag"] as? NSInteger,
+            let bool = notification.object as? Bool{
+                if tag == self.view.tag{
+                    self.diyTabBar.isHidden = bool
+                    self.navBarView.isHidden = bool
+                }
+            }
+            
         }
     }
 }
@@ -90,6 +106,12 @@ extension BaseTabBarController{
         for it in items!{
             it.isSelected = false
         }
+    }
+}
+
+extension BaseTabBarController:NavBarViewDelegate{
+    func back() {
+        navigationController?.popViewController(animated: true)
     }
 }
 

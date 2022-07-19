@@ -8,19 +8,23 @@
 import Foundation
 import UIKit
 
+//曲线的位置
+enum CureLocation {
+    case bottom
+    case top
+}
 
 extension UIView{
     
     ///添加毛玻璃样式
-    func addBlurStyle(){
-        let blur = UIBlurEffect(style: .light)
+    func blurView(radius:CGFloat) -> UIVisualEffectView{
+        let blur = UIBlurEffect(style: .systemUltraThinMaterialLight)
         let blurView = UIVisualEffectView(effect: blur)
        
         blurView.frame = bounds
-        blurView.layer.cornerRadius = 10
+        blurView.layer.cornerRadius = radius
         blurView.layer.masksToBounds = true
-        addSubview(blurView)
-        sendSubviewToBack(blurView)
+        return blurView
     }
     
     ///绘制下半圆弧

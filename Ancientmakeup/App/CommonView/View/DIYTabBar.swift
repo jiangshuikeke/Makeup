@@ -20,16 +20,12 @@ class DIYTabBar: UITabBar {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        //自己配置TabBarItems
-        myItemWidth = frame.width / CGFloat(myItems.count)
-    
-        configureItem()
-        configureRect()
+       
     }
     
     //MARK: - 懒加载&&变量
     var myItemHeight : CGFloat{
-        return frame.height - fitHeight(height: 10)
+        return frame.height - 6
     }
     var myItemWidth : CGFloat?
     
@@ -47,7 +43,6 @@ class DIYTabBar: UITabBar {
         didSet{
             if myItems.count > 0{
                 initView()
-                layoutIfNeeded()
             }
         }
     }
@@ -60,6 +55,11 @@ class DIYTabBar: UITabBar {
             moveRectToIndex()
         }
     }
+    
+    private lazy var blurView:UIVisualEffectView = {
+        let view = self.blurView(radius: 20)
+        return view
+    }()
    
 }
 
@@ -72,18 +72,19 @@ private extension DIYTabBar{
                 sub.removeFromSuperview()
             }
         }
-        for item in myItems {
-            addSubview(item)
-        }
         addSubview(roundedRect)
         sendSubviewToBack(roundedRect)
-        
+        layoutIfNeeded()
+        //自己配置TabBarItems
+        myItemWidth = frame.width / CGFloat(myItems.count)
+        configureItem()
+        configureRect()
     }
     
     
     //配置当前圆角矩形位置
     func configureRect(){
-        roundedRect.frame = CGRect(x: fitWidth(width: 5), y: fitHeight(height: 5), width:(myItemWidth! - fitWidth(width: 10)) , height: myItemHeight)
+        roundedRect.frame = CGRect(x: fitWidth(width: 5), y: 3, width:(myItemWidth! - fitWidth(width: 10)) , height: myItemHeight)
     }
     
     //配置每一个Item
@@ -92,12 +93,13 @@ private extension DIYTabBar{
         for (index,item) in myItems.enumerated(){
             let itemX = CGFloat(index) * myItemWidth!
             item.frame = CGRect(x: itemX, y:0, width: myItemWidth!, height: myItemHeight)
+            addSubview(item)
         }
         
     }
     //移动圆角矩形
     func moveRectToIndex(){
-        let itemX = CGFloat(currentIndex) * (myItemWidth ?? 0) + fitWidth(width: 3)
+        let itemX = CGFloat(currentIndex) * (myItemWidth ?? 0) + 5
         UIView.animate(withDuration: 0.5) {
             self.roundedRect.frame.origin.x = itemX
         }completion: {[weak self] flag in

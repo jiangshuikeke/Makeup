@@ -20,11 +20,8 @@ class NavBarView: UIView {
     
     convenience init(title:String?){
         self.init(frame: CGRect(origin: CGPoint(x: 0, y: StatusHeight), size: CGSize(width: ScreenWidth, height: NavBarViewHeight)))
-        if title != nil{
             titleLabel.text = title
-        }
-        isDetail = false
-        initView()
+            initView()
     }
     
     convenience init(icon:String?,nickname:String?){
@@ -49,7 +46,7 @@ class NavBarView: UIView {
     }()
     
     //导航标题
-    private lazy var titleLabel:UILabel = {
+    lazy var titleLabel:UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .black

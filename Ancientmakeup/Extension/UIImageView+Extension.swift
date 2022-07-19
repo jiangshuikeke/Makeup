@@ -35,6 +35,23 @@ extension UIImageView{
         self.image = new
     }
     
+    func padding(left:CGFloat,top:CGFloat,right:CGFloat,bottom:CGFloat){
+        guard let image = self.image else{
+            print("当前ImageView的Image为nil")
+            return
+        }
+        
+        let originalSize = frame.size
+        let scaledSize = CGSize(width: originalSize.width - left - right, height: originalSize.height - top - bottom)
+        
+        UIGraphicsBeginImageContextWithOptions(scaledSize, false, 0.0)
+        image.draw(in: CGRect(x: 0, y: 0, width: scaledSize.width, height: scaledSize.height))
+        let new = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        self.image = new
+        
+    }
+    
     ///设置图片大小
     func imageSize(_ size:CGSize){
         

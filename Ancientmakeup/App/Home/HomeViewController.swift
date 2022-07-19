@@ -11,9 +11,11 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         initView()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
     }
     
     override func viewDidLayoutSubviews() {
@@ -22,12 +24,12 @@ class HomeViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-       
+        print("Home界面隐藏")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        hiddenTabbar(by: false)
+        hiddenTabbar(isHidden: false,tag: 0)
     }
     
     
@@ -35,14 +37,14 @@ class HomeViewController: UIViewController {
     
     ///背景视图
     private lazy var roundedRect : RoundedRectView = {
-        return RoundedRectView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: fitHeight(height: 195)),type: .BottomRounded,radius: 30,color: SkinColor)
+        return RoundedRectView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: fitHeight(height: 160)),type: .BottomRounded,radius: 30,color: SkinColor)
         
     }()
     
     ///欢迎文案
     private lazy var helloLabel:UILabel = {
         //20,105
-       let label = UILabel(frame: CGRect(x: 0, y: 0, width: fitWidth(width: 343), height: fitHeight(height: 41)))
+       let label = UILabel(frame: CGRect(x: 0, y: 0, width: fitWidth(width: 330), height: fitHeight(height: 41)))
         label.font = UIFont.boldSystemFont(ofSize: 34)
         label.text = "下午好,ALEX"
         return label
@@ -51,59 +53,64 @@ class HomeViewController: UIViewController {
     ///功能组件
     private lazy var faceComponent : ComponentView = {
         let view = ComponentView(image: "face", title: "脸型分析")
-        view.isUserInteractionEnabled = true
         view.tag = 0
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(clickComponentView(sender:))))
-       return view
+        return view
     }()
     
     private lazy var nationalComponent : ComponentView = {
-        return ComponentView(image: "national", title: "国风试妆")
-    }()
-
-    ///妆容图像
-    private lazy var makeupImageView:UIImageView = {
-        let image = UIImageView()
-        image.contentMode = .scaleAspectFill
-        image.image = UIImage(named: "page0")
-        return image
+        let view = ComponentView(image: "national", title: "国风试妆")
+        view.backgroundColor = EssentialColor
+        view.tag = 1
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(clickComponentView(sender:))))
+        return view
     }()
     
-    ///妆容标题
-    private lazy var makeupTitleView:UIVisualEffectView = {
-        let blur = UIBlurEffect(style: .systemThinMaterialLight)
-        let blurView = UIVisualEffectView(effect: blur)
-        blurView.layer.cornerRadius = 10
-        blurView.layer.masksToBounds = true
-        blurView.frame.size = CGSize(width: fitWidth(width: 245), height: fitHeight(height: 45))
-        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: fitWidth(width: 245), height: fitHeight(height: 45))))
-        label.textAlignment = .center
-        label.text = "梅花妆"
-        label.textColor = EssentialColor
-        label.font = UIFont.boldSystemFont(ofSize: 23)
-        blurView.contentView.addSubview(label)
-        return blurView
+    private lazy var cardView:MakeupCardView = {
+        let view = MakeupCardView(frame: .zero)
+        view.delegate = self
+        view.dataSource = self
+        return view
     }()
     
-    ///妆容内容
-    private lazy var makeupContentLabel:UILabel = {
-        let label = UILabel(frame: .zero)
-        label.text = "「寿阳公主人日卧于含章殿檐下，梅花落公主额上，成五出花，拂之不去。皇后留之，看得几时，经三日，洗之乃落，宫女奇其异，竞效之，今梅花妆是也」\n——《太平御览》"
-        label.textAlignment = .left
-        label.preferredMaxLayoutWidth = ScreenWidth - 2 * fitWidth(width: 65)
-        label.numberOfLines = 0
-        label.textColor = DeepGrayColor
-        label.font = MainBodyFont
-        return label
+    private lazy var bottomView:RoundedRectView = {
+        return RoundedRectView(frame: CGRect(x: 0, y: ScreenHeight - fitHeight(height: 30) - DIYTabBarHeight, width: ScreenWidth, height: DIYTabBarHeight + fitHeight(height: 30)), type: .TopRounded, radius: 30, color: SkinColor)
     }()
     
+    private lazy var iconImageView:UIImageView = {
+        let view = UIImageView(image: UIImage(named: "icon"))
+        view.contentMode = .scaleAspectFit
+        view.layer.cornerRadius = 22
+        view.layer.masksToBounds = true
+        view.backgroundColor = BlackColor
+        return view
+    }()
+    
+    
+    ///data
+    private lazy var storys:[MakeupStory] = {
+        var datas = [MakeupStory]()
+        let winter = MakeupStory(dict: ["name":"梅花妆","content":"「寿阳公主人日卧于含章殿檐下，梅花落公主额上，成五出花，拂之不去。……宫女奇其异，竞效之，今梅花妆是也」","image":"page1"])
+        let fly = MakeupStory(dict: ["name":"飞霞妆","content":"「美人妆，面既施粉，复以燕支晕掌中，施之两颊，浓者为酒晕妆，浅者为桃花妆，薄薄施朱，以粉罩之，为飞霞妆」","image":"page0"])
+        let white = MakeupStory(dict: ["name":"白妆","content":"「寿阳公主人日卧于含章殿檐下，梅花落公主额上，成五出花，拂之不去。……宫女奇其异，竞效之，今梅花妆是也」","image":"page2"])
+        let flower = MakeupStory(dict: ["name":"花钿","content":"「寿阳公主人日卧于含章殿檐下，梅花落公主额上，成五出花，拂之不去。……宫女奇其异，竞效之，今梅花妆是也」","image":"page3"])
+        datas.append(winter)
+        datas.append(fly)
+        datas.append(white)
+        datas.append(flower)
+        return datas
+    }()
+    
+    private let MakeupCardCellID = "MakeupCardCellID"
 }
 
 //MARK: - UI
 private extension HomeViewController{
     func initView(){
         navigationController?.navigationBar.isHidden = true
+        
         view.backgroundColor = LightGrayColor
+        view.addSubview(iconImageView)
         view.addSubview(roundedRect)
         //背景以及欢迎
         view.sendSubviewToBack(roundedRect)
@@ -112,56 +119,67 @@ private extension HomeViewController{
         view.addSubview(faceComponent)
         view.addSubview(nationalComponent)
         //妆容部分UI
-        view.addSubview(makeupImageView)
-//        view.addSubview(blurView)
-        view.addSubview(makeupTitleView)
-        view.addSubview(makeupContentLabel)
+        view.addSubview(cardView)
+        
+        view.addSubview(bottomView)
         initLayout()
+        cardView.layoutIfNeeded()
+        cardView.reloadData()
     }
     
     func initLayout(){
         let offset:CGFloat = faceComponent.frame.height / 2
         let border:CGFloat = (ScreenWidth - 2 * faceComponent.frame.width - fitWidth(width: 5)) / 2
         
+        iconImageView.snp.makeConstraints { make in
+            make.left.equalTo(helloLabel)
+            make.top.equalTo(view).offset(StatusHeight)
+            make.height.width.equalTo(44)
+        }
+        
         helloLabel.snp.makeConstraints { make in
             make.left.equalTo(view).offset(fitWidth(width: 20))
-            make.top.equalTo(view).offset(fitHeight(height: 105))
+            make.bottom.equalTo(faceComponent.snp.top).offset(-15)
         }
         
         faceComponent.snp.makeConstraints { make in
             make.width.equalTo(fitWidth(width: 164))
-            make.height.equalTo(fitHeight(height: 68))
+            make.height.equalTo(fitHeight(height: 80))
             make.top.equalTo(roundedRect.snp.bottom).offset(-offset)
             make.left.equalTo(view).offset(border)
         }
         
         nationalComponent.snp.makeConstraints { make in
             make.width.equalTo(fitWidth(width: 164))
-            make.height.equalTo(fitHeight(height: 68))
+            make.height.equalTo(fitHeight(height: 80))
             make.left.equalTo(faceComponent.snp.right).offset(fitWidth(width: 5))
             make.top.equalTo(faceComponent)
         }
         
-        makeupImageView.snp.makeConstraints { make in
-            make.top.equalTo(faceComponent.snp.bottom).offset(fitHeight(height: 8))
-            make.bottom.equalTo(view).offset(-fitHeight(height: 255))
+        cardView.snp.makeConstraints { make in
             make.left.equalTo(view).offset(fitWidth(width: 20))
             make.right.equalTo(view).offset(-fitWidth(width: 20))
-            
+            make.top.equalTo(nationalComponent.snp.bottom).offset(fitHeight(height: 8))
+            make.bottom.equalTo(view).offset(-fitHeight(height: 20) - DIYTabBarHeight)
         }
-        
-        makeupTitleView.snp.makeConstraints { make in
-            make.top.equalTo(makeupImageView.snp.bottom).offset(-fitHeight(height: 20))
-            make.height.equalTo(fitHeight(height: 45))
-            make.left.equalTo(view).offset(fitWidth(width: 65))
-            make.right.equalTo(view).offset(-fitWidth(width: 65))
-        }
-        
-        makeupContentLabel.snp.makeConstraints { make in
-            make.top.equalTo(makeupTitleView.snp.bottom).offset(fitHeight(height: 18))
-            make.left.equalTo(view).offset(fitWidth(width: 36))
-            make.right.equalTo(view).offset(-fitWidth(width: 36))
-        }
+    
+    }
+}
+
+//MARK: - 自定义Delegate
+extension HomeViewController:MakeupCardViewDelegate,MakeupCardViewDataSource{
+    func makeupCardViewNumberOfItems(_ makeupCardView: MakeupCardView) -> NSInteger {
+        return storys.count
+    }
+    
+    func makeupCardView(_ makeupCardView: MakeupCardView, itemFor index: Int) -> MakeupCardItem {
+        let item = MakeupCardItem(frame: .zero)
+        item.story = storys[index]
+        return item
+    }
+    
+    func makeupCardView(_ makeupCardView: MakeupCardView, edgeForItemAtIndex: NSInteger) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
     }
 }
 
@@ -170,11 +188,11 @@ extension HomeViewController{
     @objc func clickComponentView(sender:UITapGestureRecognizer){
         let view = sender.view
         //切换到不同的界面
-        hiddenTabbar(by: true)
+        hiddenTabbar(isHidden: true,tag: 0)
         if view?.tag == 0 {
             navigationController?.pushViewController(FaceAnalyzeViewController(), animated: true)
         }else{
-            
+            navigationController?.pushViewController(DynastyMakeupController(), animated: true)
         }
     }
 }

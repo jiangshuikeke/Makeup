@@ -15,14 +15,21 @@ class MainViewController :BaseTabBarController{
         initView()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+    }
+    
     //MARK: - 懒加载
     private lazy var myItems : [DIYTabBarItem] = {
         var datas = [DIYTabBarItem]()
-        let home = makeItem(title: "首页", image: "home", selectedImage: "home_selected", tag: 0)
+        let home = makeItem(title: "华妆", image: "home", selectedImage: "home_selected", tag: 0)
         let community = makeItem(title: "社区", image: "community", selectedImage: "community_selected", tag: 1)
-        let personal = makeItem(title: "个人", image: "personal", selectedImage: "personal_selected", tag: 2)
+        let market = makeItem(title: "集市", image: "shop", selectedImage: "shop_selected", tag: 2)
+        let personal = makeItem(title: "个人", image: "personal", selectedImage: "personal_selected", tag: 3)
         datas.append(home)
         datas.append(community)
+        datas.append(market)
         datas.append(personal)
         return datas
     }()
@@ -31,6 +38,8 @@ class MainViewController :BaseTabBarController{
 //MARK: - UI
 private extension MainViewController{
     func initView(){
+        view.tag = 0
+        navBarView.removeFromSuperview()
         configureViewController()
         diyTabBar.myItems = myItems
         items = myItems
@@ -45,7 +54,9 @@ private extension MainViewController{
         communityVC.title = "社区"
         let personalVC = UINavigationController(rootViewController: PersonalViewController())
         personalVC.title = "个人"
-        self.viewControllers = [homeVC,communityVC,personalVC]
+        let marketVC = UINavigationController(rootViewController: MarketViewController())
+        marketVC.title = "集市"
+        self.viewControllers = [homeVC,communityVC,marketVC,personalVC]
     }
     
     

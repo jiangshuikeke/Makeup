@@ -17,7 +17,7 @@ func fitWidth(width:CGFloat) -> CGFloat{
 }
 
 func fitHeight(height:CGFloat) -> CGFloat{
-    return height * ScreenHeight / 667
+    return height * ScreenHeight / 815
 }
 
 ///状态栏高度

@@ -42,8 +42,9 @@
 		2A88C9EB282790F200A13BCE /* MainFaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88C9EA282790F200A13BCE /* MainFaceViewController.swift */; };
 		2A88C9ED2827923D00A13BCE /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88C9EC2827923D00A13BCE /* BaseTabBarController.swift */; };
 		2A88C9EF2828F01E00A13BCE /* OrgansView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88C9EE2828F01E00A13BCE /* OrgansView.swift */; };
-		2A88C9F1282A08FC00A13BCE /* OrgansTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88C9F0282A08FC00A13BCE /* OrgansTopView.swift */; };
 		2A88C9F7282BACD800A13BCE /* RecommendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88C9F6282BACD700A13BCE /* RecommendViewCell.swift */; };
+		2A8EA81C28587109009837F0 /* PersonalNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8EA81B28587109009837F0 /* PersonalNavView.swift */; };
+		2A8EA81F285C1C1B009837F0 /* PickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8EA81E285C1C1B009837F0 /* PickerDelegate.swift */; };
 		2A90D7502809470900E79596 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90D74F2809470900E79596 /* AppDelegate.swift */; };
 		2A90D7522809470900E79596 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90D7512809470900E79596 /* SceneDelegate.swift */; };
 		2A90D7572809470900E79596 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A90D7552809470900E79596 /* Main.storyboard */; };
@@ -61,6 +62,30 @@
 		2A90D782280D55BC00E79596 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90D781280D55BC00E79596 /* UIView+Extension.swift */; };
 		2A90D784280E7AF900E79596 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90D783280E7AF900E79596 /* UIImage+Extension.swift */; };
 		2A90D808280EAC8600E79596 /* BaseScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90D807280EAC8600E79596 /* BaseScrollViewController.swift */; };
+		2A915907286018B3006F0C7C /* HorizontalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A915906286018B3006F0C7C /* HorizontalLayout.swift */; };
+		2A91590928601E8A006F0C7C /* TPBWCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A91590828601E8A006F0C7C /* TPBWCollectionViewCell.swift */; };
+		2A91590D28605DF2006F0C7C /* Makeup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A91590C28605DF2006F0C7C /* Makeup.swift */; };
+		2A91590F28605EDE006F0C7C /* DynastyMakeup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A91590E28605EDE006F0C7C /* DynastyMakeup.swift */; };
+		2A91591128605F43006F0C7C /* Organs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A91591028605F43006F0C7C /* Organs.swift */; };
+		2A91591328615B4D006F0C7C /* DynastyMakeupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A91591228615B4D006F0C7C /* DynastyMakeupController.swift */; };
+		2A9159152861615E006F0C7C /* HorizontalCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9159142861615E006F0C7C /* HorizontalCollectionView.swift */; };
+		2A91591928640FA2006F0C7C /* ReleaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A91591828640FA2006F0C7C /* ReleaseViewController.swift */; };
+		2A91591B28640FD3006F0C7C /* MarketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A91591A28640FD3006F0C7C /* MarketViewController.swift */; };
+		2A91591D28644981006F0C7C /* MakeupCardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A91591C28644981006F0C7C /* MakeupCardItem.swift */; };
+		2A91591F2864517E006F0C7C /* MakeupStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A91591E2864517E006F0C7C /* MakeupStory.swift */; };
+		2A915921286594F7006F0C7C /* MakeupCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A915920286594F7006F0C7C /* MakeupCardView.swift */; };
+		2A915923286A8E2F006F0C7C /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A915922286A8E2E006F0C7C /* BannerView.swift */; };
+		2A915927286B3B10006F0C7C /* ITButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A915926286B3B10006F0C7C /* ITButton.swift */; };
+		2A915929286BDB83006F0C7C /* DoubleITView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A915928286BDB83006F0C7C /* DoubleITView.swift */; };
+		2A9DFA72287040C000EBCD4E /* DynastyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFA71287040C000EBCD4E /* DynastyHeaderView.swift */; };
+		2A9DFA77287288E700EBCD4E /* TeachingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFA76287288E700EBCD4E /* TeachingViewController.swift */; };
+		2A9DFA792872CAFC00EBCD4E /* BeginMakeupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFA782872CAFC00EBCD4E /* BeginMakeupViewController.swift */; };
+		2A9DFA7B2872E0A100EBCD4E /* MakeupStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFA7A2872E0A100EBCD4E /* MakeupStepView.swift */; };
+		2A9DFA7D2873C70700EBCD4E /* LessonStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFA7C2873C70700EBCD4E /* LessonStep.swift */; };
+		2A9DFA7F2873E27400EBCD4E /* ToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFA7E2873E27400EBCD4E /* ToolView.swift */; };
+		2A9DFA822874765400EBCD4E /* winter_lesson.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2A9DFA812874765400EBCD4E /* winter_lesson.mp4 */; };
+		2A9DFA842874770300EBCD4E /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFA832874770200EBCD4E /* MediaView.swift */; };
+		2A9DFA862875207D00EBCD4E /* MakeupPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFA852875207D00EBCD4E /* MakeupPart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,8 +123,9 @@
 		2A88C9EA282790F200A13BCE /* MainFaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFaceViewController.swift; sourceTree = "<group>"; };
 		2A88C9EC2827923D00A13BCE /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		2A88C9EE2828F01E00A13BCE /* OrgansView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrgansView.swift; sourceTree = "<group>"; };
-		2A88C9F0282A08FC00A13BCE /* OrgansTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrgansTopView.swift; sourceTree = "<group>"; };
 		2A88C9F6282BACD700A13BCE /* RecommendViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewCell.swift; sourceTree = "<group>"; };
+		2A8EA81B28587109009837F0 /* PersonalNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalNavView.swift; sourceTree = "<group>"; };
+		2A8EA81E285C1C1B009837F0 /* PickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDelegate.swift; sourceTree = "<group>"; };
 		2A90D74C2809470900E79596 /* Ancientmakeup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ancientmakeup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A90D74F2809470900E79596 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2A90D7512809470900E79596 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +145,30 @@
 		2A90D781280D55BC00E79596 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		2A90D783280E7AF900E79596 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		2A90D807280EAC8600E79596 /* BaseScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollViewController.swift; sourceTree = "<group>"; };
+		2A915906286018B3006F0C7C /* HorizontalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalLayout.swift; sourceTree = "<group>"; };
+		2A91590828601E8A006F0C7C /* TPBWCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPBWCollectionViewCell.swift; sourceTree = "<group>"; };
+		2A91590C28605DF2006F0C7C /* Makeup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Makeup.swift; sourceTree = "<group>"; };
+		2A91590E28605EDE006F0C7C /* DynastyMakeup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynastyMakeup.swift; sourceTree = "<group>"; };
+		2A91591028605F43006F0C7C /* Organs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organs.swift; sourceTree = "<group>"; };
+		2A91591228615B4D006F0C7C /* DynastyMakeupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynastyMakeupController.swift; sourceTree = "<group>"; };
+		2A9159142861615E006F0C7C /* HorizontalCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalCollectionView.swift; sourceTree = "<group>"; };
+		2A91591828640FA2006F0C7C /* ReleaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseViewController.swift; sourceTree = "<group>"; };
+		2A91591A28640FD3006F0C7C /* MarketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketViewController.swift; sourceTree = "<group>"; };
+		2A91591C28644981006F0C7C /* MakeupCardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeupCardItem.swift; sourceTree = "<group>"; };
+		2A91591E2864517E006F0C7C /* MakeupStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeupStory.swift; sourceTree = "<group>"; };
+		2A915920286594F7006F0C7C /* MakeupCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeupCardView.swift; sourceTree = "<group>"; };
+		2A915922286A8E2E006F0C7C /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		2A915926286B3B10006F0C7C /* ITButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITButton.swift; sourceTree = "<group>"; };
+		2A915928286BDB83006F0C7C /* DoubleITView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleITView.swift; sourceTree = "<group>"; };
+		2A9DFA71287040C000EBCD4E /* DynastyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynastyHeaderView.swift; sourceTree = "<group>"; };
+		2A9DFA76287288E700EBCD4E /* TeachingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachingViewController.swift; sourceTree = "<group>"; };
+		2A9DFA782872CAFC00EBCD4E /* BeginMakeupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginMakeupViewController.swift; sourceTree = "<group>"; };
+		2A9DFA7A2872E0A100EBCD4E /* MakeupStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeupStepView.swift; sourceTree = "<group>"; };
+		2A9DFA7C2873C70700EBCD4E /* LessonStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonStep.swift; sourceTree = "<group>"; };
+		2A9DFA7E2873E27400EBCD4E /* ToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolView.swift; sourceTree = "<group>"; };
+		2A9DFA812874765400EBCD4E /* winter_lesson.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = winter_lesson.mp4; sourceTree = "<group>"; };
+		2A9DFA832874770200EBCD4E /* MediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaView.swift; sourceTree = "<group>"; };
+		2A9DFA852875207D00EBCD4E /* MakeupPart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeupPart.swift; sourceTree = "<group>"; };
 		51B3B802CFDF59275E8CFE14 /* Pods-Ancientmakeup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ancientmakeup.debug.xcconfig"; path = "Target Support Files/Pods-Ancientmakeup/Pods-Ancientmakeup.debug.xcconfig"; sourceTree = "<group>"; };
 		A8B5D31DBA729C3B1F74361E /* Pods-Ancientmakeup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ancientmakeup.release.xcconfig"; path = "Target Support Files/Pods-Ancientmakeup/Pods-Ancientmakeup.release.xcconfig"; sourceTree = "<group>"; };
 		ED99C6D1E041174F21ABB7B4 /* libPods-Ancientmakeup.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ancientmakeup.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,8 +201,9 @@
 		2A5E5C732818EF3E003C8445 /* Personal */ = {
 			isa = PBXGroup;
 			children = (
-				2A5E5C752818EF3E003C8445 /* PersonalHeaderView.swift */,
 				2A5E5C762818EF3E003C8445 /* PersonalViewController.swift */,
+				2A8EA81B28587109009837F0 /* PersonalNavView.swift */,
+				2A5E5C752818EF3E003C8445 /* PersonalHeaderView.swift */,
 				2A5E5C772818EF3E003C8445 /* LikeViewController.swift */,
 				2A5E5C792818EF3E003C8445 /* CollectionViewController.swift */,
 			);
@@ -166,6 +217,7 @@
 				2A88C9DC2824ABB100A13BCE /* CommentViewCell.swift */,
 				2A88C9DE2824B43400A13BCE /* SubCommentViewCell.swift */,
 				2A88C9F6282BACD700A13BCE /* RecommendViewCell.swift */,
+				2A91590828601E8A006F0C7C /* TPBWCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -174,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				2A5E5C702818EF3E003C8445 /* WaterfallFlowLayout.swift */,
+				2A915906286018B3006F0C7C /* HorizontalLayout.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -181,8 +234,22 @@
 		2A88C9D3282206B200A13BCE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2A91590E28605EDE006F0C7C /* DynastyMakeup.swift */,
+				2A91590C28605DF2006F0C7C /* Makeup.swift */,
+				2A91591028605F43006F0C7C /* Organs.swift */,
+				2A91591E2864517E006F0C7C /* MakeupStory.swift */,
+				2A9DFA7C2873C70700EBCD4E /* LessonStep.swift */,
+				2A9DFA852875207D00EBCD4E /* MakeupPart.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		2A8EA81D285C18C8009837F0 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				2A8EA81E285C1C1B009837F0 /* PickerDelegate.swift */,
+			);
+			path = Delegate;
 			sourceTree = "<group>";
 		};
 		2A90D7432809470900E79596 = {
@@ -206,6 +273,7 @@
 		2A90D74E2809470900E79596 /* Ancientmakeup */ = {
 			isa = PBXGroup;
 			children = (
+				2A9DFA802874764400EBCD4E /* Media */,
 				2A90D7672809483300E79596 /* Extension */,
 				2A90D7642809478800E79596 /* Common */,
 				2A90D7632809474300E79596 /* App */,
@@ -222,11 +290,14 @@
 		2A90D7632809474300E79596 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				2A8EA81D285C18C8009837F0 /* Delegate */,
 				2A88C9D3282206B200A13BCE /* Model */,
 				2A90D806280EAC5900E79596 /* BaseClass */,
 				2A90D774280A681200E79596 /* CommonView */,
 				2A90D76C2809530200E79596 /* Home */,
 				2A5E5C6D2818EF3E003C8445 /* Discover */,
+				2A91591728640F4C006F0C7C /* Release */,
+				2A91591628640F46006F0C7C /* Shop */,
 				2A5E5C732818EF3E003C8445 /* Personal */,
 				2A90D770280955E600E79596 /* MainViewController.swift */,
 				2A5E5C85281AA927003C8445 /* NavViewController.swift */,
@@ -262,10 +333,12 @@
 		2A90D76C2809530200E79596 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				2A9DFA75287288BB00EBCD4E /* Lesson */,
+				2A9DFA742872888E00EBCD4E /* Dynasty */,
+				2A9DFA732872888500EBCD4E /* Face */,
 				2A90D775280A686200E79596 /* HomeViewController.swift */,
-				2A88C9E028260C9600A13BCE /* FaceAnalyzeViewController.swift */,
-				2A88C9EA282790F200A13BCE /* MainFaceViewController.swift */,
-				2A88C9E628266CB300A13BCE /* AnalysisViewController.swift */,
+				2A915920286594F7006F0C7C /* MakeupCardView.swift */,
+				2A91591C28644981006F0C7C /* MakeupCardItem.swift */,
 				2A88C9E8282786A800A13BCE /* RecommendViewController.swift */,
 				2A4DC8CE282E388100DCB64C /* RecommendHeaderView.swift */,
 				2A4DC8D0282E86D400DCB64C /* RecommendDetailViewController.swift */,
@@ -285,8 +358,11 @@
 				2A5E5C8A281B8196003C8445 /* NavView.swift */,
 				2A88C96728210FAD00A13BCE /* NavBarView.swift */,
 				2A88C9EE2828F01E00A13BCE /* OrgansView.swift */,
-				2A88C9F0282A08FC00A13BCE /* OrgansTopView.swift */,
 				2A4DC8C8282CEDEB00DCB64C /* CameraPreviewView.swift */,
+				2A9159142861615E006F0C7C /* HorizontalCollectionView.swift */,
+				2A915922286A8E2E006F0C7C /* BannerView.swift */,
+				2A915926286B3B10006F0C7C /* ITButton.swift */,
+				2A915928286BDB83006F0C7C /* DoubleITView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -309,6 +385,61 @@
 				2A88C9EC2827923D00A13BCE /* BaseTabBarController.swift */,
 			);
 			path = BaseClass;
+			sourceTree = "<group>";
+		};
+		2A91591628640F46006F0C7C /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				2A91591A28640FD3006F0C7C /* MarketViewController.swift */,
+			);
+			path = Shop;
+			sourceTree = "<group>";
+		};
+		2A91591728640F4C006F0C7C /* Release */ = {
+			isa = PBXGroup;
+			children = (
+				2A91591828640FA2006F0C7C /* ReleaseViewController.swift */,
+			);
+			path = Release;
+			sourceTree = "<group>";
+		};
+		2A9DFA732872888500EBCD4E /* Face */ = {
+			isa = PBXGroup;
+			children = (
+				2A88C9EA282790F200A13BCE /* MainFaceViewController.swift */,
+				2A88C9E628266CB300A13BCE /* AnalysisViewController.swift */,
+				2A88C9E028260C9600A13BCE /* FaceAnalyzeViewController.swift */,
+			);
+			path = Face;
+			sourceTree = "<group>";
+		};
+		2A9DFA742872888E00EBCD4E /* Dynasty */ = {
+			isa = PBXGroup;
+			children = (
+				2A9DFA71287040C000EBCD4E /* DynastyHeaderView.swift */,
+				2A91591228615B4D006F0C7C /* DynastyMakeupController.swift */,
+			);
+			path = Dynasty;
+			sourceTree = "<group>";
+		};
+		2A9DFA75287288BB00EBCD4E /* Lesson */ = {
+			isa = PBXGroup;
+			children = (
+				2A9DFA76287288E700EBCD4E /* TeachingViewController.swift */,
+				2A9DFA782872CAFC00EBCD4E /* BeginMakeupViewController.swift */,
+				2A9DFA7A2872E0A100EBCD4E /* MakeupStepView.swift */,
+				2A9DFA7E2873E27400EBCD4E /* ToolView.swift */,
+				2A9DFA832874770200EBCD4E /* MediaView.swift */,
+			);
+			path = Lesson;
+			sourceTree = "<group>";
+		};
+		2A9DFA802874764400EBCD4E /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				2A9DFA812874765400EBCD4E /* winter_lesson.mp4 */,
+			);
+			path = Media;
 			sourceTree = "<group>";
 		};
 		3C2423BD0A25C1E8168FE532 /* Frameworks */ = {
@@ -390,6 +521,7 @@
 				2A90D75C2809470C00E79596 /* LaunchScreen.storyboard in Resources */,
 				2A90D7592809470C00E79596 /* Assets.xcassets in Resources */,
 				2A90D7572809470900E79596 /* Main.storyboard in Resources */,
+				2A9DFA822874765400EBCD4E /* winter_lesson.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +557,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A915927286B3B10006F0C7C /* ITButton.swift in Sources */,
 				2A88C9E32826507400A13BCE /* UIViewController+Extension.swift in Sources */,
 				2A5E5C842818EF3E003C8445 /* CollectionViewController.swift in Sources */,
 				2A5E5C802818EF3E003C8445 /* PersonalHeaderView.swift in Sources */,
@@ -434,6 +567,8 @@
 				2A90D771280955E600E79596 /* MainViewController.swift in Sources */,
 				2A4DC8C9282CEDEB00DCB64C /* CameraPreviewView.swift in Sources */,
 				2A88C9E728266CB300A13BCE /* AnalysisViewController.swift in Sources */,
+				2A9DFA7F2873E27400EBCD4E /* ToolView.swift in Sources */,
+				2A9DFA792872CAFC00EBCD4E /* BeginMakeupViewController.swift in Sources */,
 				2A90D7502809470900E79596 /* AppDelegate.swift in Sources */,
 				2A88C9E128260C9600A13BCE /* FaceAnalyzeViewController.swift in Sources */,
 				2A88C9DD2824ABB100A13BCE /* CommentViewCell.swift in Sources */,
@@ -442,25 +577,39 @@
 				2A90D808280EAC8600E79596 /* BaseScrollViewController.swift in Sources */,
 				2A88C9EF2828F01E00A13BCE /* OrgansView.swift in Sources */,
 				2A88C9E5282653D800A13BCE /* BaseViewController.swift in Sources */,
-				2A88C9F1282A08FC00A13BCE /* OrgansTopView.swift in Sources */,
+				2A91591128605F43006F0C7C /* Organs.swift in Sources */,
+				2A91591F2864517E006F0C7C /* MakeupStory.swift in Sources */,
 				2A88C96628210EF800A13BCE /* CommunityViewController.swift in Sources */,
 				2A5E5C832818EF3E003C8445 /* DisplayView.swift in Sources */,
+				2A91591328615B4D006F0C7C /* DynastyMakeupController.swift in Sources */,
 				2A90D766280947BB00E79596 /* Hue.swift in Sources */,
 				2A4DC8CB282DFD3A00DCB64C /* PhotoCaptureProcessor.swift in Sources */,
 				2A90D776280A686200E79596 /* HomeViewController.swift in Sources */,
+				2A915907286018B3006F0C7C /* HorizontalLayout.swift in Sources */,
 				2A88C9E9282786A800A13BCE /* RecommendViewController.swift in Sources */,
+				2A91590928601E8A006F0C7C /* TPBWCollectionViewCell.swift in Sources */,
+				2A915923286A8E2F006F0C7C /* BannerView.swift in Sources */,
 				2A4DC8D1282E86D400DCB64C /* RecommendDetailViewController.swift in Sources */,
 				2A88C9EB282790F200A13BCE /* MainFaceViewController.swift in Sources */,
+				2A915921286594F7006F0C7C /* MakeupCardView.swift in Sources */,
 				2A90D77328095A0500E79596 /* DIYTabBar.swift in Sources */,
 				2A5E5C812818EF3E003C8445 /* PersonalViewController.swift in Sources */,
 				2A90D778280AAFB000E79596 /* DIYTabBarItem.swift in Sources */,
 				2A5E5C8D281BD0A2003C8445 /* Global.swift in Sources */,
+				2A91590D28605DF2006F0C7C /* Makeup.swift in Sources */,
 				2A5E5C7B2818EF3E003C8445 /* FoucsViewController.swift in Sources */,
 				2A90D780280C164A00E79596 /* ComponentView.swift in Sources */,
+				2A8EA81C28587109009837F0 /* PersonalNavView.swift in Sources */,
 				2A5E5C822818EF3E003C8445 /* LikeViewController.swift in Sources */,
+				2A9DFA7B2872E0A100EBCD4E /* MakeupStepView.swift in Sources */,
+				2A915929286BDB83006F0C7C /* DoubleITView.swift in Sources */,
 				2A90D782280D55BC00E79596 /* UIView+Extension.swift in Sources */,
 				2A88C9DB2823AB6A00A13BCE /* DetailBottomView.swift in Sources */,
+				2A9DFA72287040C000EBCD4E /* DynastyHeaderView.swift in Sources */,
+				2A8EA81F285C1C1B009837F0 /* PickerDelegate.swift in Sources */,
 				2A5E5C7A2818EF3E003C8445 /* DiscoverViewController.swift in Sources */,
+				2A91591928640FA2006F0C7C /* ReleaseViewController.swift in Sources */,
+				2A9DFA7D2873C70700EBCD4E /* LessonStep.swift in Sources */,
 				2A88C9ED2827923D00A13BCE /* BaseTabBarController.swift in Sources */,
 				2A5E5C8B281B8196003C8445 /* NavView.swift in Sources */,
 				2A5E5C7F2818EF3E003C8445 /* SegmentView.swift in Sources */,
@@ -469,10 +618,17 @@
 				2A5E5C7C2818EF3E003C8445 /* WaterfallFlowLayout.swift in Sources */,
 				2A4DC8C7282CB19F00DCB64C /* CameraTool.swift in Sources */,
 				2A90D7522809470900E79596 /* SceneDelegate.swift in Sources */,
+				2A9DFA862875207D00EBCD4E /* MakeupPart.swift in Sources */,
 				2A88C9DF2824B43400A13BCE /* SubCommentViewCell.swift in Sources */,
+				2A91591B28640FD3006F0C7C /* MarketViewController.swift in Sources */,
 				2A90D784280E7AF900E79596 /* UIImage+Extension.swift in Sources */,
+				2A9DFA842874770300EBCD4E /* MediaView.swift in Sources */,
 				2A90D7692809486100E79596 /* UIColor+Extension.swift in Sources */,
+				2A9DFA77287288E700EBCD4E /* TeachingViewController.swift in Sources */,
+				2A91591D28644981006F0C7C /* MakeupCardItem.swift in Sources */,
 				2A88C96828210FAD00A13BCE /* NavBarView.swift in Sources */,
+				2A9159152861615E006F0C7C /* HorizontalCollectionView.swift in Sources */,
+				2A91590F28605EDE006F0C7C /* DynastyMakeup.swift in Sources */,
 				2A5E5C7D2818EF3E003C8445 /* NewsCollectionViewCell.swift in Sources */,
 				2A88C9F7282BACD800A13BCE /* RecommendViewCell.swift in Sources */,
 			);
@@ -627,6 +783,9 @@
 				DEVELOPMENT_TEAM = 6U88T44UU5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Ancientmakeup/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "华妆";
+				INFOPLIST_KEY_NSCameraUsageDescription = "本应用需要访问您的摄像头来提供相关的服务";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "本应用需要访问您的相册来提供相关的服务";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -658,6 +817,9 @@
 				DEVELOPMENT_TEAM = 6U88T44UU5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Ancientmakeup/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "华妆";
+				INFOPLIST_KEY_NSCameraUsageDescription = "本应用需要访问您的摄像头来提供相关的服务";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "本应用需要访问您的相册来提供相关的服务";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

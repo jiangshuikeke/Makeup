@@ -4,10 +4,6 @@
 <dict>
 	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
 	<true/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>本应用需要访问您的相册来提供相关的服务</string>
-	<key>NSCameraUsageDescription</key>
-	<string>本应用需要访问您的摄像头来提供相关的服务</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

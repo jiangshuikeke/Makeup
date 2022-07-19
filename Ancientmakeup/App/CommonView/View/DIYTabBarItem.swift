@@ -15,9 +15,20 @@ class DIYTabBarItem: UIView {
     convenience init(image:UIImage?,title:String?,selectedImage:String?){
         self.init(frame: .zero)
         self.image = image
-        self.imageView.image = image
-        self.title.text = title
+        self.imageView.image = image?.withTintColor(DeepGrayColor)
+        self.title = title
+        titleLabel.text = title
         self.selectedImage = selectedImage
+        initView()
+    }
+    
+    convenience init(image:UIImage?,title:String?,tintColor:UIColor){
+        self.init(frame: .zero)
+        self.image = image
+        self.title = title
+        imageView.image = image?.withTintColor(tintColor)
+        color = tintColor
+        titleLabel.text = title
         initView()
     }
     
@@ -26,7 +37,7 @@ class DIYTabBarItem: UIView {
     }
     
     //MARK: - 懒加载
-    private let imageBorder : CGFloat = fitWidth(width: 32)
+    private var imageBorder : CGFloat = fitWidth(width: 23)
     private var selectedImage:String?
     private var image:UIImage?
     private lazy var imageView:UIImageView = {
@@ -34,23 +45,22 @@ class DIYTabBarItem: UIView {
         image.contentMode = .scaleAspectFit
         return image
     }()
-    
-    private var title:UILabel = {
+    private var color:UIColor?
+    private var title:String?
+    private var titleLabel:UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
     var isSelected : Bool = false{
         didSet{
             //更改选择图片
             if isSelected{
-                if nil != selectedImage{
-                    imageView.image = UIImage(named: selectedImage!)
-                }
-                title.textColor = .white
+                imageView.image = image?.withTintColor(.white)
+                titleLabel.textColor = .white
             }else{
-                imageView.image = image
-                title.textColor = .black
+                imageView.image = image?.withTintColor(color!)
+                titleLabel.textColor = .black
             }
         }
     }
@@ -60,21 +70,29 @@ class DIYTabBarItem: UIView {
 extension DIYTabBarItem{
     func initView(){
         addSubview(imageView)
-        addSubview(title)
+        if title != nil{
+            addSubview(titleLabel)
+            titleLabel.snp.makeConstraints({ make in
+                make.centerX.equalTo(self)
+                make.top.equalTo(imageView.snp.bottom).offset(2)
+            })
+        }else{
+            imageBorder = fitWidth(width: 100)
+        }
         initLayout()
     }
     
     func initLayout(){
         imageView.snp.makeConstraints({ make in
-            make.centerX.equalTo(self)
-            make.centerY.equalTo(self).offset(-fitHeight(height: 3))
-            make.width.equalTo(imageBorder)
-            make.height.equalTo(imageBorder)
-        })
-        
-        title.snp.makeConstraints({ make in
-            make.centerX.equalTo(self)
-            make.top.equalTo(imageView.snp.bottom).offset(3)
+            if title != nil{
+                make.centerX.equalTo(self)
+                make.centerY.equalTo(self).offset(-fitHeight(height: 3))
+            }else{
+                make.centerX.equalTo(self)
+                make.centerY.equalTo(self).offset(fitHeight(height: 3))
+            }
+           
+            make.width.height.equalTo(imageBorder)
         })
     }
     

@@ -15,6 +15,7 @@ enum OragnsType {
     case nose
     case mouse
     case face
+    case adorn
 }
 ///五官View
 class OrgansView: UIView {
@@ -119,19 +120,20 @@ extension OrgansView{
             case .some(.face):
                 named = "face_white"
             case .some(.eyebrow):
-                named = "eyebrow_white"
+                named = "eyebrow"
             case .some(.nose):
-                named = "nose_white"
+                named = "nose"
             case .some(.mouse):
-                named = "mouse_white"
+                named = "mouse"
             case .some(.eye):
-                named = "eye_white"
-            
+                named = "eye"
+            case .some(.adorn):
+                named = "adorn_white"
         }
-        organImageView.image = UIImage(named: named)
+        organImageView.image = UIImage(named: named)?.withTintColor(.white)
         organImageView.padding(12)
         if type == .nose{
-            organImageView.padding(15)
+            organImageView.padding(left: 12, top: 8, right: 12, bottom: 8)
         }
         
     }

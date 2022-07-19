@@ -7,7 +7,7 @@
 
 import UIKit
 
-///妆容推荐VC
+///妆容推荐
 class RecommendViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -16,6 +16,10 @@ class RecommendViewController: UIViewController {
         // Do any additional setup after loading the view.
         initView()
     
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     deinit{
@@ -38,13 +42,22 @@ class RecommendViewController: UIViewController {
         view.dataSource = self
         view.delegate = self
         view.estimatedRowHeight = 300
-        view.tableHeaderView = RecommendHeaderView(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: fitHeight(height: 100))))
+        view.tableHeaderView = RecommendHeaderView(type: .analysis)
         return view
     }()
     
     
     private let RecommendCellID = "RecommendCellID"
     
+    private lazy var datas:[Makeup] = {
+        var datas = [Makeup]()
+        let winter = modelForMakeup()
+        datas.append(winter)
+        let dict = ["name":"酒晕妆","content":"24","recommendationRate":4,"figureImage":"wine"] as [String : Any]
+        let other = Makeup(dict: dict)
+        datas.append(other)
+        return datas
+    }()
 
 }
 
@@ -64,25 +77,39 @@ extension RecommendViewController{
             make.left.right.equalTo(view)
         }
     }
+    
+    func pushViewControllerWith(makeup:Makeup){
+        hiddenTabbar(isHidden: true,tag: 1)
+        let detail = RecommendDetailViewController(makeup: makeup)
+        navigationController?.pushViewController(detail, animated: true)
+    }
 }
 
 extension RecommendViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return datas.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: RecommendCellID, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: RecommendCellID, for: indexPath) as! RecommendViewCell
         //取消选中样式
         cell.selectionStyle = .none
+        cell.makeup = datas[indexPath.item]
+        cell.enterDetail = { [weak self] makeup in
+            guard let self = self else{
+                return
+            }
+            self.pushViewControllerWith(makeup: makeup)
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 400
+        return 300
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //跳转到详细界面
+        pushViewControllerWith(makeup: datas[indexPath.item])
     }
 }

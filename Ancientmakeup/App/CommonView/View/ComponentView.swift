@@ -22,8 +22,8 @@ class ComponentView: UIView {
     }
     
     convenience init(image:String,title:String) {
-        self.init(frame: CGRect(origin: .zero, size: CGSize(width: fitWidth(width: 164), height: fitHeight(height: 68))))
-        imageView.image = UIImage(named: image)
+        self.init(frame: CGRect(origin: .zero, size: CGSize(width: fitWidth(width: 164), height: fitHeight(height: 97))))
+        imageView.image = UIImage(named: image)?.withTintColor(.white)
         titleLabel.text = title
         initView()
         
@@ -48,7 +48,7 @@ class ComponentView: UIView {
 private extension ComponentView{
     func initView(){
         backgroundColor = BlackColor
-        layer.cornerRadius = 20
+        layer.cornerRadius = 30
         layer.masksToBounds = true
         addSubview(imageView)
         addSubview(titleLabel)
@@ -58,13 +58,13 @@ private extension ComponentView{
     func initLayout(){
         let border:CGFloat = (frame.width - imageView.frame.width - titleLabel.frame.width - fitWidth(width: 3)) / 2
         imageView.snp.makeConstraints { make in
-            make.left.equalTo(self).offset(border)
+            make.left.equalTo(titleLabel.snp.right).offset(10)
             make.centerY.equalTo(self)
         }
         
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalTo(self)
-            make.left.equalTo(imageView.snp.right).offset(fitWidth(width: 3))
+            make.left.equalTo(self).offset(border)
         }
     }
 }

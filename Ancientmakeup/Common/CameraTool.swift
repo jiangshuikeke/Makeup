@@ -25,13 +25,21 @@ class CameraTool{
     var captureSession:AVCaptureSession?
     //当前镜头位置
     var currentPosition:AVCaptureDevice.Position = .back
-    
+    weak var delegate:CameraToolDelegate?
     //
     open weak var capturePhotoDelegate:AVCapturePhotoCaptureDelegate?
     
     open weak var pickerDelegate:PHPickerViewControllerDelegate?
-    
+}
 
+//MARK: - UI
+extension CameraTool{
+    func alertWithMessage(message:String) -> UIAlertController{
+        let alert = UIAlertController(title: "错误", message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "确认", style: .default, handler: nil)
+        alert.addAction(action)
+        return alert
+    }
 }
 
 //MARK: - 摄像
@@ -76,10 +84,16 @@ extension CameraTool{
         return bestDevice(in: position)
     }
 
-    func bestDevice(in position:AVCaptureDevice.Position) -> AVCaptureDevice{
+    func bestDevice(in position:AVCaptureDevice.Position) -> AVCaptureDevice?{
         discvoerSession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInTelephotoCamera,.builtInDualCamera,.builtInDualWideCamera,.builtInTrueDepthCamera,.builtInUltraWideCamera,.builtInWideAngleCamera], mediaType: .video, position: .unspecified)
         let devices = discvoerSession!.devices
-        guard !devices.isEmpty else{ fatalError("该设备没有适配的摄像硬件") }
+        if devices.isEmpty{
+            let alert = alertWithMessage(message: "该设备没有适配的摄像硬件")
+            if delegate != nil{
+                delegate?.cameraOperationFailure(tool: self, alert: alert)
+            }
+            return nil
+        }
         return devices.first { device in device.position == position }!
     }
 
@@ -117,8 +131,11 @@ extension CameraTool{
         photoSettings.flashMode = .auto
        
         //
-        guard capturePhotoDelegate != nil else{
-            fatalError("当前没有输出照片代理")
+        if capturePhotoDelegate == nil{
+            let alert = alertWithMessage(message: "当前没有输出照片代理")
+            if (delegate != nil){
+                delegate?.cameraOperationFailure(tool: self, alert: alert)
+            }
         }
         photoOutput?.capturePhoto(with: photoSettings, delegate: capturePhotoDelegate!)
     }
@@ -207,7 +224,7 @@ extension CameraTool{
         configuration.preferredAssetRepresentationMode = .current
         configuration.selection = .ordered
         //根据判断
-        let num = isEnableMultiselection ?0:1
+        let num = isEnableMultiselection ?9:1
         configuration.selectionLimit = num
         
         //选中图像标识
@@ -218,3 +235,6 @@ extension CameraTool{
     }
 }
 
+protocol CameraToolDelegate:NSObjectProtocol{
+    func cameraOperationFailure(tool:CameraTool,alert:UIAlertController)
+}

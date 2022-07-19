@@ -12,8 +12,8 @@ class BaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(navBarView)
         navigationController?.isNavigationBarHidden = true
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -35,11 +35,8 @@ class BaseViewController: UIViewController {
 }
 
 extension BaseViewController:NavBarViewDelegate{
+    @objc
     func back() {
-        if view.tag == 0{
-            hiddenTabbar(by: false)
-        }
         navigationController?.popViewController(animated: true)
-        
     }
 }

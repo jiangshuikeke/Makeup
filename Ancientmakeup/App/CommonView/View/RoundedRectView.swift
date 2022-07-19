@@ -15,7 +15,7 @@ enum RoundedRectViewType{
     ///圆角矩形
     case FullRounded
 }
-///左下，右下圆角矩形
+///圆角矩形
 class RoundedRectView: UIView {
     
     override init(frame: CGRect) {
@@ -48,21 +48,20 @@ class RoundedRectView: UIView {
         let path : UIBezierPath
         switch type{
         case .TopRounded:
-            path = UIBezierPath(roundedRect: frame, byRoundingCorners: [UIRectCorner.topLeft,UIRectCorner.topRight], cornerRadii: CGSize(width: radius, height: radius))
+            path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft,.topRight], cornerRadii: CGSize(width: radius, height: radius))
             break
             
         case .BottomRounded:
-            path = UIBezierPath(roundedRect: frame, byRoundingCorners: [UIRectCorner.bottomRight,UIRectCorner.bottomLeft], cornerRadii: CGSize(width: radius, height: radius))
+            path = UIBezierPath(roundedRect: rect, byRoundingCorners: [UIRectCorner.bottomRight,UIRectCorner.bottomLeft], cornerRadii: CGSize(width: radius, height: radius))
             break
         case .FullRounded:
-            path = UIBezierPath(roundedRect: frame, cornerRadius: radius)
+            path = UIBezierPath(roundedRect: rect, cornerRadius: radius)
             break
         }
        
         let lay = CAShapeLayer()
         
         lay.fillColor = color.cgColor
-        
         lay.path = path.cgPath
         layer.addSublayer(lay)
         if nil != image{

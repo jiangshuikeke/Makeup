@@ -21,11 +21,9 @@ class CommunityViewController: UIViewController {
     
     
     //暂定轮播图
-    private lazy var bannerView:UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.cornerRadius = 20
-        imageView.contentMode = .scaleAspectFit
-        return imageView
+    private lazy var bannerView:BannerView = {
+        let view = BannerView(frame: .zero)
+        return view
     }()
 
 }

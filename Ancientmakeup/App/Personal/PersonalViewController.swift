@@ -21,21 +21,6 @@ class PersonalViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-       
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        scrollView.contentSize = CGSize(width: ScreenWidth, height:ScreenHeight +  segmentView.frame.maxY)
     }
     
     deinit
@@ -47,8 +32,9 @@ class PersonalViewController: UIViewController{
             //根据collectionView的偏移量来移动scrollView
         let point = change?[.newKey] as! CGPoint
         let offset = point.y
-        if offset < 0 {
-                collectionView.isScrollEnabled = false
+        if offset < 5{
+            collectionView.isScrollEnabled = false
+            scrollView.isScrollEnabled = true
         }
             
 }
@@ -57,9 +43,14 @@ class PersonalViewController: UIViewController{
         
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+    }
+    
     //MARK: - 懒加载以及变量
     private lazy var scrollView:UIScrollView = {
-        let scrollView = UIScrollView(frame: view.frame)
+        let scrollView = UIScrollView(frame: .zero)
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.delegate = self
@@ -101,6 +92,12 @@ class PersonalViewController: UIViewController{
         return view
     }()
     
+    ///导航栏
+    private lazy var navView:PersonalNavView = {
+        let view = PersonalNavView(icon: "")
+        return view
+    }()
+    
     ///是否悬停
     private var isHover = false
     ///页面数量
@@ -108,11 +105,23 @@ class PersonalViewController: UIViewController{
     ///Cell ID
     private let NewsCollectionViewCellId = "NewsCollectionViewCellId"
     ///item 个数
-    private let count = 5
+    private let count = 10
     
     ///存储Cell信息
     private var items:[NewsCollectionViewCell] = [NewsCollectionViewCell]()
 
+    ///导航栏与头像框的原始距离
+    private var originalDis:CGFloat {
+        return headerView.iconImageView.frame.maxY - navView.frame.maxY
+    }
+    
+    private var originalFrame:CGRect = .zero
+    ///临界点
+    private var criticalPoint:CGPoint = .zero
+    
+    private var segmentWidth:CGFloat = ScreenWidth - fitWidth(width: 40)
+    
+    private var segmentHeight:CGFloat = fitHeight(height: 35)
     
 }
 
@@ -122,18 +131,32 @@ extension PersonalViewController{
         navigationController?.isNavigationBarHidden = true
         scrollView.backgroundColor = LightGrayColor
         view.addSubview(scrollView)
+        view.addSubview(navView)
         scrollView.addSubview(headerView)
         scrollView.addSubview(segmentView)
         scrollView.addSubview(horizontalScrollView)
         horizontalScrollView.addSubview(collectionView)
-        headerView.sizeToFit()
         prepareForCollectionView()
         initLayout()
+        view.layoutIfNeeded()
+        criticalPoint = CGPoint(x: 0, y: segmentView.frame.minY + navView.frame.height + StatusHeight)
+        //记录分页的原始起点
+        originalFrame = segmentView.frame
+        scrollView.contentSize = CGSize(width: ScreenWidth, height:ScreenHeight +  segmentView.frame.maxY)
     }
     
     func initLayout(){
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view)
+        }
+        headerView.layoutIfNeeded()
+        headerView.snp.makeConstraints { make in
+            make.top.equalTo(scrollView).offset(-StatusHeight)
+            make.width.equalTo(ScreenWidth)
+            make.height.equalTo(headerView.viewHeight)
+        }
         segmentView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(fitHeight(height: 13))
+            make.top.equalTo(headerView.snp.bottom)
             make.left.equalTo(view).offset(fitWidth(width: 20))
             make.right.equalTo(view).offset(-fitWidth(width: 20))
             make.height.equalTo(fitHeight(height: 35))
@@ -180,7 +203,7 @@ extension PersonalViewController:UICollectionViewDataSource,UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //跳转到详细界面
-        hiddenTabbar(by: true)
+        hiddenTabbar(isHidden: true,tag: 0)
         navigationController?.pushViewController(NewDetailViewController(), animated: true)
     }
 
@@ -189,39 +212,35 @@ extension PersonalViewController:UICollectionViewDataSource,UICollectionViewDele
 //MARK: - ScrollViewDelegate
 extension PersonalViewController:UIScrollViewDelegate{
     func scrollViewDidScroll(_ scrollView: UIScrollView){
-        let offset = scrollView.contentOffset
-        
+        //处理横向滚动
         if scrollView.isEqual(horizontalScrollView){
             let offsetX = scrollView.contentOffset.x
             segmentView.moveRoundedRect(offset: offsetX)
             return
         }
-        
-        if offset.y >= headerView.frame.maxY - fitHeight(height: 5){
-            if !isHover{
-                segmentView.snp.remakeConstraints { make in
-                    make.top.equalTo(view).offset(StatusHeight)
-                    make.left.equalTo(view).offset(fitWidth(width: 20))
-                    make.right.equalTo(view).offset(-fitWidth(width: 20))
-                    make.height.equalTo(fitHeight(height: 35))
-                }
-                isHover = true
+        let offsetY = scrollView.contentOffset.y
+        //控制导航栏变化
+        let diff = headerView.iconImageView.convert(headerView.iconImageView.bounds, to: view).maxY - navView.frame.maxY
+        //获取比例
+        let radio = diff / originalDis
+        navView.backgroundAlpha(alpha: 1-radio)
+        //显示头像
+        if radio < 0{
+            if navView.iconImageView.alpha == 0{
+                navView.showIcon()
             }
-           
-            collectionView.isScrollEnabled = true
         }else{
-            if isHover{
-                segmentView.snp.remakeConstraints { make in
-                    make.top.equalTo(headerView.snp.bottom).offset(fitHeight(height: 13))
-                    make.left.equalTo(view).offset(fitWidth(width: 20))
-                    make.right.equalTo(view).offset(-fitWidth(width: 20))
-                    make.height.equalTo(fitHeight(height: 35))
-                }
-                isHover = false
+            if navView.iconImageView.alpha == 1{
+                navView.hideIcon()
             }
-            
-            collectionView.isScrollEnabled = false
         }
+        //TODO: - 优化
+        if offsetY >= segmentView.frame.minY - navView.frame.height{
+            scrollView.contentOffset = CGPoint(x: 0, y: segmentView.frame.minY - navView.frame.height)
+            scrollView.isScrollEnabled = false
+            collectionView.isScrollEnabled = true
+        }
+
         
     }
     

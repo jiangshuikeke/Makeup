@@ -298,6 +298,11 @@ extension NewDetailViewController{
             scrollView.addSubview(imageView)
         }
     }
+    
+    override func back() {
+        hiddenTabbar(isHidden: false, tag: 0)
+        super.back()
+    }
 }
 
 
@@ -331,3 +336,4 @@ extension NewDetailViewController:UITableViewDataSource,UITableViewDelegate{
     }
     
 }
+
