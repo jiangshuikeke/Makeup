@@ -10,8 +10,8 @@ import UIKit
 ///自定义导航栏视图
 class NavBarView: UIView {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: StatusHeight + 44)))
     }
     
     required init?(coder: NSCoder) {
@@ -19,13 +19,13 @@ class NavBarView: UIView {
     }
     
     convenience init(title:String?){
-        self.init(frame: CGRect(origin: CGPoint(x: 0, y: StatusHeight), size: CGSize(width: ScreenWidth, height: NavBarViewHeight)))
+        self.init()
             titleLabel.text = title
             initView()
     }
     
     convenience init(icon:String?,nickname:String?){
-        self.init(frame: CGRect(origin: CGPoint(x: 0, y: StatusHeight), size: CGSize(width: ScreenWidth, height: fitHeight(height: 50))))
+        self.init()
         addCurve(color: SkinColor)
         isDetail = true
         initView()
@@ -94,10 +94,10 @@ extension NavBarView{
         self.backgroundColor = .clear
         addSubview(backImageView)
         backImageView.snp.makeConstraints { make in
-            make.centerY.equalTo(self)
+            make.centerY.equalTo(self).offset(StatusHeight / 2)
             make.left.equalTo(self).offset(fitWidth(width: 20))
-            make.height.equalTo(40)
-            make.width.equalTo(40)
+            make.height.equalTo(fitWidth(width: 44))
+            make.width.equalTo(fitWidth(width: 44))
         }
 
         if isDetail{
@@ -111,7 +111,7 @@ extension NavBarView{
     func prepareForNormal(){
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(self)
+            make.centerY.equalTo(self).offset(StatusHeight / 2)
             make.centerX.equalTo(self)
         }
     }

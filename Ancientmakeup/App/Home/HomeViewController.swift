@@ -24,12 +24,11 @@ class HomeViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("Home界面隐藏")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        hiddenTabbar(isHidden: false,tag: 0)
+//        hiddenTabbar(isHidden: false,tag: 0)
     }
     
     
@@ -46,7 +45,6 @@ class HomeViewController: UIViewController {
         //20,105
        let label = UILabel(frame: CGRect(x: 0, y: 0, width: fitWidth(width: 330), height: fitHeight(height: 41)))
         label.font = UIFont.boldSystemFont(ofSize: 34)
-        label.text = "下午好,ALEX"
         return label
     }()
     
@@ -110,7 +108,7 @@ private extension HomeViewController{
         navigationController?.navigationBar.isHidden = true
         
         view.backgroundColor = LightGrayColor
-        view.addSubview(iconImageView)
+//        view.addSubview(iconImageView)
         view.addSubview(roundedRect)
         //背景以及欢迎
         view.sendSubviewToBack(roundedRect)
@@ -122,6 +120,8 @@ private extension HomeViewController{
         view.addSubview(cardView)
         
         view.addSubview(bottomView)
+        
+        countNowQuantum()
         initLayout()
         cardView.layoutIfNeeded()
         cardView.reloadData()
@@ -129,13 +129,13 @@ private extension HomeViewController{
     
     func initLayout(){
         let offset:CGFloat = faceComponent.frame.height / 2
-        let border:CGFloat = (ScreenWidth - 2 * faceComponent.frame.width - fitWidth(width: 5)) / 2
+//        let border:CGFloat = (ScreenWidth - 2 * faceComponent.frame.width - fitWidth(width: 5)) / 2
         
-        iconImageView.snp.makeConstraints { make in
-            make.left.equalTo(helloLabel)
-            make.top.equalTo(view).offset(StatusHeight)
-            make.height.width.equalTo(44)
-        }
+//        iconImageView.snp.makeConstraints { make in
+//            make.left.equalTo(helloLabel)
+//            make.top.equalTo(view).offset(StatusHeight)
+//            make.height.width.equalTo(fitHeight(height: 44))
+//        }
         
         helloLabel.snp.makeConstraints { make in
             make.left.equalTo(view).offset(fitWidth(width: 20))
@@ -143,15 +143,15 @@ private extension HomeViewController{
         }
         
         faceComponent.snp.makeConstraints { make in
-            make.width.equalTo(fitWidth(width: 164))
-            make.height.equalTo(fitHeight(height: 80))
+            make.width.equalTo(fitWidth(width: 165))
+            make.height.equalTo(fitHeight(height: 97))
             make.top.equalTo(roundedRect.snp.bottom).offset(-offset)
-            make.left.equalTo(view).offset(border)
+            make.left.equalTo(view).offset(fitWidth(width: 20))
         }
-        
+        print(ScreenWidth)
         nationalComponent.snp.makeConstraints { make in
-            make.width.equalTo(fitWidth(width: 164))
-            make.height.equalTo(fitHeight(height: 80))
+            make.width.equalTo(fitWidth(width: 165))
+            make.height.equalTo(fitHeight(height: 97))
             make.left.equalTo(faceComponent.snp.right).offset(fitWidth(width: 5))
             make.top.equalTo(faceComponent)
         }
@@ -163,6 +163,12 @@ private extension HomeViewController{
             make.bottom.equalTo(view).offset(-fitHeight(height: 20) - DIYTabBarHeight)
         }
     
+    }
+    
+    ///计算当前的时间段
+    func countNowQuantum(){
+        //凌晨：0时至5时；早晨：5时至8时；上午：8时至11时；中午：11时至13时；下午：13时至16时；傍晚：16时至19时；晚上：19时至24时。
+        helloLabel.text = Date.currentQuantum
     }
 }
 

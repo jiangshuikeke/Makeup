@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>name</key>
+		<string>明代三白妆</string>
+		<key>content</key>
+		<string>明代女子的妆容继承了宋代的素雅简洁，胭脂比例浓淡恰到好处，很像今天的裸妆。只不过她们更加偏爱明亮的妆面，喜欢在额头、鼻尖、下巴处晕涂夸张的白粉，这样可以让五官看着更立体，俗称“三白法”。</string>
+		<key>recommendationRate</key>
+		<integer>5</integer>
+		<key>figureImage</key>
+		<string>mingdaisanbai</string>
+		<key>characteristics</key>
+		<array>
+			<string>在额头、鼻尖、下巴处晕涂白粉</string>
+			<string>简约清淡</string>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>明代面靥妆</string>
+		<key>content</key>
+		<string>明初永乐制度里，后妃面饰里有“面花”一项，根据等级不同数目不一，皇后为“珠翠面花五事”，妃则是“面花二”。明代的面花材质有珍珠、铺翠、金丝和综合的珠翠面花几种，数量从一对到三、五、六枚不等，可以贴在嘴角、下巴、眉梢、眼角、太阳穴、额头等处。</string>
+		<key>recommendationRate</key>
+		<integer>5</integer>
+		<key>figureImage</key>
+		<string>mingdaimianye</string>
+		<key>characteristics</key>
+		<array>
+			<string>在唇角、下巴和两眉梢眼角处各贴饰一枚珍珠</string>
+			<string>额头上则有一朵花形的珠翠花</string>
+		</array>
+	</dict>
+</array>
+</plist>

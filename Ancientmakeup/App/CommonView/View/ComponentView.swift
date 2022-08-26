@@ -22,7 +22,7 @@ class ComponentView: UIView {
     }
     
     convenience init(image:String,title:String) {
-        self.init(frame: CGRect(origin: .zero, size: CGSize(width: fitWidth(width: 164), height: fitHeight(height: 97))))
+        self.init(frame: CGRect(origin: .zero, size: CGSize(width: fitWidth(width: 165), height: fitHeight(height: 97))))
         imageView.image = UIImage(named: image)?.withTintColor(.white)
         titleLabel.text = title
         initView()
@@ -30,14 +30,15 @@ class ComponentView: UIView {
     }
     
     private lazy var imageView:UIImageView = {
-        let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: fitWidth(width: 23), height: fitHeight(height: 23))))
+        let imageView = UIImageView()
+        imageView.frame.size = CGSize(width: fitWidth(width: 32), height: fitHeight(height: 32))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
     private lazy var titleLabel:UILabel = {
-        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: fitWidth(width: 75), height: fitHeight(height: 25))))
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = .white
         return label
     }()
@@ -56,10 +57,14 @@ private extension ComponentView{
     }
     
     func initLayout(){
-        let border:CGFloat = (frame.width - imageView.frame.width - titleLabel.frame.width - fitWidth(width: 3)) / 2
+        titleLabel.sizeToFit()
+        let border:CGFloat = (frame.width - imageView.frame.width - titleLabel.frame.width - fitWidth(width: 10)) / 2
+        
         imageView.snp.makeConstraints { make in
-            make.left.equalTo(titleLabel.snp.right).offset(10)
+            make.left.equalTo(titleLabel.snp.right).offset(fitWidth(width: 10))
             make.centerY.equalTo(self)
+            make.width.equalTo(fitWidth(width: 32))
+            make.height.equalTo(fitHeight(height: 32))
         }
         
         titleLabel.snp.makeConstraints { make in

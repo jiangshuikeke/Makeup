@@ -30,7 +30,7 @@ class TPBWCollectionViewCell: UICollectionViewCell {
         initView()
     }
     
-    convenience init(type:OragnsType){
+    convenience init(type:OrgansType){
         self.init(frame: .zero)
         contentType = type
         self.type = .organs
@@ -40,6 +40,13 @@ class TPBWCollectionViewCell: UICollectionViewCell {
     override var isSelected: Bool{
         didSet{
             viewIsSelected()
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if !frame.isEmpty{
+            originalFrame = frame
         }
     }
     //MARK: - 懒加载以及变量
@@ -61,14 +68,17 @@ class TPBWCollectionViewCell: UICollectionViewCell {
         let blurView = UIVisualEffectView(effect: blur)
         blurView.layer.cornerRadius = 30
         blurView.layer.masksToBounds = true
-        blurView.frame.size = CGSize(width: 80, height: 76)
+        blurView.frame.size = CGSize(width: fitWidth(width: 72), height: fitWidth(width: 72))
         return blurView
     }()
     
     //图像名字
+    
+    private var originalFrame:CGRect?
+    
     private var named:String?
     //内容类型
-    var contentType:OragnsType? {
+    var contentType:OrgansType? {
         didSet{
             configureViewByType()
         }
@@ -89,16 +99,17 @@ extension TPBWCollectionViewCell{
     }
     
     func initLayout(){
+        blurView.center.y = contentView.center.y
         imageView.snp.makeConstraints { make in
             make.centerX.equalTo(blurView)
-            make.top.equalTo(blurView).offset(15)
-            make.width.equalTo(25)
-            make.height.equalTo(25)
+            make.top.equalTo(blurView).offset(fitHeight(height: 14))
+            make.width.equalTo(fitWidth(width: 20))
+            make.height.equalTo(fitWidth(width: 20))
         }
         
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(blurView)
-            make.top.equalTo(imageView.snp.bottom).offset(5)
+            make.top.equalTo(imageView.snp.bottom).offset(fitHeight(height: 2))
         }
         
     }
@@ -115,7 +126,7 @@ extension TPBWCollectionViewCell{
         case .some(.nose):
             named = "nose"
             title = "鼻型"
-        case .some(.mouse):
+        case .some(.mouth):
             named = "mouse"
             title = "唇部"
         case .some(.face):
@@ -135,7 +146,7 @@ extension TPBWCollectionViewCell{
     
     ///配置圆形imageview
     func configureCircleImageView(){
-        imageView.layer.cornerRadius = 12.5
+        imageView.layer.cornerRadius = fitWidth(width: 10)
         imageView.layer.masksToBounds = true
         imageView.image = UIImage(color: EssentialColor)
     }
@@ -144,22 +155,39 @@ extension TPBWCollectionViewCell{
         var color:UIColor
         color = isSelected ?.white:EssentialColor
         //替换图像
+        let titleTop = isSelected ?fitHeight(height: 9):fitHeight(height: 2)
+        let imageTop = isSelected ?fitHeight(height: 25):fitHeight(height: 14)
         if type == .organs{
             imageView.image = UIImage(named: named!)?.withTintColor(color)
         }else{
             imageView.image = UIImage(color: color)
         }
         color = isSelected ?EssentialColor:.clear
-        let height:CGFloat = isSelected ?90:76
+        let height:CGFloat = isSelected ?fitHeight(height: 103):fitWidth(width: 72)
         if isSelected{
             blurView.effect = .none
         }else{
             blurView.effect = UIBlurEffect(style: .systemUltraThinMaterialLight)
         }
-        UIView.animate(withDuration: 1.0, delay: 0, options: [.allowAnimatedContent]) {
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.allowAnimatedContent]) {
             self.blurView.backgroundColor = color
             self.blurView.frame.size.height = height
         } completion: { flag in }
+        
+        titleLabel.snp.updateConstraints { make in
+            make.top.equalTo(imageView.snp.bottom).offset(titleTop)
+        }
+        
+        imageView.snp.updateConstraints { make in
+            make.top.equalTo(blurView).offset(imageTop)
+        }
+        
+        if isSelected{
+            //组件上移
+            blurView.frame.origin.y = 0
+        }else{
+            blurView.center.y = contentView.center.y
+        }
         
     }
 }

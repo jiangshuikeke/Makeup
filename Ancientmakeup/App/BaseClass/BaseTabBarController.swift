@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreMedia
 
 class BaseTabBarController: UITabBarController {
     override func viewDidLoad() {
@@ -13,9 +14,21 @@ class BaseTabBarController: UITabBarController {
         prepareForTabBarController()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    //NOTE: - 系统自带的tabbar需要在这个方法中去移除，在使用SceneDelegate设置rootViewController的时候以下方法会调用两次，导致虽然一开始的ViewDidLoad的时候将Tabbar移除了但是第二次调用的时候tabbar依然存在。使用Storyboard设置rootViewController的时候以下方法只调用了一次，而tabbar已经被移除。
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        tabBar.removeFromSuperview()
+    }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        print("隐藏View")
     }
     
     deinit{
@@ -52,7 +65,7 @@ extension BaseTabBarController{
     
     func prepareForTabBarController(){
         //1.使用自定义Tabbar
-        tabBar.removeFromSuperview()
+//        tabBar.removeFromSuperview()
         //2.注册通知
         registerNotification()
         //3.
@@ -72,7 +85,7 @@ extension BaseTabBarController{
     }
     
     //配置每一个item
-    func makeItem(title:String?,image:String,selectedImage:String?,tag:Int) -> DIYTabBarItem{
+    func makeItem(title:String?,image:String,tag:Int) -> DIYTabBarItem{
         let ima = UIImage(named: image)
         let item = DIYTabBarItem(image: ima, title: title, tintColor: DeepGrayColor)
         item.isUserInteractionEnabled = true
@@ -90,7 +103,11 @@ extension BaseTabBarController{
             if let tag = notification.userInfo?["tag"] as? NSInteger,
             let bool = notification.object as? Bool{
                 if tag == self.view.tag{
-                    self.diyTabBar.isHidden = bool
+                    if bool{
+                        self.hideTabbar()
+                    }else{
+                        self.showTabbar()
+                    }
                     self.navBarView.isHidden = bool
                 }
             }
@@ -106,6 +123,26 @@ extension BaseTabBarController{
         for it in items!{
             it.isSelected = false
         }
+    }
+    
+    func showTabbar(){
+        diyTabBar.snp.updateConstraints { make in
+            make.bottom.equalTo(view).offset(-fitHeight(height: 20))
+        }
+        animateLayout()
+    }
+    
+    func hideTabbar(){
+        diyTabBar.snp.updateConstraints { make in
+            make.bottom.equalTo(view.snp.bottom).offset(DIYTabBarHeight + fitHeight(height: 20))
+        }
+        animateLayout()
+    }
+    
+    func animateLayout(){
+        UIView.animate(withDuration: 0.3, delay: 0, options: []) {
+            self.view.layoutIfNeeded()
+        } completion: { flag in }
     }
 }
 

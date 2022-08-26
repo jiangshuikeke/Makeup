@@ -16,7 +16,7 @@ class HorizontalCollectionView: UICollectionView {
     
     convenience init(isLesson:Bool = false){
         let layout = HorizontalLayout()
-        self.init(frame: .zero, collectionViewLayout: layout)
+        self.init(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: fitHeight(height: 103))), collectionViewLayout: layout)
         if isLesson{
             organs.append(.adorn)
         }
@@ -25,7 +25,7 @@ class HorizontalCollectionView: UICollectionView {
     
     convenience init(datas:[String]){
         let layout = HorizontalLayout()
-        self.init(frame: .zero, collectionViewLayout: layout)
+        self.init(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: fitHeight(height: 103))), collectionViewLayout: layout)
         cellType = .dynasty
         self.datas = datas
         initView()
@@ -47,12 +47,12 @@ class HorizontalCollectionView: UICollectionView {
     
     var isLesson:Bool = false
     
-    private lazy var organs:[OragnsType] = {
-        var datas = [OragnsType]()
+    private lazy var organs:[OrgansType] = {
+        var datas = [OrgansType]()
         datas.append(.face)
         datas.append(.eyebrow)
         datas.append(.eye)
-        datas.append(.mouse)
+        datas.append(.mouth)
         datas.append(.nose)
         return datas
     }()
@@ -93,7 +93,6 @@ extension HorizontalCollectionView:UICollectionViewDelegate,UICollectionViewData
             cell.titleLabel.text = datas[indexPath.item]
             cell.configureCircleImageView()
         }
-        
         return cell
     }
     

@@ -37,7 +37,7 @@ class MakeupCardItem: UIView {
                 label.text = story?.name
             }
             label.textColor = EssentialColor
-            label.font = UIFont.boldSystemFont(ofSize: 23)
+            label.font = UIFont.boldSystemFont(ofSize: 20)
             makeupTitleView.contentView.addSubview(label)
         }
     }
@@ -74,7 +74,7 @@ class MakeupCardItem: UIView {
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 0
         label.textColor = DeepGrayColor
-        label.font = MainBodyFont
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         return label
     }()
     
@@ -91,7 +91,7 @@ class MakeupCardItem: UIView {
     private lazy var backView:UIView = {
         let view = UIView()
         view.backgroundColor = SkinColor
-        view.layer.cornerRadius = 130
+        view.layer.cornerRadius = fitWidth(width: 130)
         view.layer.masksToBounds = true
         return view
     }()
@@ -146,30 +146,31 @@ extension MakeupCardItem{
     
     func initLayout(){
         makeupImageView.snp.makeConstraints { make in
-            make.top.equalTo(self).offset(30)
-            make.height.equalTo(fitHeight(height: 230))
-            make.left.equalTo(self).offset(fitWidth(width: 34))
-            make.right.equalTo(self).offset(-fitWidth(width: 34))
+            make.top.equalTo(self).offset(fitHeight(height: 35))
+            make.height.equalTo(fitHeight(height: 312))
+            make.width.equalTo(fitWidth(width: 252))
+            make.centerX.equalTo(self)
         }
         
         backView.snp.makeConstraints { make in
             make.center.equalTo(makeupImageView)
-            make.height.width.equalTo(260)
+            make.height.equalTo(fitWidth(width: 260))
+            make.width.equalTo(fitWidth(width: 260))
         }
         
         makeupTitleView.snp.makeConstraints { make in
             make.top.equalTo(makeupImageView.snp.bottom).offset(-fitHeight(height: 35))
-            make.height.equalTo(fitHeight(height: 45))
+            make.height.equalTo(fitHeight(height: 44))
             make.left.equalTo(self).offset(fitWidth(width: 65))
             make.right.equalTo(self).offset(-fitWidth(width: 65))
             
         }
         
         makeupContentLabel.snp.makeConstraints { make in
-            make.top.equalTo(makeupTitleView.snp.bottom).offset(fitHeight(height: 8))
+            make.top.equalTo(makeupTitleView.snp.bottom).offset(fitHeight(height: 22))
             make.left.equalTo(self).offset(fitWidth(width: 36))
             make.right.equalTo(self).offset(-fitWidth(width: 36))
-            make.bottom.equalTo(self).offset(-fitHeight(height: 8))
+            make.bottom.equalTo(self).offset(-fitHeight(height: 36))
         }
     }
     

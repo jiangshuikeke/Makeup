@@ -17,7 +17,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         registerNotification()
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let s = (scene as? UIWindowScene) else { return }
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.windowScene = s
+        window?.rootViewController = rootViewController
+        window?.makeKeyAndVisible()
         
     }
 
@@ -55,6 +59,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     deinit{
         NotificationCenter.default.removeObserver(self, name: SwitchRootViewControllerNotification, object: nil)
+    }
+    
+    //MARK: - 懒加载以及变量
+    var rootViewController:UIViewController {
+        let login = UserDefaults.standard.bool(forKey: "isLogin")
+        if login{
+            return MainViewController()
+        }else{
+            UserDefaults.standard.set(true, forKey: "isLogin")
+            return NavViewController()
+        }
     }
 
 }

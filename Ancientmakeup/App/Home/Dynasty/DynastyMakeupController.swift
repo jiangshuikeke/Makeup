@@ -14,16 +14,18 @@ class DynastyMakeupController: BaseViewController {
         super.viewDidLoad()
         initView()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if first{
-            collectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
-            first = false
-        }
-        var contentSize = contentTableView.contentSize
-        contentSize.height += collectionViewMinY - navBarView.frame.maxY + fitHeight(height: 40) + StatusHeight
-        contentTableView.contentSize = contentSize
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        contentTableView.drawTopCurve(by: headerView.headerHeight + fitHeight(height: 325) * CGFloat(cellNum), color: .white)
     }
     
     
@@ -45,7 +47,7 @@ class DynastyMakeupController: BaseViewController {
     }()
     
     private lazy var topContentView:UIScrollView = {
-        let view = UIScrollView(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: fitHeight(height: 320))))
+        let view = UIScrollView(frame: CGRect(origin:.zero, size: CGSize(width: ScreenWidth, height: ScreenHeight)))
         view.backgroundColor = SkinColor
         view.isScrollEnabled = false
         view.showsVerticalScrollIndicator = false
@@ -57,28 +59,29 @@ class DynastyMakeupController: BaseViewController {
         let view = UIView()
         view.backgroundColor = BlackColor
         view.layer.masksToBounds = true
-        view.layer.cornerRadius = 150
+        view.layer.cornerRadius = fitWidth(width: 150)
         return view
     }()
     
     private lazy var makeupFigureImageView:UIImageView = {
         let imageView = UIImageView(frame: .zero)
-        imageView.image = UIImage(named: "page2")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
     private lazy var contentTableView:UITableView = {
-        let view = UITableView(frame: CGRect(x: 0, y: fitHeight(height: 300), width: ScreenWidth, height: ScreenHeight + navBarView.frame.height + 105), style: .plain)
+        let view = UITableView(frame: CGRect(x: 0, y: fitHeight(height: 290), width: ScreenWidth, height: ScreenHeight - NavBarViewHeight), style: .plain)
         view.backgroundColor = .white
-        view.drawTopCurve(color: .white)
         view.register(RecommendViewCell.self, forCellReuseIdentifier: RecommendCellID)
         view.delegate = self
         view.dataSource = self
         view.separatorStyle = .none
+        view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
+        
         //减缓滑动速度
-        view.decelerationRate = .fast
+//        view.decelerationRate = .fast
+        view.tableHeaderView = headerView
         return view
     }()
 
@@ -98,31 +101,33 @@ class DynastyMakeupController: BaseViewController {
     private lazy var datas:[DynastyMakeup] = {
         var datas = [DynastyMakeup]()
         let winter = modelForMakeup()
-        
-        let tang = DynastyMakeup(dict: ["name":"唐代","content":"唐五代是中国面妆史上最为繁盛的时期。在这一时期，出现了许多时髦切流行一时的面妆。主要分为红妆和胡妆。"])
-        tang.makeups = [winter]
-        let song = DynastyMakeup(dict: ["name":"宋代","content":"宋代妇女由于受礼教束缚颇深，总体风格较之唐代素雅、端庄，称为“薄妆”、“淡妆”、或“素妆”；但崇尚华丽、新颖之风并未减弱。","makeups":[["name":"飞霞妆","content":"","recommendationRate":4,"figureImage":"fly"]]])
-        let ming = DynastyMakeup(dict: ["name":"明代"])
-        let qing = DynastyMakeup(dict: ["name":"清代"])
-        datas.append(tang)
-        datas.append(song)
-        datas.append(ming)
-        datas.append(qing)
+        if let han = PlistManager.shared.loadDynsaty(name: "汉代"),
+           let tang = PlistManager.shared.loadDynsaty(name: "唐代"),
+           let song = PlistManager.shared.loadDynsaty(name: "宋代"),
+           let ming = PlistManager.shared.loadDynsaty(name: "明代"){
+            datas.append(contentsOf: [han,tang,song,ming])
+        }
         return datas
     }()
     
-    private var currentIndex:NSInteger = 0
+    //下拉的时候最大放大倍数
+    private var maxScale:CGFloat = 1.3
     
+    private var currentIndex:NSInteger = 0
+    private var fixedCollectionViewMinY:CGFloat = 1
     
     let TPBWCollectionViewCellID = "TPBWCollectionViewCellID"
-    
+    private let DynastyHeaderViewID = "DynastyHeaderViewID"
     private let RecommendCellID = "RecommendCellID"
     private var first = false
+    private var cellNum:Int = 0
 }
 
 //MARK: - UI
 extension DynastyMakeupController{
     func initView(){
+        isPreHasTab = true
+        view.tag = 0
         first = true
         navBarView.title = "国风试妆"
         view.addSubview(topContentView)
@@ -132,16 +137,20 @@ extension DynastyMakeupController{
         topContentView.addSubview(collectionView)
         view.addSubview(contentTableView)
         initLayout()
+        updateHeaderView()
+        makeupFigureImageView.image = UIImage(named: datas[currentIndex].image!)
+        topContentView.layoutIfNeeded()
+        fixedCollectionViewMinY = collectionView.frame.minY
+        collectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
     
     func initLayout(){
         blackCircleView.snp.makeConstraints { make in
-            make.centerX.equalTo(view)
-            make.top.equalTo(fitHeight(height: 32) + NavBarViewHeight + StatusHeight)
-            make.height.width.equalTo(300)
+            make.center.equalTo(makeupFigureImageView)
+            make.height.width.equalTo(fitWidth(width: 300))
         }
         makeupFigureImageView.snp.makeConstraints { make in
-            make.top.equalTo(8 + NavBarViewHeight + StatusHeight)
+            make.top.equalTo(navBarView.snp.bottom).offset(fitHeight(height: 21))
             make.height.equalTo(300)
             make.left.equalTo(view).offset(fitWidth(width: 20))
             make.right.equalTo(view).offset(-fitWidth(width: 20))
@@ -151,8 +160,14 @@ extension DynastyMakeupController{
             make.left.equalTo(view)
             make.right.equalTo(view)
             make.bottom.equalTo(contentTableView.snp.top)
-            make.height.equalTo(105)
+            make.height.equalTo(fitHeight(height: 105))
         }
+    }
+    
+    func updateHeaderView(){
+        headerView.dynasty = datas[currentIndex]
+        contentTableView.sectionHeaderHeight = headerView.headerHeight
+        headerView.frame.size = CGSize(width: ScreenWidth, height: headerView.headerHeight)
     }
     
     func backViewAlpha(alpha:CGFloat){
@@ -162,18 +177,24 @@ extension DynastyMakeupController{
     
     func enterDetailPage(makeup:Makeup){
         let vc = RecommendDetailViewController(makeup: makeup)
+        vc.view.tag = 0
         navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 extension DynastyMakeupController:UITableViewDelegate,UITableViewDataSource{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datas[currentIndex].makeups.count
+        cellNum = datas[currentIndex].makeups!.count
+        return cellNum
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecommendCellID, for: indexPath) as! RecommendViewCell
-        cell.makeup = datas[currentIndex].makeups[indexPath.item]
+        cell.makeup = datas[currentIndex].makeups![indexPath.item]
         cell.selectionStyle = .none
         cell.enterDetail = { makeup in
             self.enterDetailPage(makeup: makeup)
@@ -182,46 +203,47 @@ extension DynastyMakeupController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 300
+        return fitHeight(height: 320)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        enterDetailPage(makeup: datas[currentIndex].makeups[indexPath.item])
+        enterDetailPage(makeup: datas[currentIndex].makeups![indexPath.item])
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
-        //手指下滑为正 手指上滑为负
+//        手指下滑为负 手指上滑为正
         if offsetY > 0 && collectionViewMinY <= navBarView.frame.maxY{
             return
         }
-        if offsetY < 0 && collectionViewMaxY >= collectionView.frame.maxY{
+
+        if offsetY < 0 && collectionViewMaxY >= fitHeight(height: 300){
+            //根据当前的偏移量来放大视图
+            let con = contentTableView.convert(contentTableView.frame, to: view)
+            let ration = (con.origin.y - contentTableView.frame.origin.y) / contentTableView.frame.origin.y
+            let scale = min(ration, maxScale)
+
+            makeupFigureImageView.transform = CGAffineTransform(scaleX: scale, y: scale)
+            blackCircleView.transform = CGAffineTransform(scaleX: scale, y: scale)
             return
         }
+        
         //手指下滑 tableview的frame也发生变化
         contentTableView.frame.origin.y -= offsetY
         //并且上部内容也需要滚动
         topContentView.contentOffset.y += offsetY
-        //MARK: - 关键代码 使得滑动更加顺畅 需要研究原因
-        contentTableView.contentOffset.y = 0
+        //TODO: - 关键代码 使得滑动更加顺畅 需要研究原因
+        contentTableView.contentOffset.y =  0
         //背景图也需要改变透明度
-        let rate = (collectionViewMinY - navBarView.frame.maxY) / (collectionView.frame.minY - navBarView.frame.maxY)
+        let rate = (collectionViewMinY - navBarView.frame.maxY) / (fixedCollectionViewMinY - navBarView.frame.maxY)
         backViewAlpha(alpha: rate)
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        headerView.dynasty = datas[currentIndex]
-        return headerView.headerHeight
     }
 }
 
 extension DynastyMakeupController:HorizontalCollectionViewDelegate{
     func collectionView(_ horizontalCollectionView: HorizontalCollectionView, didSelectedIn index: NSInteger) {
         currentIndex = index
+        makeupFigureImageView.image = UIImage(named: datas[currentIndex].image!)
         contentTableView.reloadData()
     }
 }

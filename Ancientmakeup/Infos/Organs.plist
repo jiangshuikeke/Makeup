@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>塌鼻</key>
+		<string>两眼相对间的鼻梁没有明显的突出,基本与眼角持平</string>
+		<key>鹰钩鼻</key>
+		<string>又叫结节鼻，是指在鼻梁的上端有凸起，形似驼峰或结节状，鼻尖有点下勾。</string>
+		<key>直鼻</key>
+		<string>鼻梁形态平直窄长，鼻尖相对传统鼻型更尖，整个鼻梁到鼻尖线条基本在同一水平线上。由于直鼻具备线条分明 、高挺简洁明显特点，所以搭配轮廓分明、线条硬朗的面部会更显气质，更适合比较偏平的脸型。</string>
+		<key>翘鼻</key>
+		<string>通常情况下，鼻尖高度高出鼻梁2—4mm，侧面挺翘感更足一些。由于鼻型娇翘，所以更适合脸部比较精致饱满</string>
+	</dict>
+	<dict>
+		<key>下薄唇</key>
+		<string>下瓣嘴唇较薄</string>
+		<key>上薄唇</key>
+		<string>上瓣嘴唇较薄</string>
+		<key>M唇</key>
+		<string>上唇唇红缘上沿呈较大的M形（后面简称为大M），下沿是一个较小的M形（后面简称为小M）。</string>
+		<key>帆船唇</key>
+		<string>唇形立体饱满，没有明显的唇珠和翘嘴角，自然闭合时唇部是条直线，或者微微上扬或下垂。</string>
+		<key>薄唇</key>
+		<string>嘴唇厚度较薄</string>
+	</dict>
+	<dict>
+		<key>三角眼</key>
+		<string>人之眼尾略微下垂，上眼睑呈一直线，且在下方泪堂之处，形成斜尖之倒三角形。</string>
+		<key>垂眼</key>
+		<string>垂眼也称下斜眼。正面观看呈“八”字形，有的显得天真可爱，有的给人以阴郁的感觉。</string>
+		<key>荔枝眼</key>
+		<string>荔枝眼，也称圆眼、大眼。睑裂较高宽，睑缘呈圆弧形，眼黑露出多，使眼睛显示圆大。</string>
+		<key>杏眼</key>
+		<string>杏眼又称杏仁眼，如杏子形状的眼睛。眦角较钝圆，黑眼珠及眼白露出较多。眼睛比较短，睑裂比较宽，眼型圆圆的如杏仁。</string>
+		<key>吊眼</key>
+		<string>吊眼即向上斜的眼睛。特点为外眦角高于内眦角，眼外角上扬度过高，外眦角呈上挑状。</string>
+		<key>丹凤眼</key>
+		<string>眼角上翘并且狭长，类似丹凤之眼。其典型特征是内眼角微微呈钩状，外眼角上翘，细长有神。</string>
+	</dict>
+	<dict>
+		<key>剑眉</key>
+		<string>双眉偏浓同时眉形直线上扬，眉毛也顺势而上，不杂乱卷曲，像两把剑一般的立在眼的上方。</string>
+		<key>扫帚眉</key>
+		<string>扫帚眉呈扫帚形状的，眉尾稀疏且细、眉头密且粗，这种眉毛的尾巴非常散乱，而眉头的眉毛却紧密聚拢。</string>
+		<key>八字眉</key>
+		<string>八字眉，是指眉头到眉尾斜竖，所以，从正面看，状如一个八字。</string>
+		<key>新月眉</key>
+		<string>新月眉也称女眉，眉毛整齐美丽而修长，眉头和眉尾有曲线，犹如一弯新月。</string>
+		<key>柳叶眉</key>
+		<string>又称秀雅眉，眉头到眉峰倾斜向上，眉峰略靠后在整条眉毛的3/4处，是最有福气的眉形之一，同时百搭任何脸型。</string>
+		<key>一字眉</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>长形脸</key>
+		<string>长形脸的太阳穴凹陷（颞骨）和颧骨还有腮骨宽度差不多，腮骨为方形，略有棱角，三庭中最下一庭稍长，整个脸的长度比标准长度略长</string>
+		<key>菱形脸</key>
+		<string>菱形脸又称钻石脸，太阳穴凹陷，颧骨较高，下巴较尖。</string>
+		<key>方形脸</key>
+		<string>方形脸的腮骨比较方，棱角分明，太阳穴的凹陷（颞骨）和颧骨还有腮骨宽度差不多，下巴不突出，有点和腮骨融为一体。</string>
+		<key>圆脸</key>
+		<string>圆脸腮骨和下巴比较圆，分界不明显，脸的长宽近似，中间一庭长度略大于额头和下巴的长度。</string>
+	</dict>
+</array>
+</plist>

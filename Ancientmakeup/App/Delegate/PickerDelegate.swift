@@ -17,14 +17,14 @@ class PickerDelegate: PHPickerViewControllerDelegate {
         //使用调度组去进行图片的获取
         var res = [UIImage]()
         let group = DispatchGroup()
-        let globalQueue = DispatchQueue(label: "ImageQueue")
+//        let globalQueue = DispatchQueue(label: "ImageQueue")
         for result in results {
             group.enter()
             let itemProvider = result.itemProvider
             if itemProvider.canLoadObject(ofClass: UIImage.self){
                 itemProvider.loadObject(ofClass: UIImage.self) { image, error in
                     if error != nil{
-                        print("\(error)")
+                        print("\(String(describing: error))")
                         return
                     }
                     res.append((image as? UIImage)!)
@@ -34,13 +34,20 @@ class PickerDelegate: PHPickerViewControllerDelegate {
            
         }
         
-        group.notify(queue: globalQueue) { [weak self] in
-            let strSelf = self
-            if strSelf?.photosPickedBlock != nil{
-                strSelf?.photosPickedBlock!(res)
-            }
-        }
+        group.wait()
+        photosPickedBlock?(res)
+//        group.notify(queue: globalQueue) { [weak self] in
+//            let strSelf = self
+//            if strSelf?.photosPickedBlock != nil{
+//                strSelf?.photosPickedBlock!(res)
+//            }
+//        }
         
         
     }
+}
+
+protocol PickerPro:NSObjectProtocol{
+    func picking()
+    func pickDidEnd()
 }

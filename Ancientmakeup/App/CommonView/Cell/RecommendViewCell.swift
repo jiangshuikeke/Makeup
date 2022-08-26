@@ -55,16 +55,13 @@ class RecommendViewCell: UITableViewCell {
         
     open var makeup:Makeup?{
         didSet{
-            makeupTitleLabel.setTitle(makeup?.name, for: .normal)
+            makeupTitleLabel.title = makeup?.name
             starsNum = makeup?.recommendationRate ?? 5
             makeupImageView.image = UIImage(named: makeup?.figureImage ?? "error")
         }
     }
     //妆容名称
-    private lazy var makeupTitleLabel:UIButton = {
-        let label = ITButton(title: "桃花妆", alignment: .left)
-        return label
-    }()
+    private lazy var makeupTitleLabel:ITButton = ITButton()
 
     ///妆容图像
     private lazy var makeupImageView:UIImageView = {
@@ -184,8 +181,8 @@ extension RecommendViewCell{
         makeupImageView.snp.makeConstraints { make in
             make.right.equalTo(backView)
             make.bottom.equalTo(backView)
-            make.height.equalTo(280)
-            make.width.equalTo(240)
+            make.height.equalTo(fitHeight(height: 280))
+            make.width.equalTo(fitWidth(width: 240))
         }
         
 

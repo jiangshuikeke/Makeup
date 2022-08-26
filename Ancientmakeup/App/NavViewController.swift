@@ -53,7 +53,7 @@ class NavViewController: UIViewController {
     ///next按钮
     private lazy var nextButton : UIButton = {
         let nextBt = UIButton(type: .custom)
-        nextBt.setImage(UIImage(named: "rightArrow"), for: .normal)
+        nextBt.setImage(UIImage(named: "right_arrow"), for: .normal)
         nextBt.layer.cornerRadius = fitWidth(width: 22)
         nextBt.layer.masksToBounds = true
         nextBt.layer.backgroundColor = LightGrayColor.cgColor
@@ -109,7 +109,7 @@ extension NavViewController{
             make.left.equalTo(view)
             make.width.equalTo(ScreenWidth)
             make.top.equalTo(view).offset(-StatusHeight)
-            make.bottom.equalTo(view).offset(-180)
+            make.bottom.equalTo(view).offset(-fitHeight(height: 180))
         }
         
         pageControll.snp.makeConstraints { make in
@@ -135,7 +135,7 @@ extension NavViewController{
             make.left.equalTo(view).offset(fitWidth(width: 36))
             make.right.equalTo(view).offset(-fitWidth(width: 36))
             make.top.equalTo(pageControll.snp.bottom).offset(35)
-            make.bottom.equalTo(view).offset(-fitHeight(height: 35))
+            make.height.equalTo(fitHeight(height: 64))
         }
     }
     

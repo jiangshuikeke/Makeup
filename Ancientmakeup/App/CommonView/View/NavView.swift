@@ -28,7 +28,7 @@ class NavView: UIView {
     //MARK: - 懒记载以及变量
     private lazy var imageView:UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -52,6 +52,15 @@ class NavView: UIView {
     private lazy var backgroundView:RoundedRectView = {
         return RoundedRectView(frame:self.frame, type: .BottomRounded, radius: 50)
     }()
+    
+    //黑色圆背景
+    private lazy var circleView:UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.layer.cornerRadius = fitWidth(width: 155)
+        view.layer.masksToBounds = true
+        return view
+    }()
 
 
 }
@@ -60,6 +69,7 @@ class NavView: UIView {
 extension NavView{
     func initView(){
         addSubview(backgroundView)
+        addSubview(circleView)
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(contentLabel)
@@ -67,6 +77,11 @@ extension NavView{
     }
     
     func initLayout(){
+        
+        circleView.snp.makeConstraints { make in
+            make.center.equalTo(self)
+            make.width.height.equalTo(fitWidth(width: 310))
+        }
        
         contentLabel.snp.makeConstraints { make in
             make.centerX.equalTo(self)
@@ -81,8 +96,8 @@ extension NavView{
         
         imageView.snp.makeConstraints { make in
             make.centerX.equalTo(self)
-            make.width.equalTo(305)
-            make.height.equalTo(340)
+            make.width.equalTo(fitWidth(width: 310))
+            make.height.equalTo(fitHeight(height: 310))
             make.bottom.equalTo(titleLabel.snp.top).offset(-35)
         }
     }

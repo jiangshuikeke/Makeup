@@ -10,15 +10,16 @@ import UIKit
 ///分析报告
 class AnalysisViewController: UIViewController {
 
+    convenience init(image:UIImage,landmark:FaceLandmark?){
+        self.init()
+        figureImageView.image = image
+        self.landmark = landmark
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         initView()
-    }
-    
-    convenience init(image:UIImage){
-        self.init()
-        figureImageView.image = image
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,12 +28,7 @@ class AnalysisViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //填充人物图像        
-        if first{
-            collectionView.selectItem(at: IndexPath(item: 1, section: 0), animated: true, scrollPosition: .left)
-            first = false
-        }
-    
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -43,12 +39,19 @@ class AnalysisViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
     
-    //MARK: - 懒加载以及变量
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        let maxY = organsContentLabel.convert(organsContentLabel.frame, to: view).maxY
+        contentScrollView.contentSize = CGSize(width: ScreenWidth, height: maxY)
+    }
     
+    //MARK: - 懒加载以及变量
+    var landmark:FaceLandmark?
     var figureImage:UIImage?
     
+    let organsImageWidth:CGFloat = ScreenWidth - 2 * fitWidth(width: 32)
     private lazy var topContentView:UIScrollView = {
-        let view = UIScrollView(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: fitHeight(height: 300))))
+        let view = UIScrollView(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: fitHeight(height: 320))))
         view.backgroundColor = SkinColor
         view.isScrollEnabled = false
         view.showsVerticalScrollIndicator = false
@@ -58,13 +61,15 @@ class AnalysisViewController: UIViewController {
     //人物图像
     private lazy var figureImageView:UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
         
     //使用tableview展现五官
     private lazy var collectionView:HorizontalCollectionView = {
-        return HorizontalCollectionView(isLesson: false)
+        let view = HorizontalCollectionView(isLesson: false)
+        view.horizontalDelegate = self
+        return view
     }()
     
     private lazy var contentScrollView:UIScrollView = {
@@ -73,6 +78,7 @@ class AnalysisViewController: UIViewController {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.backgroundColor = LightGrayColor
         scrollView.drawTopCurve(color: .white)
+        scrollView.bounces = false
         return scrollView
     }()
     
@@ -86,9 +92,7 @@ class AnalysisViewController: UIViewController {
     }()
     
     //五官名称
-    private lazy var organTitleLabel:ITButton = {
-        return ITButton(title: "柳叶眉", alignment: .left)
-    }()
+    private lazy var organTitleLabel:ITButton = ITButton()
     
     //五官图像
     private lazy var organsImageView:UIImageView = {
@@ -96,14 +100,12 @@ class AnalysisViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 20
         imageView.layer.masksToBounds = true
-        imageView.image = UIImage(named: "eyebrow_test")
         return imageView
     }()
     
     //五官描述
     private lazy var organsContentLabel:UILabel = {
         let label = UILabel()
-        label.text = "又称秀雅眉，眉头到眉峰倾斜向上，眉峰略靠后在整条眉毛的3/4处，是最有福气的眉形之一，同时百搭任何脸型。"
         label.font = MainBodyFont
         label.textColor = DeepGrayColor
         label.numberOfLines = 0
@@ -119,7 +121,6 @@ class AnalysisViewController: UIViewController {
 
 extension AnalysisViewController{
     func initView(){
-        first = true
         view.addSubview(topContentView)
         topContentView.addSubview(collectionView)
         topContentView.addSubview(figureImageView)
@@ -130,8 +131,10 @@ extension AnalysisViewController{
         contentScrollView.addSubview(organsImageView)
         contentScrollView.addSubview(organsContentLabel)
         initLayout()
-        contentScrollView.layoutIfNeeded()
-        contentScrollView.contentSize = CGSize(width: ScreenWidth, height: organsContentLabel.frame.maxY)
+        collectionView.layoutIfNeeded()
+//        contentScrollView.layoutIfNeeded()
+        collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .left)
+        refreshContentWith(organs: (landmark?.face)!)
     }
     
     func initLayout(){
@@ -139,7 +142,7 @@ extension AnalysisViewController{
             make.left.equalTo(view)
             make.right.equalTo(view)
             make.bottom.equalTo(contentScrollView.snp.top)
-            make.height.equalTo(105)
+            make.height.equalTo(fitHeight(height: 105))
         }
         
         figureImageView.snp.makeConstraints { make in
@@ -152,28 +155,77 @@ extension AnalysisViewController{
         analysisLabel.snp.makeConstraints { make in
             make.left.equalTo(view).offset(fitWidth(width: 20))
             make.top.equalTo(contentScrollView).offset(fitHeight(height: 30))
+            make.height.equalTo(fitHeight(height: 41))
         }
         
         organTitleLabel.snp.makeConstraints { make in
             make.left.equalTo(analysisLabel)
             make.top.equalTo(analysisLabel.snp.bottom).offset(fitHeight(height: 8))
+            make.height.equalTo(fitHeight(height: 41))
         }
         
         organsImageView.snp.makeConstraints { make in
-            make.left.equalTo(view).offset(fitWidth(width: 32))
-            make.right.equalTo(view).offset(-fitWidth(width: 32))
+            make.centerX.equalTo(view)
             make.top.equalTo(organTitleLabel.snp.bottom).offset(5)
             make.height.equalTo(fitHeight(height: 90))
+            make.width.equalTo(organsImageWidth)
         }
         
         organsContentLabel.snp.makeConstraints { make in
-            make.left.right.equalTo(organsImageView)
+            make.left.equalTo(organTitleLabel)
             make.top.equalTo(organsImageView.snp.bottom).offset(10)
         }
+    }
+    
+    func refreshContentWith(organs:Organs){
+        organTitleLabel.title = organs.name ?? "无定义"
+        //根据图像大小来适配当前ImageView
+        let image = organs.image
+        let imageSize = image?.size
+        let ratio = organsImageWidth / imageSize!.width
+        var height = imageSize?.height ?? fitHeight(height: 90) * ratio
+        height = min(height, fitHeight(height: 328))
+        organsImageView.snp.updateConstraints { make in
+            make.height.equalTo(height)
+        }
+        
+        organsImageView.image = organs.image ?? UIImage(named:"error")
+        organsContentLabel.text = PlistManager.shared.readValueFor(organs.name!, type: organs.type!) ?? "该五官没有定义"
+        organsContentLabel.sizeToFit()
     }
 }
 
 //MARK: - 按键事件
-extension AnalysisViewController{
+extension AnalysisViewController:HorizontalCollectionViewDelegate{
+    //根据点击来切换底部内容
+    func collectionView(_ horizontalCollectionView: HorizontalCollectionView, didSelectedIn index: NSInteger) {
+        let currentOrgans:Organs?
+        guard let landmark = landmark else{
+            print("未获取到五官的特征")
+            return
+        }
+        switch index{
+            case 0:
+                currentOrgans = landmark.face
+                break
+            case 1:
+                currentOrgans = landmark.eyebrow
+                break
+            case 2:
+                currentOrgans = landmark.eye
+                break
+            case 3:
+                currentOrgans = landmark.mouth
+                break
+            case 4:
+                currentOrgans = landmark.nose
+                break
+            default:
+                currentOrgans = landmark.face
+                print("选择五官的时候出现错误")
+        }
+        refreshContentWith(organs: currentOrgans!)
+    }
+    
    
 }

@@ -31,8 +31,14 @@ class Makeup: NSObject,NSMutableCopying {
     var recommendationRate:Int = 5
     ///妆容图片
     var figureImage:String?
-    
+    ///妆容每一个部位
     var parts:[MakeupPart]?
+    ///特征
+    var characteristics = [String]()
+    //妆容滤镜
+    var filter:String?
+    ///妆容故事
+//    var story:MakeupStory?
     
     init(dict:[String:Any]) {
         super.init()
@@ -58,6 +64,21 @@ class Makeup: NSObject,NSMutableCopying {
             }
             return
         }
+        
+        if key == "characteristics"{
+            if let arr = value as? [String]{
+                //简单数据类型如整形，字符串，结构体，采用的是深拷贝
+                characteristics = arr
+            }
+        }
+        
+//        if key == "story"{
+//            if let dict = value as? [String:Any]{
+//                let story = MakeupStory(dict: dict)
+//                self.story = story
+//            }
+//            return
+//        }
         super.setValue(value, forKey: key)
     }
     

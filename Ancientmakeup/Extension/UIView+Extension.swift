@@ -46,6 +46,22 @@ extension UIView{
         layer.addSublayer(shape)
     }
     
+    func drawTopCurve(by height:CGFloat,color:UIColor){
+        let shape = CAShapeLayer()
+        let path = UIBezierPath()
+        path.move(to: .zero)
+        path.addLine(to: CGPoint(x: fitWidth(width: 100), y: 0))
+        path.addCurve(to: CGPoint(x: center.x, y: 20), controlPoint1: CGPoint(x: center.x - 40, y: 0), controlPoint2: CGPoint(x: center.x - 40, y: 20))
+        path.addCurve(to: CGPoint(x: center.x + (ScreenWidth - 2 * fitWidth(width: 100)) / 2, y: 0 ), controlPoint1: CGPoint(x: center.x + 40 , y: 20), controlPoint2: CGPoint(x: center.x + 40, y: 0 ))
+        path.addLine(to: CGPoint(x: ScreenWidth, y: 0))
+        path.addLine(to: CGPoint(x: ScreenWidth, y: height))
+        path.addLine(to: (CGPoint(x: 0, y: height)))
+        path.close()
+        shape.path = path.cgPath
+        shape.fillColor = color.cgColor
+        layer.mask = shape
+    }
+    
     ///绘制上部分的圆弧
     func drawTopCurve(color:UIColor){
         let shape = CAShapeLayer()

@@ -34,4 +34,23 @@ extension UIColor{
         let blue = CGFloat(arc4random() % 256) / 255.0
         return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
     }
+    
+    ///获取当前颜色的ARGB数值
+    var alpha:CGFloat {
+        return cgColor.components?.last ?? 1
+    }
+    var redValue:CGFloat {
+        return cgColor.components?.first ?? 0
+    }
+    
+    var greenValue:CGFloat {
+        return cgColor.components?[1] ?? 0
+    }
+    
+    var blueValue:CGFloat {
+        return cgColor.components?[2] ?? 0
+    }
+    
+    
+    
 }

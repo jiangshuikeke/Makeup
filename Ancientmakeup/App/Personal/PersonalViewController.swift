@@ -25,7 +25,9 @@ class PersonalViewController: UIViewController{
     
     deinit
     {
-        removeObserver(self, forKeyPath: "contentOffset")
+        if isRegistered{
+            removeObserver(self, forKeyPath: "contentOffset")
+        }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -123,6 +125,8 @@ class PersonalViewController: UIViewController{
     
     private var segmentHeight:CGFloat = fitHeight(height: 35)
     
+    private var isRegistered:Bool = false
+    
 }
 
 //MARK: - UI
@@ -143,6 +147,7 @@ extension PersonalViewController{
         //记录分页的原始起点
         originalFrame = segmentView.frame
         scrollView.contentSize = CGSize(width: ScreenWidth, height:ScreenHeight +  segmentView.frame.maxY)
+        print(collectionView.observationInfo.publisher)
     }
     
     func initLayout(){
@@ -178,6 +183,7 @@ extension PersonalViewController{
     }
     
     func prepareForCollectionView(){
+        isRegistered = true
         collectionView.addObserver(self, forKeyPath: "contentOffset", options: [NSKeyValueObservingOptions.new], context: nil)
     }
 }

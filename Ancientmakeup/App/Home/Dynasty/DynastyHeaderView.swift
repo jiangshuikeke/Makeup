@@ -38,7 +38,6 @@ class DynastyHeaderView: UIView {
     }()
     
     var headerHeight:CGFloat {
-        layoutIfNeeded()
         return contentLabel.frame.maxY + 12
     }
     
@@ -74,6 +73,8 @@ extension DynastyHeaderView{
         let line = NSMutableParagraphStyle()
         line.lineSpacing = 8
         contentLabel.attributedText = NSAttributedString(string: dynasty!.content ?? "无内容", attributes: [.font : MainBodyFont,.paragraphStyle : line])
+        contentLabel.sizeToFit()
         titleLabel.text = dynasty!.name
+        layoutIfNeeded()
     }
 }

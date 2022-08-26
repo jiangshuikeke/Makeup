@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>image</key>
+		<string>page3</string>
+		<key>content</key>
+		<string>在黄老之学影响下追求“简约素朴”“大美气象”以及“端庄温婉”的人物气质，使中国历史上汉代女子的妆容在整体上呈现为以追求薄妆为主。</string>
+		<key>name</key>
+		<string>汉代</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string>page2</string>
+		<key>content</key>
+		<string>唐五代是中国面妆史上最为繁盛的时期。在这一时期，出现了许多时髦切流行一时的面妆。主要分为红妆和胡妆。</string>
+		<key>name</key>
+		<string>唐代</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string>page0</string>
+		<key>content</key>
+		<string>宋代妇女由于受礼教束缚颇深，总体风格较之唐代素雅、端庄，称为“薄妆”、“淡妆”、或“素妆”；但崇尚华丽、新颖之风并未减弱。</string>
+		<key>name</key>
+		<string>宋代</string>
+	</dict>
+	<dict>
+		<key>image</key>
+		<string>page1</string>
+		<key>content</key>
+		<string>明代妆容的整体风气延续宋代汉族传统，以浅淡清雅为美，少有浓烈奇异的妆面。</string>
+		<key>name</key>
+		<string>明代</string>
+	</dict>
+</array>
+</plist>

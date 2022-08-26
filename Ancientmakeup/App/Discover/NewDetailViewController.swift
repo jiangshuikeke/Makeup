@@ -170,6 +170,8 @@ class NewDetailViewController: BaseViewController {
 //MARK: - UI
 extension NewDetailViewController{
     func initView(){
+        isPreHasTab = true
+        view.tag = 0
         view.backgroundColor = LightGrayColor
         navBarView = NavBarView(icon: nil, nickname: "Peter")
         navBarView.delegate = self
@@ -299,10 +301,6 @@ extension NewDetailViewController{
         }
     }
     
-    override func back() {
-        hiddenTabbar(isHidden: false, tag: 0)
-        super.back()
-    }
 }
 
 

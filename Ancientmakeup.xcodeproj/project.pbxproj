@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0BEA7802AEFE4B1306E433AC /* libPods-Ancientmakeup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED99C6D1E041174F21ABB7B4 /* libPods-Ancientmakeup.a */; };
-		2A4DC8C5282BE32F00DCB64C /* HardwareDetect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DC8C4282BE32F00DCB64C /* HardwareDetect.swift */; };
+		2A0EEB6428B8B5D8006651F7 /* Styles.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A0EEB6328B8B5D8006651F7 /* Styles.plist */; };
+		2A216B3328B4B107003B4151 /* TryMakeupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A216B3228B4B107003B4151 /* TryMakeupViewController.swift */; };
 		2A4DC8C7282CB19F00DCB64C /* CameraTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DC8C6282CB19F00DCB64C /* CameraTool.swift */; };
 		2A4DC8C9282CEDEB00DCB64C /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DC8C8282CEDEB00DCB64C /* CameraPreviewView.swift */; };
-		2A4DC8CB282DFD3A00DCB64C /* PhotoCaptureProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DC8CA282DFD3A00DCB64C /* PhotoCaptureProcessor.swift */; };
 		2A4DC8CF282E388100DCB64C /* RecommendHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DC8CE282E388100DCB64C /* RecommendHeaderView.swift */; };
 		2A4DC8D1282E86D400DCB64C /* RecommendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DC8D0282E86D400DCB64C /* RecommendDetailViewController.swift */; };
 		2A5E5C7A2818EF3E003C8445 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5E5C6E2818EF3E003C8445 /* DiscoverViewController.swift */; };
@@ -50,9 +50,7 @@
 		2A90D7572809470900E79596 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A90D7552809470900E79596 /* Main.storyboard */; };
 		2A90D7592809470C00E79596 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A90D7582809470C00E79596 /* Assets.xcassets */; };
 		2A90D75C2809470C00E79596 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A90D75A2809470C00E79596 /* LaunchScreen.storyboard */; };
-		2A90D766280947BB00E79596 /* Hue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90D765280947BB00E79596 /* Hue.swift */; };
 		2A90D7692809486100E79596 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90D7682809486100E79596 /* UIColor+Extension.swift */; };
-		2A90D76B28094F4200E79596 /* ScreenParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90D76A28094F4200E79596 /* ScreenParameter.swift */; };
 		2A90D771280955E600E79596 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90D770280955E600E79596 /* MainViewController.swift */; };
 		2A90D77328095A0500E79596 /* DIYTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90D77228095A0400E79596 /* DIYTabBar.swift */; };
 		2A90D776280A686200E79596 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90D775280A686200E79596 /* HomeViewController.swift */; };
@@ -86,13 +84,32 @@
 		2A9DFA822874765400EBCD4E /* winter_lesson.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2A9DFA812874765400EBCD4E /* winter_lesson.mp4 */; };
 		2A9DFA842874770300EBCD4E /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFA832874770200EBCD4E /* MediaView.swift */; };
 		2A9DFA862875207D00EBCD4E /* MakeupPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFA852875207D00EBCD4E /* MakeupPart.swift */; };
+		2A9DFB5A289773B100EBCD4E /* FaceLandmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFB59289773B000EBCD4E /* FaceLandmark.swift */; };
+		2A9DFB5C289773DB00EBCD4E /* VisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFB5B289773DB00EBCD4E /* VisionManager.swift */; };
+		2A9DFB5F289774D400EBCD4E /* MovePopTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFB5E289774D400EBCD4E /* MovePopTransition.swift */; };
+		2A9DFB65289E3B8700EBCD4E /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFB64289E3B8600EBCD4E /* UIAlertController+Extension.swift */; };
+		2A9DFB8728A2513E00EBCD4E /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFB8628A2513E00EBCD4E /* MotionManager.swift */; };
+		2A9DFB8928A341CB00EBCD4E /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFB8828A341CA00EBCD4E /* IndicatorView.swift */; };
+		2A9DFB8B28A3EDCC00EBCD4E /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFB8A28A3EDCC00EBCD4E /* Date+Extension.swift */; };
+		2A9DFBA528AD01F900EBCD4E /* FaceClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFBA028AD01F800EBCD4E /* FaceClassifier.mlmodel */; };
+		2A9DFBA628AD01F900EBCD4E /* MouthClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFBA128AD01F800EBCD4E /* MouthClassifier.mlmodel */; };
+		2A9DFBA728AD01F900EBCD4E /* EyebrowClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFBA228AD01F800EBCD4E /* EyebrowClassifier.mlmodel */; };
+		2A9DFBA828AD01F900EBCD4E /* NoseClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFBA328AD01F800EBCD4E /* NoseClassifier.mlmodel */; };
+		2A9DFBA928AD01F900EBCD4E /* EyeClassifer.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFBA428AD01F800EBCD4E /* EyeClassifer.mlmodel */; };
+		2A9DFBAB28AE420000EBCD4E /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DFBAA28AE420000EBCD4E /* PlistManager.swift */; };
+		2A9DFBAD28AE42BB00EBCD4E /* Organs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A9DFBAC28AE42BB00EBCD4E /* Organs.plist */; };
+		2AC9540628B5D13800D765E1 /* Tang.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AC9540528B5D13800D765E1 /* Tang.plist */; };
+		2AC9540828B5DB3900D765E1 /* DynastyMakeup.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AC9540728B5DB3900D765E1 /* DynastyMakeup.plist */; };
+		2AC9540A28B5DC8E00D765E1 /* Song.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AC9540928B5DC8E00D765E1 /* Song.plist */; };
+		2AC9540C28B5DC9400D765E1 /* Han.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AC9540B28B5DC9400D765E1 /* Han.plist */; };
+		2AC9540E28B5DC9900D765E1 /* Ming.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AC9540D28B5DC9900D765E1 /* Ming.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2A4DC8C4282BE32F00DCB64C /* HardwareDetect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareDetect.swift; sourceTree = "<group>"; };
+		2A0EEB6328B8B5D8006651F7 /* Styles.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Styles.plist; sourceTree = "<group>"; };
+		2A216B3228B4B107003B4151 /* TryMakeupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TryMakeupViewController.swift; sourceTree = "<group>"; };
 		2A4DC8C6282CB19F00DCB64C /* CameraTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTool.swift; sourceTree = "<group>"; };
 		2A4DC8C8282CEDEB00DCB64C /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
-		2A4DC8CA282DFD3A00DCB64C /* PhotoCaptureProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureProcessor.swift; sourceTree = "<group>"; };
 		2A4DC8CE282E388100DCB64C /* RecommendHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendHeaderView.swift; sourceTree = "<group>"; };
 		2A4DC8D0282E86D400DCB64C /* RecommendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDetailViewController.swift; sourceTree = "<group>"; };
 		2A5E5C6E2818EF3E003C8445 /* DiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
@@ -133,9 +150,7 @@
 		2A90D7582809470C00E79596 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A90D75B2809470C00E79596 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2A90D75D2809470C00E79596 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2A90D765280947BB00E79596 /* Hue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hue.swift; sourceTree = "<group>"; };
 		2A90D7682809486100E79596 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		2A90D76A28094F4200E79596 /* ScreenParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenParameter.swift; sourceTree = "<group>"; };
 		2A90D770280955E600E79596 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2A90D77228095A0400E79596 /* DIYTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIYTabBar.swift; sourceTree = "<group>"; };
 		2A90D775280A686200E79596 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -169,6 +184,25 @@
 		2A9DFA812874765400EBCD4E /* winter_lesson.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = winter_lesson.mp4; sourceTree = "<group>"; };
 		2A9DFA832874770200EBCD4E /* MediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaView.swift; sourceTree = "<group>"; };
 		2A9DFA852875207D00EBCD4E /* MakeupPart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeupPart.swift; sourceTree = "<group>"; };
+		2A9DFB59289773B000EBCD4E /* FaceLandmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceLandmark.swift; sourceTree = "<group>"; };
+		2A9DFB5B289773DB00EBCD4E /* VisionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisionManager.swift; sourceTree = "<group>"; };
+		2A9DFB5E289774D400EBCD4E /* MovePopTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovePopTransition.swift; sourceTree = "<group>"; };
+		2A9DFB64289E3B8600EBCD4E /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
+		2A9DFB8628A2513E00EBCD4E /* MotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
+		2A9DFB8828A341CA00EBCD4E /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
+		2A9DFB8A28A3EDCC00EBCD4E /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		2A9DFBA028AD01F800EBCD4E /* FaceClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FaceClassifier.mlmodel; sourceTree = "<group>"; };
+		2A9DFBA128AD01F800EBCD4E /* MouthClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MouthClassifier.mlmodel; sourceTree = "<group>"; };
+		2A9DFBA228AD01F800EBCD4E /* EyebrowClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EyebrowClassifier.mlmodel; sourceTree = "<group>"; };
+		2A9DFBA328AD01F800EBCD4E /* NoseClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = NoseClassifier.mlmodel; sourceTree = "<group>"; };
+		2A9DFBA428AD01F800EBCD4E /* EyeClassifer.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EyeClassifer.mlmodel; sourceTree = "<group>"; };
+		2A9DFBAA28AE420000EBCD4E /* PlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
+		2A9DFBAC28AE42BB00EBCD4E /* Organs.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Organs.plist; sourceTree = "<group>"; };
+		2AC9540528B5D13800D765E1 /* Tang.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Tang.plist; sourceTree = "<group>"; };
+		2AC9540728B5DB3900D765E1 /* DynastyMakeup.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DynastyMakeup.plist; sourceTree = "<group>"; };
+		2AC9540928B5DC8E00D765E1 /* Song.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Song.plist; sourceTree = "<group>"; };
+		2AC9540B28B5DC9400D765E1 /* Han.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Han.plist; sourceTree = "<group>"; };
+		2AC9540D28B5DC9900D765E1 /* Ming.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Ming.plist; sourceTree = "<group>"; };
 		51B3B802CFDF59275E8CFE14 /* Pods-Ancientmakeup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ancientmakeup.debug.xcconfig"; path = "Target Support Files/Pods-Ancientmakeup/Pods-Ancientmakeup.debug.xcconfig"; sourceTree = "<group>"; };
 		A8B5D31DBA729C3B1F74361E /* Pods-Ancientmakeup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ancientmakeup.release.xcconfig"; path = "Target Support Files/Pods-Ancientmakeup/Pods-Ancientmakeup.release.xcconfig"; sourceTree = "<group>"; };
 		ED99C6D1E041174F21ABB7B4 /* libPods-Ancientmakeup.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ancientmakeup.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -234,12 +268,13 @@
 		2A88C9D3282206B200A13BCE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2A9DFB59289773B000EBCD4E /* FaceLandmark.swift */,
+				2A91591028605F43006F0C7C /* Organs.swift */,
 				2A91590E28605EDE006F0C7C /* DynastyMakeup.swift */,
 				2A91590C28605DF2006F0C7C /* Makeup.swift */,
-				2A91591028605F43006F0C7C /* Organs.swift */,
 				2A91591E2864517E006F0C7C /* MakeupStory.swift */,
-				2A9DFA7C2873C70700EBCD4E /* LessonStep.swift */,
 				2A9DFA852875207D00EBCD4E /* MakeupPart.swift */,
+				2A9DFA7C2873C70700EBCD4E /* LessonStep.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -273,6 +308,8 @@
 		2A90D74E2809470900E79596 /* Ancientmakeup */ = {
 			isa = PBXGroup;
 			children = (
+				2A9DFBAE28AE42C800EBCD4E /* Infos */,
+				2A9DFB9128ACA03600EBCD4E /* Models */,
 				2A9DFA802874764400EBCD4E /* Media */,
 				2A90D7672809483300E79596 /* Extension */,
 				2A90D7642809478800E79596 /* Common */,
@@ -290,6 +327,7 @@
 		2A90D7632809474300E79596 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				2A9DFB5D289774A900EBCD4E /* Animation */,
 				2A8EA81D285C18C8009837F0 /* Delegate */,
 				2A88C9D3282206B200A13BCE /* Model */,
 				2A90D806280EAC5900E79596 /* BaseClass */,
@@ -308,12 +346,11 @@
 		2A90D7642809478800E79596 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				2A90D765280947BB00E79596 /* Hue.swift */,
-				2A90D76A28094F4200E79596 /* ScreenParameter.swift */,
+				2A9DFB5B289773DB00EBCD4E /* VisionManager.swift */,
 				2A5E5C8C281BD0A2003C8445 /* Global.swift */,
-				2A4DC8C4282BE32F00DCB64C /* HardwareDetect.swift */,
 				2A4DC8C6282CB19F00DCB64C /* CameraTool.swift */,
-				2A4DC8CA282DFD3A00DCB64C /* PhotoCaptureProcessor.swift */,
+				2A9DFB8628A2513E00EBCD4E /* MotionManager.swift */,
+				2A9DFBAA28AE420000EBCD4E /* PlistManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -326,6 +363,8 @@
 				2A90D783280E7AF900E79596 /* UIImage+Extension.swift */,
 				2A88C9D8282372E000A13BCE /* UIImageView+Extension.swift */,
 				2A88C9E22826507400A13BCE /* UIViewController+Extension.swift */,
+				2A9DFB64289E3B8600EBCD4E /* UIAlertController+Extension.swift */,
+				2A9DFB8A28A3EDCC00EBCD4E /* Date+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -339,9 +378,6 @@
 				2A90D775280A686200E79596 /* HomeViewController.swift */,
 				2A915920286594F7006F0C7C /* MakeupCardView.swift */,
 				2A91591C28644981006F0C7C /* MakeupCardItem.swift */,
-				2A88C9E8282786A800A13BCE /* RecommendViewController.swift */,
-				2A4DC8CE282E388100DCB64C /* RecommendHeaderView.swift */,
-				2A4DC8D0282E86D400DCB64C /* RecommendDetailViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -363,6 +399,7 @@
 				2A915922286A8E2E006F0C7C /* BannerView.swift */,
 				2A915926286B3B10006F0C7C /* ITButton.swift */,
 				2A915928286BDB83006F0C7C /* DoubleITView.swift */,
+				2A9DFB8828A341CA00EBCD4E /* IndicatorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -406,9 +443,13 @@
 		2A9DFA732872888500EBCD4E /* Face */ = {
 			isa = PBXGroup;
 			children = (
+				2A88C9E028260C9600A13BCE /* FaceAnalyzeViewController.swift */,
 				2A88C9EA282790F200A13BCE /* MainFaceViewController.swift */,
 				2A88C9E628266CB300A13BCE /* AnalysisViewController.swift */,
-				2A88C9E028260C9600A13BCE /* FaceAnalyzeViewController.swift */,
+				2A88C9E8282786A800A13BCE /* RecommendViewController.swift */,
+				2A4DC8CE282E388100DCB64C /* RecommendHeaderView.swift */,
+				2A4DC8D0282E86D400DCB64C /* RecommendDetailViewController.swift */,
+				2A216B3228B4B107003B4151 /* TryMakeupViewController.swift */,
 			);
 			path = Face;
 			sourceTree = "<group>";
@@ -440,6 +481,40 @@
 				2A9DFA812874765400EBCD4E /* winter_lesson.mp4 */,
 			);
 			path = Media;
+			sourceTree = "<group>";
+		};
+		2A9DFB5D289774A900EBCD4E /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				2A9DFB5E289774D400EBCD4E /* MovePopTransition.swift */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
+		2A9DFB9128ACA03600EBCD4E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2A9DFBA228AD01F800EBCD4E /* EyebrowClassifier.mlmodel */,
+				2A9DFBA428AD01F800EBCD4E /* EyeClassifer.mlmodel */,
+				2A9DFBA028AD01F800EBCD4E /* FaceClassifier.mlmodel */,
+				2A9DFBA128AD01F800EBCD4E /* MouthClassifier.mlmodel */,
+				2A9DFBA328AD01F800EBCD4E /* NoseClassifier.mlmodel */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2A9DFBAE28AE42C800EBCD4E /* Infos */ = {
+			isa = PBXGroup;
+			children = (
+				2A9DFBAC28AE42BB00EBCD4E /* Organs.plist */,
+				2AC9540728B5DB3900D765E1 /* DynastyMakeup.plist */,
+				2AC9540B28B5DC9400D765E1 /* Han.plist */,
+				2AC9540528B5D13800D765E1 /* Tang.plist */,
+				2AC9540928B5DC8E00D765E1 /* Song.plist */,
+				2AC9540D28B5DC9900D765E1 /* Ming.plist */,
+				2A0EEB6328B8B5D8006651F7 /* Styles.plist */,
+			);
+			path = Infos;
 			sourceTree = "<group>";
 		};
 		3C2423BD0A25C1E8168FE532 /* Frameworks */ = {
@@ -518,8 +593,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A0EEB6428B8B5D8006651F7 /* Styles.plist in Resources */,
+				2A9DFBAD28AE42BB00EBCD4E /* Organs.plist in Resources */,
+				2AC9540828B5DB3900D765E1 /* DynastyMakeup.plist in Resources */,
 				2A90D75C2809470C00E79596 /* LaunchScreen.storyboard in Resources */,
+				2AC9540E28B5DC9900D765E1 /* Ming.plist in Resources */,
+				2AC9540A28B5DC8E00D765E1 /* Song.plist in Resources */,
 				2A90D7592809470C00E79596 /* Assets.xcassets in Resources */,
+				2AC9540628B5D13800D765E1 /* Tang.plist in Resources */,
+				2AC9540C28B5DC9400D765E1 /* Han.plist in Resources */,
 				2A90D7572809470900E79596 /* Main.storyboard in Resources */,
 				2A9DFA822874765400EBCD4E /* winter_lesson.mp4 in Resources */,
 			);
@@ -560,30 +642,35 @@
 				2A915927286B3B10006F0C7C /* ITButton.swift in Sources */,
 				2A88C9E32826507400A13BCE /* UIViewController+Extension.swift in Sources */,
 				2A5E5C842818EF3E003C8445 /* CollectionViewController.swift in Sources */,
+				2A9DFBA728AD01F900EBCD4E /* EyebrowClassifier.mlmodel in Sources */,
 				2A5E5C802818EF3E003C8445 /* PersonalHeaderView.swift in Sources */,
-				2A4DC8C5282BE32F00DCB64C /* HardwareDetect.swift in Sources */,
+				2A9DFB5A289773B100EBCD4E /* FaceLandmark.swift in Sources */,
 				2A5E5C7E2818EF3E003C8445 /* NewDetailViewController.swift in Sources */,
 				2A5E5C86281AA927003C8445 /* NavViewController.swift in Sources */,
 				2A90D771280955E600E79596 /* MainViewController.swift in Sources */,
+				2A9DFBA628AD01F900EBCD4E /* MouthClassifier.mlmodel in Sources */,
 				2A4DC8C9282CEDEB00DCB64C /* CameraPreviewView.swift in Sources */,
 				2A88C9E728266CB300A13BCE /* AnalysisViewController.swift in Sources */,
 				2A9DFA7F2873E27400EBCD4E /* ToolView.swift in Sources */,
 				2A9DFA792872CAFC00EBCD4E /* BeginMakeupViewController.swift in Sources */,
 				2A90D7502809470900E79596 /* AppDelegate.swift in Sources */,
+				2A216B3328B4B107003B4151 /* TryMakeupViewController.swift in Sources */,
 				2A88C9E128260C9600A13BCE /* FaceAnalyzeViewController.swift in Sources */,
 				2A88C9DD2824ABB100A13BCE /* CommentViewCell.swift in Sources */,
 				2A4DC8CF282E388100DCB64C /* RecommendHeaderView.swift in Sources */,
+				2A9DFBA828AD01F900EBCD4E /* NoseClassifier.mlmodel in Sources */,
+				2A9DFB5F289774D400EBCD4E /* MovePopTransition.swift in Sources */,
 				2A90D77E280C106800E79596 /* RoundedRectView.swift in Sources */,
 				2A90D808280EAC8600E79596 /* BaseScrollViewController.swift in Sources */,
+				2A9DFB5C289773DB00EBCD4E /* VisionManager.swift in Sources */,
 				2A88C9EF2828F01E00A13BCE /* OrgansView.swift in Sources */,
 				2A88C9E5282653D800A13BCE /* BaseViewController.swift in Sources */,
 				2A91591128605F43006F0C7C /* Organs.swift in Sources */,
 				2A91591F2864517E006F0C7C /* MakeupStory.swift in Sources */,
+				2A9DFBA928AD01F900EBCD4E /* EyeClassifer.mlmodel in Sources */,
 				2A88C96628210EF800A13BCE /* CommunityViewController.swift in Sources */,
 				2A5E5C832818EF3E003C8445 /* DisplayView.swift in Sources */,
 				2A91591328615B4D006F0C7C /* DynastyMakeupController.swift in Sources */,
-				2A90D766280947BB00E79596 /* Hue.swift in Sources */,
-				2A4DC8CB282DFD3A00DCB64C /* PhotoCaptureProcessor.swift in Sources */,
 				2A90D776280A686200E79596 /* HomeViewController.swift in Sources */,
 				2A915907286018B3006F0C7C /* HorizontalLayout.swift in Sources */,
 				2A88C9E9282786A800A13BCE /* RecommendViewController.swift in Sources */,
@@ -595,6 +682,7 @@
 				2A90D77328095A0500E79596 /* DIYTabBar.swift in Sources */,
 				2A5E5C812818EF3E003C8445 /* PersonalViewController.swift in Sources */,
 				2A90D778280AAFB000E79596 /* DIYTabBarItem.swift in Sources */,
+				2A9DFB8928A341CB00EBCD4E /* IndicatorView.swift in Sources */,
 				2A5E5C8D281BD0A2003C8445 /* Global.swift in Sources */,
 				2A91590D28605DF2006F0C7C /* Makeup.swift in Sources */,
 				2A5E5C7B2818EF3E003C8445 /* FoucsViewController.swift in Sources */,
@@ -607,21 +695,25 @@
 				2A88C9DB2823AB6A00A13BCE /* DetailBottomView.swift in Sources */,
 				2A9DFA72287040C000EBCD4E /* DynastyHeaderView.swift in Sources */,
 				2A8EA81F285C1C1B009837F0 /* PickerDelegate.swift in Sources */,
+				2A9DFBAB28AE420000EBCD4E /* PlistManager.swift in Sources */,
 				2A5E5C7A2818EF3E003C8445 /* DiscoverViewController.swift in Sources */,
 				2A91591928640FA2006F0C7C /* ReleaseViewController.swift in Sources */,
+				2A9DFB65289E3B8700EBCD4E /* UIAlertController+Extension.swift in Sources */,
 				2A9DFA7D2873C70700EBCD4E /* LessonStep.swift in Sources */,
 				2A88C9ED2827923D00A13BCE /* BaseTabBarController.swift in Sources */,
 				2A5E5C8B281B8196003C8445 /* NavView.swift in Sources */,
 				2A5E5C7F2818EF3E003C8445 /* SegmentView.swift in Sources */,
 				2A88C9D9282372E000A13BCE /* UIImageView+Extension.swift in Sources */,
-				2A90D76B28094F4200E79596 /* ScreenParameter.swift in Sources */,
 				2A5E5C7C2818EF3E003C8445 /* WaterfallFlowLayout.swift in Sources */,
 				2A4DC8C7282CB19F00DCB64C /* CameraTool.swift in Sources */,
 				2A90D7522809470900E79596 /* SceneDelegate.swift in Sources */,
+				2A9DFB8728A2513E00EBCD4E /* MotionManager.swift in Sources */,
 				2A9DFA862875207D00EBCD4E /* MakeupPart.swift in Sources */,
 				2A88C9DF2824B43400A13BCE /* SubCommentViewCell.swift in Sources */,
 				2A91591B28640FD3006F0C7C /* MarketViewController.swift in Sources */,
+				2A9DFBA528AD01F900EBCD4E /* FaceClassifier.mlmodel in Sources */,
 				2A90D784280E7AF900E79596 /* UIImage+Extension.swift in Sources */,
+				2A9DFB8B28A3EDCC00EBCD4E /* Date+Extension.swift in Sources */,
 				2A9DFA842874770300EBCD4E /* MediaView.swift in Sources */,
 				2A90D7692809486100E79596 /* UIColor+Extension.swift in Sources */,
 				2A9DFA77287288E700EBCD4E /* TeachingViewController.swift in Sources */,
@@ -784,7 +876,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Ancientmakeup/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "华妆";
-				INFOPLIST_KEY_NSCameraUsageDescription = "本应用需要访问您的摄像头来提供相关的服务";
+				INFOPLIST_KEY_NSCameraUsageDescription = "华妆需要您授权摄像头的权限来拍摄人脸照片";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "本应用需要访问您的相册来提供相关的服务";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -798,7 +890,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.starsea.Ancientmakeup;
+				PRODUCT_BUNDLE_IDENTIFIER = com.starsea.Ancientmakeup0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -818,7 +910,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Ancientmakeup/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "华妆";
-				INFOPLIST_KEY_NSCameraUsageDescription = "本应用需要访问您的摄像头来提供相关的服务";
+				INFOPLIST_KEY_NSCameraUsageDescription = "华妆需要您授权摄像头的权限来拍摄人脸照片";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "本应用需要访问您的相册来提供相关的服务";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -832,7 +924,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.starsea.Ancientmakeup;
+				PRODUCT_BUNDLE_IDENTIFIER = com.starsea.Ancientmakeup0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -15,18 +15,23 @@ class MainViewController :BaseTabBarController{
         initView()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     //MARK: - 懒加载
     private lazy var myItems : [DIYTabBarItem] = {
         var datas = [DIYTabBarItem]()
-        let home = makeItem(title: "华妆", image: "home", selectedImage: "home_selected", tag: 0)
-        let community = makeItem(title: "社区", image: "community", selectedImage: "community_selected", tag: 1)
-        let market = makeItem(title: "集市", image: "shop", selectedImage: "shop_selected", tag: 2)
-        let personal = makeItem(title: "个人", image: "personal", selectedImage: "personal_selected", tag: 3)
+        let home = makeItem(title: "华妆", image: "home", tag: 0)
+        let community = makeItem(title: "社区", image: "community", tag: 1)
+        
+        let market = makeItem(title: "集市", image: "shop", tag: 2)
+        let personal = makeItem(title: "个人", image: "personal", tag: 3)
+        
+        //TODO: - 先禁止用户点击
+        community.isUserInteractionEnabled = false
+        market.isUserInteractionEnabled = false
+        personal.isUserInteractionEnabled = false
         datas.append(home)
         datas.append(community)
         datas.append(market)

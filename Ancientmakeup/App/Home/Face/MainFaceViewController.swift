@@ -6,7 +6,10 @@
 //
 
 import UIKit
-
+//0.判断当前的图像中存在多少人脸
+//1.需要进行背景模糊
+//2.进行五官的区域划分
+//3.
 ///作为脸型分析报告的主视图
 class MainFaceViewController: BaseTabBarController {
     override func viewDidLoad() {
@@ -16,7 +19,9 @@ class MainFaceViewController: BaseTabBarController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        faceImageView.image = figureImage
+        faceImageView.image = displayImage
+        //1.分析人脸数量
+        progressImage()
     }
     
     deinit{
@@ -26,18 +31,23 @@ class MainFaceViewController: BaseTabBarController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         timer.invalidate()
-        
     }
     
     // MARK: - 懒加载以及变量
     
-    //存储传来的图像
-    var figureImage:UIImage?
+    //用来存储原始照片进行分析
+    var figureImage:CGImage?
+    //用来存储需要展示的人像照片
+    var displayImage:UIImage?
+    //需要修正的方向
+    var orientation:CGImagePropertyOrientation?
+    //是否可以分析
+    private var isAnalysis:Bool = true
 
     //开始分析
     private lazy var myItems:[DIYTabBarItem] = {
        var data = [DIYTabBarItem]()
-       let face = makeItem(title: "开始分析", image:"analyze_black", selectedImage: nil, tag: 0)
+       let face = makeItem(title: "开始分析", image:"analyze_black", tag: 0)
         data.append(face)
        return data
     }()
@@ -45,15 +55,15 @@ class MainFaceViewController: BaseTabBarController {
     //分析报告 妆容推荐
     private lazy var mainItems:[DIYTabBarItem] = {
         var data = [DIYTabBarItem]()
-        let report = makeItem(title: "分析报告", image: "analysis_black", selectedImage: "analysis_white", tag: 1)
-        let recommend = makeItem(title: "妆容推荐", image: "recommend_black", selectedImage: "recommend_white", tag: 2)
+        let report = makeItem(title: "分析报告", image: "analysis_black", tag: 1)
+        let recommend = makeItem(title: "妆容推荐", image: "recommend_black", tag: 2)
         data.append(contentsOf: [report,recommend])
         return data
     }()
     
     //五官视图
-    private lazy var mouseView:OrgansView = {
-        return OrgansView(type: .mouse, title: "标准唇")
+    private lazy var mouthView:OrgansView = {
+        return OrgansView(type: .mouth, title: "标准唇")
     }()
     
     private lazy var eyeView:OrgansView = {
@@ -73,16 +83,14 @@ class MainFaceViewController: BaseTabBarController {
     }()
     
     private lazy var faceImageView:UIImageView = {
-        let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: ScreenHeight)))
-        imageView.backgroundColor = .clear
+        let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: NavBarViewHeight), size: CGSize(width: ScreenWidth, height: ScreenHeight - NavBarViewHeight - fitHeight(height: 130))))
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    
     //向下箭头
     private lazy var downArrowImageView0:UIImageView = {
-        let img = UIImageView(image: UIImage(named: "down_arrow_clear"))
+        let img = UIImageView(image: UIImage(named: "down_arrow_white")?.withTintColor(.clear))
         img.isHidden = true
         return img
     }()
@@ -100,11 +108,33 @@ class MainFaceViewController: BaseTabBarController {
         return timer
     }()
     
+    private var landmark:FaceLandmark?{
+        didSet{
+            //配置view
+            eyeView.title = landmark?.eye?.name
+            faceView.title = landmark?.face?.name
+            eyebrowView.title = landmark?.eyebrow?.name
+            mouthView.title = landmark?.mouth?.name
+            noseView.title = landmark?.nose?.name
+            //1.动态显示五官类型
+            displayOrangsView()
+            downArrowImageView0.isHidden = false
+            downArrowImageView1.isHidden = false
+            timer.fire()
+            print(landmark?.style)
+        }
+    }
+    
+    private lazy var visionManager:VisionManager = VisionManager()
+    
+    private lazy var indicatorView:IndicatorView = IndicatorView(title:"分析中")
+    
 }
 
 // MARK: - UI
 extension MainFaceViewController{
     func initView(){
+        //
         view.tag = 1
         navigationController?.isNavigationBarHidden = true
         navBarView.title = "脸型分析"
@@ -114,13 +144,16 @@ extension MainFaceViewController{
         diyTabBar.myItems = myItems
         view.addSubview(downArrowImageView0)
         view.addSubview(downArrowImageView1)
+        //缓冲
+        view.addSubview(indicatorView)
         //添加五官
         view.addSubview(eyeView)
         view.addSubview(noseView)
         view.addSubview(eyebrowView)
-        view.addSubview(mouseView)
+        view.addSubview(mouthView)
         view.addSubview(faceView)
         view.addSubview(faceImageView)
+        view.addSubview(indicatorView)
         view.sendSubviewToBack(faceImageView)
         initLayout()
 
@@ -158,7 +191,7 @@ extension MainFaceViewController{
             make.bottom.equalTo(diyTabBar.snp.top)
         }
         
-        mouseView.snp.makeConstraints { make in
+        mouthView.snp.makeConstraints { make in
             make.height.equalTo(fitHeight(height: 45))
             make.width.equalTo(fitWidth(width: 120))
             make.right.equalTo(view).offset(-fitWidth(width: 20))
@@ -169,7 +202,7 @@ extension MainFaceViewController{
             make.height.equalTo(fitHeight(height: 45))
             make.width.equalTo(fitWidth(width: 120))
             make.right.equalTo(view).offset(-fitWidth(width: 20))
-            make.top.equalTo(mouseView.snp.bottom)
+            make.top.equalTo(mouthView.snp.bottom)
         }
     }
     
@@ -189,13 +222,14 @@ extension MainFaceViewController{
             make.bottom.equalTo(diyTabBar.snp.top).offset(-fitHeight(height: 180))
         }
         
-        mouseView.snp.updateConstraints { make in
+        mouthView.snp.updateConstraints { make in
             make.top.equalTo(eyebrowView.snp.bottom).offset(fitHeight(height: 10))
         }
         
         faceView.snp.updateConstraints { make in
-            make.top.equalTo(mouseView.snp.bottom).offset(fitHeight(height: 10))
+            make.top.equalTo(mouthView.snp.bottom).offset(fitHeight(height: 10))
         }
+        indicatorView.stopAnimating()
         
         UIView.animate(withDuration: 1.0, delay: 0, options: []) {
             self.view.layoutIfNeeded()
@@ -207,9 +241,9 @@ extension MainFaceViewController{
     func downArrowAnimation(){
         if re{
             downArrowImageView1.image = UIImage(named: "down_arrow_white")
-            downArrowImageView0.image = UIImage(named: "down_arrow_clear")
+            downArrowImageView0.image = UIImage(named: "down_arrow_white")?.withTintColor(.clear)
         }else{
-            downArrowImageView1.image = UIImage(named: "down_arrow_clear")
+            downArrowImageView1.image = UIImage(named: "down_arrow_white")?.withTintColor(.clear)
             downArrowImageView0.image = UIImage(named: "down_arrow_white")
         }
         re = !re
@@ -219,7 +253,7 @@ extension MainFaceViewController{
     func configureViewControllers(){
         if viewControllers == nil{
             //TODO: - 图像不存在时
-            let analysisVC = UINavigationController(rootViewController: AnalysisViewController(image: figureImage ?? UIImage()))
+            let analysisVC = UINavigationController(rootViewController: AnalysisViewController(image: displayImage ?? UIImage(),landmark: landmark))
             let recommendVC = UINavigationController(rootViewController: RecommendViewController())
             viewControllers = [analysisVC,recommendVC]
         }
@@ -231,7 +265,18 @@ extension MainFaceViewController{
         noseView.isHidden = isHidden
         eyebrowView.isHidden = isHidden
         faceView.isHidden = isHidden
-        mouseView.isHidden = isHidden
+        mouthView.isHidden = isHidden
+    }
+    
+    //分析人脸数量
+    func progressImage(){
+        let number = visionManager.numberOfFace(cgImage: figureImage!)
+        //不存在人脸或者说人脸数量大于1 无法进行探测
+        if number == 0 || number > 1{
+            let alert = UIAlertController(errorMessage: "当前未检测到人脸或人脸数量过多")
+            present(alert, animated: true)
+            isAnalysis = false
+        }
     }
 }
 
@@ -241,14 +286,18 @@ extension MainFaceViewController{
         let view = sender.view
         let tag = view?.tag
         if tag == 0{
-            //1.动态显示五官类型
-            displayOrangsView()
-            downArrowImageView0.isHidden = false
-            downArrowImageView1.isHidden = false
-            timer.fire()
-            
-            //2.切换tabbar内容
-            diyTabBar.myItems = mainItems
+            if isAnalysis{
+                indicatorView.startAnimating()
+                //2.切换tabbar内容
+                diyTabBar.myItems = mainItems
+                //3.进行五官的类别的分析
+                //3.1 进行五官的切分
+                guard let cgImage = figureImage else{
+                    print("figureImage no cgImage")
+                    return
+                }
+                landmark = visionManager.visionFaceLandmark(cgImage: cgImage, orientation: orientation)
+            }
         }else{
             diyTabBar.roundedRect.isHidden = false
             organsViewIsHidden(isHidden: true)
@@ -269,11 +318,4 @@ extension MainFaceViewController{
        
     }
 }
-
-//MARK：- 回退
-//extension MainFaceViewController:NavBarViewDelegate{
-//    func back() {
-//        
-//    }
-//}
 

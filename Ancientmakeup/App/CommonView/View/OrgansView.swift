@@ -9,11 +9,11 @@ import UIKit
 
 
 //五官类型
-enum OragnsType {
+enum OrgansType {
     case eye
     case eyebrow
     case nose
-    case mouse
+    case mouth
     case face
     case adorn
 }
@@ -29,7 +29,7 @@ class OrgansView: UIView {
     }
     
     //默认隐藏
-    convenience init(type:OragnsType,title:String,isHidden:Bool = true){
+    convenience init(type:OrgansType,title:String,isHidden:Bool = true){
         self.init(frame: CGRect(origin: .zero, size: CGSize(width: fitWidth(width: 120), height: fitHeight(height: 45))))
         self.type = type
         titleLabel.text = title
@@ -40,7 +40,7 @@ class OrgansView: UIView {
     //MARK: - 懒加载以及变量
     
     //类型
-    private var type:OragnsType?
+    private var type:OrgansType?
     //五官视图
     private lazy var organImageView:UIImageView = {
         let imageView = UIImageView()
@@ -123,7 +123,7 @@ extension OrgansView{
                 named = "eyebrow"
             case .some(.nose):
                 named = "nose"
-            case .some(.mouse):
+            case .some(.mouth):
                 named = "mouse"
             case .some(.eye):
                 named = "eye"

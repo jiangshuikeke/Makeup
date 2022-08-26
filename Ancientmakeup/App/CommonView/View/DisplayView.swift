@@ -20,7 +20,7 @@ class DisplayView: UIView {
     }
     
     convenience init(title:String,number:String) {
-        self.init(frame: CGRect(origin: .zero, size: CGSize(width: fitWidth(width: 145), height: fitHeight(height: 75))))
+        self.init(frame: CGRect(origin: .zero, size: CGSize(width: 145, height: 74)))
         titleLabel.text = title
         numberLabel.text = number
         initView()
@@ -58,15 +58,15 @@ extension DisplayView{
         numberLabel.snp.makeConstraints { make in
             make.left.equalTo(self)
             make.right.equalTo(self)
-            make.top.equalTo(self).offset(fitHeight(height: 11))
-            make.height.equalTo(fitHeight(height: 23))
+            make.top.equalTo(self).offset(13)
+//            make.height.equalTo(fitHeight(height: 23))
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(numberLabel.snp.bottom).offset(fitHeight(height: 4))
+            make.top.equalTo(numberLabel.snp.bottom).offset(5)
             make.left.equalTo(self)
             make.right.equalTo(self)
-            make.height.equalTo(fitHeight(height: 23))
+//            make.height.equalTo(fitHeight(height: 23))
         }
     }
 }

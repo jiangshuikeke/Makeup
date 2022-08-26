@@ -16,61 +16,45 @@ enum ImageAlignment {
 
 ///标题图像
 class ITButton: UIButton {
-    convenience init(title:String,alignment:ImageAlignment) {
-        self.init(type: .custom)
-        setTitle(title, for: .normal)
-        setTitleColor(.black, for: .normal)
-        titleLabel?.font = UIFont.boldSystemFont(ofSize: 28)
-        titleLabel?.sizeToFit()
-        self.alignment = alignment
-//        isEnabled = false
-        initView()
+    
+    convenience init(title:String){
+        self.init()
+        let attrbuteTitle = NSAttributedString(string: title, attributes:[.font:Title2Font])
+        setAttributedTitle(attrbuteTitle, for: .normal)
     }
     
     convenience init() {
-        self.init(type: .custom)
-        titleLabel?.font = Title2Font
-        initView()
+        self.init(image: "reddot",font: Title2Font)
+    }
+    
+    convenience init(image:String,font:UIFont){
+        var con = UIButton.Configuration.plain()
+        con.imagePadding = 6
+        con.imagePlacement = .leading
+        con.baseForegroundColor = UIColor.black
+        con.image = UIImage(named: image)
+        self.init(configuration: con, primaryAction:nil)
+        self.font = font
+//        titleLabel?.frame = CGRect(origin: .zero, size: CGSize(width: fitWidth(width: 88), height: fitHeight(height: 44)))
+        titleLabel?.numberOfLines = 0
+        titleLabel?.lineBreakMode = .byWordWrapping
+        titleLabel?.preferredMaxLayoutWidth = fitWidth(width: 88)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        //设置边距
-//        let titleW = titleLabel?.bounds.width ?? 0
-//        let titleH = titleLabel?.bounds.height ?? 0
-//        let imageW = imageView?.bounds.width ?? 0
-//        let imageH = imageView?.bounds.height ?? 0
-        let space:CGFloat = 3
-        
-        switch alignment {
-            case .left:
-            titleEdgeInsets = UIEdgeInsets(top: 0, left: space, bottom: 0, right: -space)
-            imageEdgeInsets = UIEdgeInsets(top: 0, left: -space, bottom: 0, right: space)
-            break
-            case .right: break
-            case .top: break
-            case .bottom: break
-        }
     }
     
     //MARK: - 懒加载以及变量
     private var alignment:ImageAlignment = .left
-    
+    private var font:UIFont?
     var title:String?{
         didSet{
-            setTitle(title, for: .normal)
+            let attrbuteTitle = NSAttributedString(string: title!, attributes:[.font:font!])
+            setAttributedTitle(attrbuteTitle, for: .normal)
         }
     }
 }
 
-extension ITButton{
-    func initView(){
-        imageView?.frame.size = CGSize(width: 10, height: 10)
-        imageView?.layer.cornerRadius = 5
-        imageView?.layer.masksToBounds = true
-        setImage(UIImage(named: "reddot"), for: .normal)
-    }
-
-}
 
 
