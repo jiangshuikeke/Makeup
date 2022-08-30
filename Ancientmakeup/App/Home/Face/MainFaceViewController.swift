@@ -31,6 +31,7 @@ class MainFaceViewController: BaseTabBarController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         timer.invalidate()
+        
     }
     
     // MARK: - 懒加载以及变量
@@ -110,10 +111,11 @@ class MainFaceViewController: BaseTabBarController {
     
     private var landmark:FaceLandmark?{
         didSet{
+            print(landmark?.quantity)
             //配置view
-            eyeView.title = landmark?.eye?.name
+            eyeView.title = landmark?.rightEye?.name
             faceView.title = landmark?.face?.name
-            eyebrowView.title = landmark?.eyebrow?.name
+            eyebrowView.title = landmark?.rightEyebrow?.name
             mouthView.title = landmark?.mouth?.name
             noseView.title = landmark?.nose?.name
             //1.动态显示五官类型
@@ -121,7 +123,6 @@ class MainFaceViewController: BaseTabBarController {
             downArrowImageView0.isHidden = false
             downArrowImageView1.isHidden = false
             timer.fire()
-            print(landmark?.style)
         }
     }
     
@@ -253,8 +254,13 @@ extension MainFaceViewController{
     func configureViewControllers(){
         if viewControllers == nil{
             //TODO: - 图像不存在时
-            let analysisVC = UINavigationController(rootViewController: AnalysisViewController(image: displayImage ?? UIImage(),landmark: landmark))
-            let recommendVC = UINavigationController(rootViewController: RecommendViewController())
+            let analysis = AnalysisViewController()
+            analysis.figureImage = displayImage
+            analysis.landmark = landmark
+            let analysisVC = UINavigationController(rootViewController: analysis)
+            let re = RecommendViewController()
+            re.landmark = landmark
+            let recommendVC = UINavigationController(rootViewController: re)
             viewControllers = [analysisVC,recommendVC]
         }
     }

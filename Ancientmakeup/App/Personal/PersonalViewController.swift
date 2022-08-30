@@ -147,7 +147,6 @@ extension PersonalViewController{
         //记录分页的原始起点
         originalFrame = segmentView.frame
         scrollView.contentSize = CGSize(width: ScreenWidth, height:ScreenHeight +  segmentView.frame.maxY)
-        print(collectionView.observationInfo.publisher)
     }
     
     func initLayout(){
@@ -176,7 +175,7 @@ extension PersonalViewController{
         collectionView.snp.makeConstraints { make in
             make.left.equalTo(horizontalScrollView)
             make.top.equalTo(horizontalScrollView)
-            make.height.equalTo(view.frame.height - fitHeight(height: 90))
+            make.height.equalTo(ScreenHeight - NavBarViewHeight - fitHeight(height: 35) - BottomViewHeight)
             make.width.equalTo(ScreenWidth)
         }
        

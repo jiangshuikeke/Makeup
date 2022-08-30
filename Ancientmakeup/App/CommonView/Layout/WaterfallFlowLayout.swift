@@ -37,6 +37,8 @@ class WaterfallFlowLayout: UICollectionViewFlowLayout {
             //随机高度
 //            let randHeight:CGFloat = delegate?.waterfallFlowLayout(self, heightForCellInIndexPath: index) ?? 0
             let itemHeight:CGFloat = delegate?.waterfallFlowLayout(self, heightForCellInIndexPath: index) ?? 0
+            //适配高度 根据固定的cell宽度
+//            let itemHeight:CGFloat =
             let attr = UICollectionViewLayoutAttributes(forCellWith: index)
             //哪列高度小就将item放在该列下面
             var col = 0

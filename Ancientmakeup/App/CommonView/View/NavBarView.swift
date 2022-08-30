@@ -35,11 +35,7 @@ class NavBarView: UIView {
     private lazy var backImageView:UIImageView = {
         let imageView = UIImageView()
         imageView.frame.size = CGSize(width: 50, height: 50)
-//        imageView.layer.backgroundColor = BlackColor.cgColor
-//        imageView.layer.cornerRadius = 18
-//        imageView.contentMode = .center
         imageView.image = UIImage(named: "back_arrow")
-//        imageView.padding(15)
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backViewController)))
         return imageView
@@ -81,6 +77,9 @@ class NavBarView: UIView {
         }
     }
     
+    //
+    public lazy var rightButton:UIButton = UIButton()
+    
     //是否是详细动态页的导航栏
     private var isDetail:Bool = false
     
@@ -93,6 +92,7 @@ extension NavBarView{
     func initView(){
         self.backgroundColor = .clear
         addSubview(backImageView)
+        
         backImageView.snp.makeConstraints { make in
             make.centerY.equalTo(self).offset(StatusHeight / 2)
             make.left.equalTo(self).offset(fitWidth(width: 20))
@@ -113,6 +113,20 @@ extension NavBarView{
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalTo(self).offset(StatusHeight / 2)
             make.centerX.equalTo(self)
+        }
+        
+    }
+    
+    //
+    func configureRightButton(imageName:String,name:String?,imageColor:UIColor = .black){
+        rightButton.setTitle(name, for: .normal)
+        rightButton.setImage(UIImage(named: imageName)?.withTintColor(imageColor), for: .normal)
+        rightButton.imageView?.contentMode = .scaleAspectFit
+        addSubview(rightButton)
+        rightButton.snp.makeConstraints { make in
+            make.centerY.equalTo(backImageView)
+            make.right.equalTo(self).offset(-fitWidth(width: 20))
+            make.height.width.equalTo(fitWidth(width: 30))
         }
     }
     

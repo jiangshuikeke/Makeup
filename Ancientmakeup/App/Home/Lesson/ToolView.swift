@@ -47,27 +47,23 @@ class ToolView: UIView {
         return label
     }()
     
-    private lazy var colorImageView:UIImageView = {
-        let view = UIImageView()
-        return view
-    }()
+    private lazy var colorImageView:ColorCircleView = ColorCircleView()
     
     private lazy var colorLabel:UILabel = {
         let label = UILabel()
-//        label.layer.cornerRadius = 5
-//        label.layer.masksToBounds = true
-//        label.layer.borderColor = BlackColor.cgColor
-//        label.layer.borderWidth = 1
         return label
     }()
     
     var step:LessonStep?{
         didSet{
+            //根据步骤绘制四分之一圆
+            
             toolImageView.image = UIImage(named: step!.toolImage ?? "error")
             toolLabel.text = step!.toolName
-            colorImageView.image = UIImage(named: "color_image_test")
             colorLabel.text = step!.colorName
-            
+            colorImageView.color = step!.color!
+            colorImageView.location = quarterCircleLocation(by: step!.number)
+            colorImageView.setNeedsDisplay()
             toolLabel.sizeToFit()
             colorLabel.sizeToFit()
             addRoundedRect(label: toolLabel)
@@ -94,8 +90,8 @@ extension ToolView{
         toolImageView.snp.makeConstraints { make in
             make.centerX.equalTo(self).offset(-60)
             make.top.equalTo(self).offset(35)
-            make.width.equalTo(15)
-            make.height.equalTo(73)
+            make.width.equalTo(fitWidth(width: 62))
+            make.height.equalTo(fitHeight(height: 62))
         }
         
         toolLabel.snp.makeConstraints { make in
@@ -106,8 +102,8 @@ extension ToolView{
         colorImageView.snp.makeConstraints { make in
             make.centerX.equalTo(self).offset(60)
             make.centerY.equalTo(toolImageView)
-            make.width.equalTo(81)
-            make.height.equalTo(73)
+            
+            make.height.width.equalTo(50)
         }
         
         colorLabel.snp.makeConstraints { make in
@@ -128,6 +124,7 @@ extension ToolView{
         shape.borderWidth = 1
         shape.strokeColor = BlackColor.cgColor
         shape.fillColor = UIColor.clear.cgColor
+        label.layer.sublayers?.removeAll()
         label.layer.addSublayer(shape)
     }
 }

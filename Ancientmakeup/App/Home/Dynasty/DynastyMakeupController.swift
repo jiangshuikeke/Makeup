@@ -25,7 +25,10 @@ class DynastyMakeupController: BaseViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        contentTableView.drawTopCurve(by: headerView.headerHeight + fitHeight(height: 325) * CGFloat(cellNum), color: .white)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     
@@ -70,7 +73,7 @@ class DynastyMakeupController: BaseViewController {
     }()
     
     private lazy var contentTableView:UITableView = {
-        let view = UITableView(frame: CGRect(x: 0, y: fitHeight(height: 290), width: ScreenWidth, height: ScreenHeight - NavBarViewHeight), style: .plain)
+        let view = UITableView(frame: CGRect(x: 0, y: fitHeight(height: 290), width: ScreenWidth, height: ScreenHeight - NavBarViewHeight - fitHeight(height: 105)), style: .plain)
         view.backgroundColor = .white
         view.register(RecommendViewCell.self, forCellReuseIdentifier: RecommendCellID)
         view.delegate = self
@@ -78,9 +81,6 @@ class DynastyMakeupController: BaseViewController {
         view.separatorStyle = .none
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
-        
-        //减缓滑动速度
-//        view.decelerationRate = .fast
         view.tableHeaderView = headerView
         return view
     }()
@@ -98,13 +98,14 @@ class DynastyMakeupController: BaseViewController {
         return header
     }()
     
+    private lazy var plistManager:PlistManager = PlistManager()
+    
     private lazy var datas:[DynastyMakeup] = {
         var datas = [DynastyMakeup]()
-        let winter = modelForMakeup()
-        if let han = PlistManager.shared.loadDynsaty(name: "汉代"),
-           let tang = PlistManager.shared.loadDynsaty(name: "唐代"),
-           let song = PlistManager.shared.loadDynsaty(name: "宋代"),
-           let ming = PlistManager.shared.loadDynsaty(name: "明代"){
+        if let han = plistManager.loadDynsaty(name: "汉代"),
+           let tang = plistManager.loadDynsaty(name: "唐代"),
+           let song = plistManager.loadDynsaty(name: "宋代"),
+           let ming = plistManager.loadDynsaty(name: "明代"){
             datas.append(contentsOf: [han,tang,song,ming])
         }
         return datas
@@ -117,7 +118,6 @@ class DynastyMakeupController: BaseViewController {
     private var fixedCollectionViewMinY:CGFloat = 1
     
     let TPBWCollectionViewCellID = "TPBWCollectionViewCellID"
-    private let DynastyHeaderViewID = "DynastyHeaderViewID"
     private let RecommendCellID = "RecommendCellID"
     private var first = false
     private var cellNum:Int = 0
@@ -137,11 +137,12 @@ extension DynastyMakeupController{
         topContentView.addSubview(collectionView)
         view.addSubview(contentTableView)
         initLayout()
-        updateHeaderView()
-        makeupFigureImageView.image = UIImage(named: datas[currentIndex].image!)
         topContentView.layoutIfNeeded()
         fixedCollectionViewMinY = collectionView.frame.minY
         collectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+        refreshView()
+    
+        
     }
     
     func initLayout(){
@@ -170,6 +171,14 @@ extension DynastyMakeupController{
         headerView.frame.size = CGSize(width: ScreenWidth, height: headerView.headerHeight)
     }
     
+    //刷新视图
+    func refreshView(){
+        makeupFigureImageView.image = UIImage(named: datas[currentIndex].image!)
+        updateHeaderView()
+        contentTableView.reloadData()
+        contentTableView.drawTopCurve(height: headerView.headerHeight + fitHeight(height: 300) * CGFloat(cellNum), color: .white)
+    }
+    
     func backViewAlpha(alpha:CGFloat){
         blackCircleView.alpha = alpha
         makeupFigureImageView.alpha = alpha
@@ -183,9 +192,6 @@ extension DynastyMakeupController{
 }
 
 extension DynastyMakeupController:UITableViewDelegate,UITableViewDataSource{
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         cellNum = datas[currentIndex].makeups!.count
@@ -203,7 +209,7 @@ extension DynastyMakeupController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return fitHeight(height: 320)
+        return fitHeight(height: 290)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -243,8 +249,7 @@ extension DynastyMakeupController:UITableViewDelegate,UITableViewDataSource{
 extension DynastyMakeupController:HorizontalCollectionViewDelegate{
     func collectionView(_ horizontalCollectionView: HorizontalCollectionView, didSelectedIn index: NSInteger) {
         currentIndex = index
-        makeupFigureImageView.image = UIImage(named: datas[currentIndex].image!)
-        contentTableView.reloadData()
+        refreshView()
     }
 }
 

@@ -29,7 +29,7 @@ class VisionManager{
     }()
     
     //五官探测的偏移量
-    private let organsOffset:CGFloat = 50
+    private let organsOffset:CGFloat = 30
     //人脸偏移量
     private let faceOffset:CGFloat = 200
     private var originalImage:CGImage?
@@ -39,8 +39,6 @@ class VisionManager{
     private var currentOrientation:CGImagePropertyOrientation?
     
     //图像分类器
-//    private static let imageClassifier = 
-    
     private var predictionHandlers = [VNRequest:ImagePredictionHandler]()
     //人脸检测请求
     private lazy var faceRequest:VNDetectFaceRectanglesRequest = {
@@ -93,7 +91,7 @@ extension VisionManager{
     
     //根据原始图像以及ImageView来进行五官点位的适配
     func visionFaceLandmark(cgImage:CGImage,orientation:CGImagePropertyOrientation?)-> FaceLandmark?{
-        
+        organsArea.removeAll()
         let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
         try? handler.perform([request,faceRequest])
         let observations = request.results?.first
@@ -104,45 +102,43 @@ extension VisionManager{
             print("无法获取boundingBox")
             return nil
         }
-        self.boundingBox = boundingBox
-        
         //存储变量并且保证了每一个变量都不为nil
+        self.boundingBox = boundingBox
         originalImage = cgImage
         currentOrientation = orientation
         //五官的位置是以boundingBox为坐标系的
         //获取五官实例子
         guard let nose = landmark2D?.nose,
-              let eye = landmark2D?.rightEye,
-              let eyebrow = landmark2D?.rightEyebrow,
-              let mouth = landmark2D?.outerLips,
+              let rightEye = landmark2D?.rightEye,
               let leftEye = landmark2D?.leftEye,
+              let rightEyebrow = landmark2D?.rightEyebrow,
               let leftEyebrow = landmark2D?.leftEyebrow,
-              let rightEyebrow = landmark2D?.rightEyebrow
+              let mouth = landmark2D?.outerLips
             else{
             print("一些五官无法检测")
             return nil
         }
 
         //存储到实体类中
-        
         let res = FaceLandmark()
         let noseImage = organsImage(in: nose.pointsInImage(imageSize: originalSize!))
-        let eyeImage = organsImage(in: eye.pointsInImage(imageSize: originalSize!))
-        let eyebrowImage = organsImage(in: eyebrow.pointsInImage(imageSize: originalSize!))
-        let mouthImage = organsImage(in: mouth.pointsInImage(imageSize: originalSize!))
+        let rightEyeImage = organsImage(in: rightEye.pointsInImage(imageSize: originalSize!))
         let leftEyeImage = organsImage(in: leftEye.pointsInImage(imageSize: originalSize!))
+        let rightEyebrowImage = organsImage(in: rightEyebrow.pointsInImage(imageSize: originalSize!))
         let leftEyebrowImage = organsImage(in: leftEyebrow.pointsInImage(imageSize: originalSize!))
+        let mouthImage = organsImage(in: mouth.pointsInImage(imageSize: originalSize!))
         
+        res.rightEye = Organs(image: rightEyeImage.0!, cgImage: rightEyeImage.1!)
         res.leftEye = Organs(image: leftEyeImage.0!, cgImage: leftEyeImage.1!)
         res.leftEyebrow = Organs(image: leftEyebrowImage.0!, cgImage: leftEyebrowImage.1!)
+        res.rightEyebrow = Organs(image: rightEyebrowImage.0!, cgImage: rightEyebrowImage.1!)
         res.mouth = Organs(image: mouthImage.0!,cgImage: mouthImage.1!)
-        res.mouth?.type = .mouth
-        res.eyebrow = Organs(image: eyebrowImage.0!,cgImage: eyebrowImage.1!)
-        res.eyebrow?.type = .eyebrow
         res.nose = Organs(image: noseImage.0!,cgImage: noseImage.1!)
+        
+        res.mouth?.type = .mouth
+        res.rightEyebrow?.type = .eyebrow
         res.nose?.type = .nose
-        res.eye = Organs(image: eyeImage.0!,cgImage: eyeImage.1!)
-        res.eye?.type = .eye
+        res.rightEye?.type = .eye
         let faceImage = faceImage()
         res.face = Organs(image:faceImage.0!,cgImage: faceImage.1!)
         res.face?.type = .face
@@ -168,7 +164,7 @@ extension VisionManager{
     
     
     //返回指定五官Model
-    static func createImageClassifier(type:OrgansType) -> VNCoreMLModel?{
+    func createImageClassifier(type:OrgansType) -> VNCoreMLModel?{
         let configuration = MLModelConfiguration()
         var model:MLModel = MLModel()
         switch type {
@@ -217,10 +213,6 @@ extension VisionManager{
     
     //预测
     func predict(for cgImage:CGImage,type:OrgansType,completion:@escaping ImagePredictionHandler){
-//        guard let cgImage = image.cgImage else{
-//            print("图像没有底层的CGImage")
-//            return
-//        }
         //创建对应的分类请求
         let classifierRequest = createClassificationRequest(type: type)
         //将该用户对预测后的handler加入到全局变量中
@@ -236,7 +228,7 @@ extension VisionManager{
     
     //生成图像分类请求
     private func createClassificationRequest(type:OrgansType) -> VNImageBasedRequest{
-        let classificationRequest = VNCoreMLRequest(model:VisionManager.createImageClassifier(type: type)! ,completionHandler: visionRequestHandler)
+        let classificationRequest = VNCoreMLRequest(model:createImageClassifier(type: type)! ,completionHandler: visionRequestHandler)
         
         classificationRequest.imageCropAndScaleOption = .centerCrop
         return classificationRequest
@@ -319,16 +311,14 @@ private extension VisionManager{
     }
     ///获取人脸图像
     func faceImage() -> (UIImage?,CGImage?){
-        let observation = faceRequest.results?.first!
-        let imageSize = CGSize(width: originalImage!.width, height: originalImage!.height)
+//        let observation = faceRequest.results?.first!
 //        let offsetRation = faceOffset / imageSize.width
-        let offsetBundingBox = observation?.boundingBox
 //        offsetBundingBox?.origin.x -= offsetRation
 //        offsetBundingBox?.origin.y -= offsetRation
 //        offsetBundingBox?.size.width += 2 * offsetRation
 //        offsetBundingBox?.size.height += 2 * offsetRation
         //获取脸部rect
-        let faceRect = convertRect(bounds: offsetBundingBox!, imageSize: imageSize)
+        let faceRect = convertRect(bounds: boundingBox!, imageSize: originalSize!)
         let cgFace = originalImage!.cropping(to: faceRect)
         guard let cgFace = cgFace else{
             print("无法生成脸型")
@@ -395,13 +385,13 @@ private extension VisionManager{
             landmark.mouth?.name = fit?.classification
         }
         
-        predict(for: landmark.eyebrow!.cgImage!, type: .eyebrow) { prediction in
+        predict(for: landmark.rightEyebrow!.cgImage!, type: .eyebrow) { prediction in
             guard let prediction = prediction else{
                 return
             }
 
             let fit = prediction.max {$0.confidencePercentage < $1.confidencePercentage}
-            landmark.eyebrow?.name = fit?.classification
+            landmark.rightEyebrow?.name = fit?.classification
         }
         
         predict(for: landmark.nose!.cgImage!, type: .nose) { prediction in
@@ -413,13 +403,13 @@ private extension VisionManager{
             landmark.nose?.name = fit?.classification
         }
         
-        predict(for: landmark.eye!.cgImage!, type: .eye) { prediction in
+        predict(for: landmark.rightEye!.cgImage!, type: .eye) { prediction in
             guard let prediction = prediction else{
                 return
             }
 
             let fit = prediction.max {$0.confidencePercentage < $1.confidencePercentage}
-            landmark.eye?.name = fit?.classification
+            landmark.rightEye?.name = fit?.classification
         }
         
     }
@@ -428,6 +418,7 @@ private extension VisionManager{
     func countQuantity(landmark:FaceLandmark){
         //reduce 选择第一个元素为初始并且将所有元素相加
         let sum = organsArea.reduce(0,+)
+        print("五官面积为\(sum)")
         landmark.quantity = sum / faceArea
     }
     
@@ -438,6 +429,7 @@ private extension VisionManager{
         //计算脸部大小
         if isCountFaceArea{
            faceArea = width * height
+            print("脸部面积为\(faceArea)")
         }
         let x = bounds.origin.x * imageSize.width
         let y = (1 - bounds.origin.y - bounds.height) * imageSize.height
@@ -480,7 +472,7 @@ private extension VisionManager{
         let maxY = points.max {$0.y < $1.y}!
         //计算原始宽高
         let originalWidth = maxX.x - minX.x
-        let originalHeight = maxY.y - minY.y + 2
+        let originalHeight = maxY.y - minY.y
         let area = originalWidth * originalHeight
         //存储
         organsArea.append(area)

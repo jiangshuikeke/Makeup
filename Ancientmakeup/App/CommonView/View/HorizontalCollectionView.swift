@@ -18,6 +18,7 @@ class HorizontalCollectionView: UICollectionView {
         let layout = HorizontalLayout()
         self.init(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: fitHeight(height: 103))), collectionViewLayout: layout)
         if isLesson{
+            organs.removeLast()
             organs.append(.adorn)
         }
         initView()

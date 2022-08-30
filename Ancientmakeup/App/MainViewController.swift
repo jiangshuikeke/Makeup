@@ -29,15 +29,17 @@ class MainViewController :BaseTabBarController{
         let personal = makeItem(title: "个人", image: "personal", tag: 3)
         
         //TODO: - 先禁止用户点击
-        community.isUserInteractionEnabled = false
+//        community.isUserInteractionEnabled = false
         market.isUserInteractionEnabled = false
-        personal.isUserInteractionEnabled = false
+//        personal.isUserInteractionEnabled = false
         datas.append(home)
         datas.append(community)
         datas.append(market)
         datas.append(personal)
         return datas
     }()
+    
+    
 }
 
 //MARK: - UI

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0BEA7802AEFE4B1306E433AC /* libPods-Ancientmakeup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED99C6D1E041174F21ABB7B4 /* libPods-Ancientmakeup.a */; };
+		2A0EDFFF28BB52960067722A /* ColorCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0EDFFE28BB52960067722A /* ColorCircleView.swift */; };
 		2A0EEB6428B8B5D8006651F7 /* Styles.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A0EEB6328B8B5D8006651F7 /* Styles.plist */; };
 		2A216B3328B4B107003B4151 /* TryMakeupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A216B3228B4B107003B4151 /* TryMakeupViewController.swift */; };
 		2A4DC8C7282CB19F00DCB64C /* CameraTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DC8C6282CB19F00DCB64C /* CameraTool.swift */; };
@@ -106,6 +107,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A0EDFFE28BB52960067722A /* ColorCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCircleView.swift; sourceTree = "<group>"; };
 		2A0EEB6328B8B5D8006651F7 /* Styles.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Styles.plist; sourceTree = "<group>"; };
 		2A216B3228B4B107003B4151 /* TryMakeupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TryMakeupViewController.swift; sourceTree = "<group>"; };
 		2A4DC8C6282CB19F00DCB64C /* CameraTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTool.swift; sourceTree = "<group>"; };
@@ -471,6 +473,7 @@
 				2A9DFA7A2872E0A100EBCD4E /* MakeupStepView.swift */,
 				2A9DFA7E2873E27400EBCD4E /* ToolView.swift */,
 				2A9DFA832874770200EBCD4E /* MediaView.swift */,
+				2A0EDFFE28BB52960067722A /* ColorCircleView.swift */,
 			);
 			path = Lesson;
 			sourceTree = "<group>";
@@ -711,6 +714,7 @@
 				2A9DFA862875207D00EBCD4E /* MakeupPart.swift in Sources */,
 				2A88C9DF2824B43400A13BCE /* SubCommentViewCell.swift in Sources */,
 				2A91591B28640FD3006F0C7C /* MarketViewController.swift in Sources */,
+				2A0EDFFF28BB52960067722A /* ColorCircleView.swift in Sources */,
 				2A9DFBA528AD01F900EBCD4E /* FaceClassifier.mlmodel in Sources */,
 				2A90D784280E7AF900E79596 /* UIImage+Extension.swift in Sources */,
 				2A9DFB8B28A3EDCC00EBCD4E /* Date+Extension.swift in Sources */,

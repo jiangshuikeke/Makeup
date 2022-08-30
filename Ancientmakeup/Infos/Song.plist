@@ -10,7 +10,7 @@
 		<key>content</key>
 		<string>北宋词人常用酒红、霞光、芙蓉、荷花形容胭脂，如晏几道的“娇面胜芙蓉，脸边天与红”，“宋女也施朱粉，但大多是施以浅朱，只透微红。“从前风行的一些妆容仍未过时，例如：曾流行于唐代的先施浅朱，然后以白粉盖之，呈浅红色的飞霞妆。</string>
 		<key>recommendationRate</key>
-		<integer>5</integer>
+		<integer>4</integer>
 		<key>figureImage</key>
 		<string>fly</string>
 		<key>characteristics</key>
@@ -62,7 +62,7 @@
 		<string>南宋女性偏好淡雅的面妆，妆容越发白净素雅。诗词里的描述也以恬淡浅匀为多，如“出茧修眉淡薄妆”（陆游《无题》）、“晚凉倦浴，素妆薄试铅华靓”（陈允平《侧犯》）等。从传世的南宋绘画看，仕女脸上很难找到胭脂的痕迹，妆面白净，在额头、鼻梁、下巴等处还会特别提亮。唇色浅淡，似乎只淡淡涂抹一些无色口脂，眉形也多纤细。
 </string>
 		<key>recommendationRate</key>
-		<integer>5</integer>
+		<integer>3</integer>
 		<key>figureImage</key>
 		<string>sanbai</string>
 		<key>characteristics</key>
@@ -78,7 +78,7 @@
 		<key>content</key>
 		<string>以白妆为基础，妆粉施涂较薄，但在眼角点抹白粉，状如泪水充盈欲滴，有种哀愁之美。“宋代女性在祭扫时常做此妆，周密便记载了南宋临安郊外祭扫的场景：“妇人泪妆素衣，提携儿女，酒壶肴罍。”（《武林旧事》）从“泪妆更看薄臙脂”“西楼月下当时见，泪粉偷匀”（晏几道《采桑子》）看，泪妆也是平时的淡雅妆容。</string>
 		<key>recommendationRate</key>
-		<integer>5</integer>
+		<integer>3</integer>
 		<key>figureImage</key>
 		<string>lei</string>
 		<key>characteristics</key>

@@ -37,6 +37,8 @@ class Makeup: NSObject,NSMutableCopying {
     var characteristics = [String]()
     //妆容滤镜
     var filter:String?
+    //妆容整体步骤
+    var step:NSInteger = 0
     ///妆容故事
 //    var story:MakeupStory?
     

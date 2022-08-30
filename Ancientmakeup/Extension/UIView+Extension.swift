@@ -46,7 +46,7 @@ extension UIView{
         layer.addSublayer(shape)
     }
     
-    func drawTopCurve(by height:CGFloat,color:UIColor){
+    func drawTopCurve(height:CGFloat,color:UIColor){
         let shape = CAShapeLayer()
         let path = UIBezierPath()
         path.move(to: .zero)

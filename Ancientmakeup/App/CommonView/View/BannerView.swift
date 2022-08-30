@@ -26,7 +26,7 @@ class BannerView: UIView {
     
     //MARK: - 懒加载以及变量
     private lazy var scrollView:UIScrollView = {
-        let view = UIScrollView(frame: .zero)
+        let view = UIScrollView(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: itemHeight)))
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false
         view.isPagingEnabled = true
@@ -36,8 +36,6 @@ class BannerView: UIView {
     
     private lazy var pageController:UIPageControl = {
         let control = UIPageControl()
-        control.currentPage = number / 2
-        control.numberOfPages = number
         control.pageIndicatorTintColor = EssentialColor
         return control
     }()
@@ -60,7 +58,7 @@ class BannerView: UIView {
     
     private let itemWidth:CGFloat = ScreenWidth - fitWidth(width: 40)
     
-    private let itemHeight:CGFloat = 140
+    private let itemHeight:CGFloat = fitHeight(height: 126)
     
     private let itemLineSpacing:CGFloat = 20
     
@@ -72,9 +70,7 @@ private extension BannerView{
     func initView(){
         addSubview(scrollView)
         addSubview(pageController)
-        configureContentView()
         initLayout()
-        startLoop()
     }
     
     func initLayout(){
@@ -84,54 +80,34 @@ private extension BannerView{
         }
     }
     
-    func item(in index:NSInteger) -> UIImageView{
+    //第index位置的ImageView
+    func imageView(in index:NSInteger) -> UIImageView{
         let itemX = CGFloat(index) * ScreenWidth + itemLineSpacing
         let image = UIImageView(frame: CGRect(x: itemX, y: 0, width: itemWidth, height: itemHeight))
         image.layer.masksToBounds = true
         image.layer.cornerRadius = itemHeight / 10
-        image.image = UIImage(color: UIColor().randColor)
         image.tag = index
         return image
     }
-}
-
-extension BannerView{
-    @objc
-    func startLoop(){
-        timer.fire()
-    }
-    
-    func stopLoop(){
-        if timer.isValid{
-            timer.invalidate()
-        }
-    }
-    
-    @objc
-    func loop(){
-        //获取当前偏移量
-        scrollView.scrollRectToVisible(CGRect(x: CGFloat(currentIndex) * ScreenWidth, y: 0, width: ScreenWidth, height: itemHeight), animated: true)
-        currentIndex += 1
-    }
     
     func configureContentView(){
-        scrollView.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: itemHeight)
-        var firstImageView:UIImageView
-        var endImageView:UIImageView
+        //实现循环
+        let firstImageView = imageView(in: 0)
+        let endImageView = imageView(in: number + 1)
+        //从1开始是因为第一个ImageView已经插入
         for i in 1 ... number{
-            let imageView = item(in: i)
+            let imageView = imageView(in: i)
             if i == 1{
-                firstImageView = item(in: number + 1)
-                firstImageView.image = imageView.image
+                firstImageView.image = dataSoure?.imageForDisplay(in: number - 1)
                 scrollView.addSubview(firstImageView)
             }
+//            imageViews.append(imageView)
+            imageView.image = dataSoure?.imageForDisplay(in: i - 1)
+            scrollView.addSubview(imageView)
             if i == number{
-                endImageView = item(in: 0)
-                endImageView.image = imageView.image
+                endImageView.image = dataSoure?.imageForDisplay(in: 0)
                 scrollView.addSubview(endImageView)
             }
-            imageViews.append(imageView)
-            scrollView.addSubview(imageView)
         }
         scrollView.contentSize = CGSize(width: CGFloat(number + 2) * ScreenWidth, height: itemHeight)
         
@@ -149,8 +125,32 @@ extension BannerView{
         }
         currentIndex = Int(page)
     }
-
     
+    @objc
+    func loop(){
+        //获取当前偏移量
+        scrollView.scrollRectToVisible(CGRect(x: CGFloat(currentIndex) * ScreenWidth, y: 0, width: ScreenWidth, height: itemHeight), animated: true)
+        currentIndex += 1
+    }
+}
+
+extension BannerView{
+    @objc
+    func startLoop(){
+        timer.fire()
+    }
+    
+    func stopLoop(){
+        if timer.isValid{
+            timer.invalidate()
+        }
+    }
+    
+    func reloadViews(){
+        pageController.numberOfPages = number
+        configureContentView()
+        startLoop()
+    }
 }
 
 extension BannerView:UIScrollViewDelegate{
@@ -175,6 +175,7 @@ extension BannerView:UIScrollViewDelegate{
 
 protocol BannerViewDataSoure:NSObjectProtocol {
     func numberOfItems(in bannerView:BannerView) -> NSInteger
+    func imageForDisplay(in index:NSInteger) -> UIImage
 }
 
 protocol BannerViewDelegate:NSObjectProtocol {

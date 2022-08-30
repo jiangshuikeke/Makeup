@@ -30,19 +30,7 @@ class RecommendViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    override var frame: CGRect{
-        get{
-            return super.frame
-        }
-        set{
-            var temp = newValue
-            temp.origin.x += fitWidth(width: 20)
-            temp.size.width -= fitWidth(width: 40)
-            super.frame = temp
-        }
-    }
-    
+        
     override func layoutSubviews() {
         super.layoutSubviews()
         if !detailButton.frame.isEmpty && detailButton.contentView.subviews.isEmpty{
@@ -57,7 +45,8 @@ class RecommendViewCell: UITableViewCell {
         didSet{
             makeupTitleLabel.title = makeup?.name
             starsNum = makeup?.recommendationRate ?? 5
-            makeupImageView.image = UIImage(named: makeup?.figureImage ?? "error")
+            let cardName = (makeup?.figureImage)! + "_card"
+            backView.image = UIImage(named: cardName)
         }
     }
     //妆容名称
@@ -67,16 +56,15 @@ class RecommendViewCell: UITableViewCell {
     private lazy var makeupImageView:UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "wintersweet_title")
         return imageView
     }()
     
     ///推荐标题
     private lazy var recommendTitleLabel:UILabel = {
         let label = UILabel()
-        label.font = LittleFont
+        label.font = MainBodyFont
         label.textColor = .black
-        label.text = "推荐指数"
+        label.text = "热度"
         label.sizeToFit()
         return label
     }()
@@ -115,11 +103,9 @@ class RecommendViewCell: UITableViewCell {
         return view
     }()
     
-    private lazy var backView:UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 60, width: ScreenWidth - fitWidth(width: 40), height: 200))
-        view.backgroundColor = SkinColor
-        view.layer.cornerRadius = 20
-        view.layer.masksToBounds = true
+    private lazy var backView:UIImageView = {
+        let view = UIImageView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: fitHeight(height: 290)))
+        view.contentMode = .scaleAspectFill
         return view
     }()
     
@@ -137,12 +123,9 @@ extension RecommendViewCell{
         contentView.addSubview(recommendTitleLabel)
         contentView.addSubview(starsView)
         //
-        contentView.addSubview(makeupImageView)
-        //
         contentView.addSubview(likeButton)
         contentView.addSubview(detailButton)
         //
-        contentView.sendSubviewToBack(makeupImageView)
         contentView.sendSubviewToBack(backView)
         initLayout()
         
@@ -151,39 +134,39 @@ extension RecommendViewCell{
     
     func initLayout(){
         makeupTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(backView).offset(25)
-            make.left.equalTo(backView).offset(fitWidth(width: 15))
+            make.top.equalTo(backView).offset(fitHeight(height: 90))
+            make.left.equalTo(backView).offset(fitWidth(width: 24))
         }
         
         recommendTitleLabel.snp.makeConstraints { make in
-            make.left.equalTo(makeupTitleLabel)
+            make.left.equalTo(makeupTitleLabel).offset(fitWidth(width: 12))
             make.top.equalTo(makeupTitleLabel.snp.bottom).offset(15)
         }
         
         starsView.snp.makeConstraints { make in
             make.top.equalTo(recommendTitleLabel).offset(-2)
-            make.left.equalTo(recommendTitleLabel.snp.right).offset(5)
+            make.left.equalTo(recommendTitleLabel.snp.right).offset(fitWidth(width: 5))
         }
         
         likeButton.snp.makeConstraints { make in
-            make.left.equalTo(makeupTitleLabel)
-            make.bottom.equalTo(backView).offset(-10)
-            make.height.width.equalTo(64)
+            make.left.equalTo(recommendTitleLabel)
+            make.bottom.equalTo(backView).offset(-fitHeight(height: 22))
+            make.height.width.equalTo(fitWidth(width: 56))
         }
         
         detailButton.snp.makeConstraints { make in
             make.left.equalTo(likeButton.snp.right).offset(fitWidth(width: 15))
             make.top.equalTo(likeButton)
-            make.right.equalTo(backView).offset(-fitWidth(width: 15))
+            make.right.equalTo(backView).offset(-fitWidth(width: 27))
             make.bottom.equalTo(likeButton)
         }
         
-        makeupImageView.snp.makeConstraints { make in
-            make.right.equalTo(backView)
-            make.bottom.equalTo(backView)
-            make.height.equalTo(fitHeight(height: 280))
-            make.width.equalTo(fitWidth(width: 240))
-        }
+//        makeupImageView.snp.makeConstraints { make in
+//            make.right.equalTo(backView)
+//            make.bottom.equalTo(backView)
+//            make.height.equalTo(fitHeight(height: 275))
+//            make.width.equalTo(fitWidth(width: 335))
+//        }
         
 
     }
@@ -196,8 +179,8 @@ extension RecommendViewCell{
             }
         }
         for i in 0 ..< starsNum{
-            let itemX = CGFloat(i) * fitWidth(width: 23)
-            let imageView = UIImageView(frame: CGRect(x: itemX, y: 0, width: fitWidth(width: 20), height: fitWidth(width: 20)))
+            let itemX = CGFloat(i) * fitWidth(width: 16)
+            let imageView = UIImageView(frame: CGRect(x: itemX, y: fitHeight(height: 3), width: fitWidth(width: 13), height: fitWidth(width: 13)))
             imageView.contentMode = .scaleAspectFit
             imageView.image = UIImage(named: "star_red")
             starsView.addSubview(imageView)

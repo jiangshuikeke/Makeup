@@ -9,12 +9,6 @@ import UIKit
 
 ///分析报告
 class AnalysisViewController: UIViewController {
-
-    convenience init(image:UIImage,landmark:FaceLandmark?){
-        self.init()
-        figureImageView.image = image
-        self.landmark = landmark
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +22,7 @@ class AnalysisViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        figureImageView.image = figureImage
     }
     
     override func viewDidLayoutSubviews() {
@@ -49,7 +43,7 @@ class AnalysisViewController: UIViewController {
     var landmark:FaceLandmark?
     var figureImage:UIImage?
     
-    let organsImageWidth:CGFloat = ScreenWidth - 2 * fitWidth(width: 32)
+    let organsImageWidth:CGFloat = 0.7 * ScreenWidth
     private lazy var topContentView:UIScrollView = {
         let view = UIScrollView(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: fitHeight(height: 320))))
         view.backgroundColor = SkinColor
@@ -109,11 +103,12 @@ class AnalysisViewController: UIViewController {
         label.font = MainBodyFont
         label.textColor = DeepGrayColor
         label.numberOfLines = 0
-        label.preferredMaxLayoutWidth = ScreenWidth - fitWidth(width: 36) * 2
+        label.preferredMaxLayoutWidth = ScreenWidth - fitWidth(width: 20) * 2
         return label
     }()
     
     private var first = false
+    private var plistManager:PlistManager = PlistManager()
     
     let TPBWCollectionViewCellID = "TPBWCollectionViewCellID"
 
@@ -132,7 +127,7 @@ extension AnalysisViewController{
         contentScrollView.addSubview(organsContentLabel)
         initLayout()
         collectionView.layoutIfNeeded()
-//        contentScrollView.layoutIfNeeded()
+        contentScrollView.layoutIfNeeded()
         collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .left)
         refreshContentWith(organs: (landmark?.face)!)
     }
@@ -165,9 +160,9 @@ extension AnalysisViewController{
         }
         
         organsImageView.snp.makeConstraints { make in
-            make.centerX.equalTo(view)
+            make.left.equalTo(organTitleLabel)
             make.top.equalTo(organTitleLabel.snp.bottom).offset(5)
-            make.height.equalTo(fitHeight(height: 90))
+            make.height.equalTo(fitHeight(height: 160))
             make.width.equalTo(organsImageWidth)
         }
         
@@ -180,17 +175,30 @@ extension AnalysisViewController{
     func refreshContentWith(organs:Organs){
         organTitleLabel.title = organs.name ?? "无定义"
         //根据图像大小来适配当前ImageView
-        let image = organs.image
-        let imageSize = image?.size
-        let ratio = organsImageWidth / imageSize!.width
-        var height = imageSize?.height ?? fitHeight(height: 90) * ratio
-        height = min(height, fitHeight(height: 328))
+        guard let image = organs.image else{
+            print("未获取到当前五官图像")
+            return
+        }
+        let imageSize = image.size
+        //检查长宽
+        var width:CGFloat = organsImageWidth
+        var height:CGFloat = 0
+        if imageSize.height > imageSize.width{
+            height = organsImageWidth
+            width = height * 0.618
+        }else{
+            height = organsImageWidth * 0.618
+        }
         organsImageView.snp.updateConstraints { make in
+            make.width.equalTo(width)
             make.height.equalTo(height)
         }
         
-        organsImageView.image = organs.image ?? UIImage(named:"error")
-        organsContentLabel.text = PlistManager.shared.readValueFor(organs.name!, type: organs.type!) ?? "该五官没有定义"
+        organsImageView.image = image
+        //使得内容行距为8
+        let line = NSMutableParagraphStyle()
+        line.lineSpacing = 8
+        organsContentLabel.attributedText = NSAttributedString(string: plistManager.readValueFor(organs.name!, type: organs.type!) ?? "该五官没有定义", attributes: [.font:MainBodyFont,.paragraphStyle:line])
         organsContentLabel.sizeToFit()
     }
 }
@@ -209,10 +217,10 @@ extension AnalysisViewController:HorizontalCollectionViewDelegate{
                 currentOrgans = landmark.face
                 break
             case 1:
-                currentOrgans = landmark.eyebrow
+                currentOrgans = landmark.rightEyebrow
                 break
             case 2:
-                currentOrgans = landmark.eye
+                currentOrgans = landmark.rightEye
                 break
             case 3:
                 currentOrgans = landmark.mouth

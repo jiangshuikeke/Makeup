@@ -29,7 +29,7 @@ class TryMakeupViewController: BaseViewController {
     
 //MARK: - 懒加载以及变量
     //贴图图像
-    public var imageName:String?
+    public var filterName:String?
         //检测当前设备是否支持AR
     private lazy var isSupproted:Bool = {
         guard ARConfiguration.isSupported else{
@@ -63,22 +63,73 @@ class TryMakeupViewController: BaseViewController {
     private lazy var makeupNode:SCNNode = {
         let node =  makeFaceGeometry(setup: { material in
             material?.fillMode = .fill
-            material?.diffuse.contents = UIImage(named: imageName!)
+            material?.diffuse.contents = UIImage(named: filterName!)
         }, fillMesh: false)
-        node.name = imageName
+        node.name = filterName
         return node
     }()
+    
+    ///拍照按键
+    private lazy var snapButton:UIButton = {
+        let button = UIButton(type: .custom)
+        button.layer.cornerRadius = fitWidth(width: 40)
+        button.setImage(UIImage(named: "camera_white"), for: .normal)
+        button.configuration?.imagePadding = 10
+        button.backgroundColor = EssentialColor
+        button.addTarget(self, action: #selector(snap), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var imageView:UIImageView = UIImageView(frame: view.frame)
 }
 
 //MARK: - UI
 extension TryMakeupViewController{
     func initView(){
+        navBarView.title = "国风试妆"
+        view.backgroundColor = .white
         view.addSubview(sceneView)
-        initLayout()
+        view.sendSubviewToBack(sceneView)
+//        view.addSubview(snapButton)
+
+//        sceneView.addSubview(imageView)
+//        initLayout()
     }
     
     func initLayout(){
+        snapButton.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.bottom.equalTo(view).offset(-fitHeight(height: 88))
+            make.height.width.equalTo(fitWidth(width: 80))
+        }
+    }
+}
+
+//MARK: - 按键
+extension TryMakeupViewController{
+    @objc
+    func snap(){
+        //获取当前frame并且保存到相册
+        let screenRect = UIScreen.main.bounds
+        UIGraphicsBeginImageContext(screenRect.size)
         
+        let context = UIGraphicsGetCurrentContext()!
+        view.layer.render(in: context)
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        //保存到相册中
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(imageHanlder(image:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    
+    @objc
+    func imageHanlder(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: AnyObject){
+        if error != nil{
+            print("保存失败\(error)")
+        }else{
+            print("保存成功")
+        }
+
     }
 }
 
@@ -107,6 +158,14 @@ extension TryMakeupViewController:ARSCNViewDelegate,ARSessionDelegate{
     func remakeTracking(){
         if isSupproted{
             sceneView.session.run(faceConfiguration, options: [.removeExistingAnchors,.resetTracking])
+        }else{
+            let alert = UIAlertController(title: "设备不支持", message: "当前设备不支持使用人脸追踪技术，无法实现滤镜贴图，请尝试其他设备", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "好的", style: .default) {[weak self] action in
+                guard let self = self else{ return }
+                self.navigationController?.popViewController(animated: true)
+            }
+            alert.addAction(ok)
+            present(alert, animated: true, completion: nil)
         }
     }
     

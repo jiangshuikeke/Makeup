@@ -16,10 +16,8 @@ enum OrientationType{
 }
 
 ///重力感应
-class Motionmanager{
-    static var shared:Motionmanager = Motionmanager()
-    
-    private init(){
+class Motionmanager{    
+    init(){
         //检查硬件是否支持
         if !cmMontionManager.isAccelerometerAvailable{
             print("该设备不支持加速度硬件无法判断拍摄方向")

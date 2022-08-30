@@ -6,7 +6,7 @@
 //
 
 import UIKit
-///发现控制器
+///发现
 class DiscoverViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -15,18 +15,19 @@ class DiscoverViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        bannerView.reloadViews()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if bannerView.timer.isValid{
-            bannerView.stopLoop()
-        }
+        bannerView.stopLoop()
     }
 
     
     //MARK: - 懒加载以及变量
-    private lazy var backgroundView:RoundedRectView = {
-        return RoundedRectView(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: 100)), type: .BottomRounded, radius: 30, color: SkinColor)
-    }()
+    private lazy var backgroundView:RoundedRectView = RoundedRectView(frame: CGRect(origin: .zero, size: CGSize(width: ScreenWidth, height: 100)), type: .BottomRounded, radius: 30, color: SkinColor)
     
     private lazy var searchBar:UISearchBar = {
         let search = UISearchBar()
@@ -61,8 +62,26 @@ class DiscoverViewController: UIViewController {
     //轮播图
     private lazy var bannerView:BannerView = {
         let view = BannerView(frame: .zero)
+        view.dataSoure = self
         return view
     }()
+    
+    //发布动态按键
+    private lazy var releaseButton:UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "release_button"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        return button
+    }()
+    
+    //动态内容
+//    private lazy var contentCollectionView:UICollectionView = {
+//        let layout = WaterfallFlowLayout(count: 4)
+//        layout.delegate = self
+//
+//    }（）
+    
+    private var images = [UIImage(named: "discover_0")]
 
 }
 
@@ -72,6 +91,7 @@ extension DiscoverViewController{
         navigationController?.isNavigationBarHidden = true
         view.addSubview(backgroundView)
         view.addSubview(searchBar)
+        view.addSubview(releaseButton)
         view.addSubview(segmentView)
         view.addSubview(horizontalScrollView)
         view.backgroundColor = LightGrayColor
@@ -83,10 +103,17 @@ extension DiscoverViewController{
     func initLayout(){
         searchBar.snp.makeConstraints { make in
             make.left.equalTo(view).offset(fitWidth(width: 20))
-            make.right.equalTo(view).offset(-fitWidth(width: 20))
+            make.right.equalTo(view).offset(-fitWidth(width: 55))
             make.bottom.equalTo(backgroundView.snp.bottom).offset(-10)
-            make.height.equalTo(fitHeight(height: 30))
+            make.height.equalTo(fitHeight(height: 37))
         }
+        
+        releaseButton.snp.makeConstraints { make in
+            make.centerY.equalTo(searchBar)
+            make.left.equalTo(searchBar.snp.right).offset(fitWidth(width: 16))
+            make.width.height.equalTo(fitWidth(width: 20))
+        }
+        
         segmentView.snp.makeConstraints { make in
             make.top.equalTo(backgroundView.snp.bottom).offset(10)
             make.left.equalTo(fitWidth(width: 20))
@@ -109,4 +136,19 @@ extension DiscoverViewController{
     }
 }
 
+//MARK: - BannerView的代理
+extension DiscoverViewController:BannerViewDataSoure{
+    func numberOfItems(in bannerView: BannerView) -> NSInteger {
+        return 1
+    }
+    
+    func imageForDisplay(in index: NSInteger) -> UIImage {
+        return images[index]!
+    }
+}
 
+extension DiscoverViewController:WaterfallFlowLayoutDelegate{
+    func waterfallFlowLayout(_ waterFlowLayout: WaterfallFlowLayout, heightForCellInIndexPath indexPath: IndexPath) -> CGFloat {
+        return 90
+    }
+}

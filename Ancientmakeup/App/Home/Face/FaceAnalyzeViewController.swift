@@ -26,25 +26,18 @@ class FaceAnalyzeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         detectCameraPermission()
-        
         motionManager.startAccelerometer()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        //暂停照片流
-        if captureSession!.isRunning{
-            captureSession?.stopRunning()
-        }
-        
-        //开启重力感应
-        motionManager.stopAccelerometer()
+        cancelAll()
     }
     
     deinit {
         //出厂设置
 //        cameraTool.factorySettings()
-        motionManager.stopAccelerometer()
+        cancelAll()
     }
 
     //MARK: - 懒加载以及变量
@@ -97,7 +90,7 @@ class FaceAnalyzeViewController: BaseViewController {
         return tool
     }()
     
-    private lazy var motionManager:Motionmanager = Motionmanager.shared
+    private lazy var motionManager:Motionmanager = Motionmanager()
     
     ///捕获流
     private lazy var captureSession:AVCaptureSession? = {
@@ -186,18 +179,25 @@ extension FaceAnalyzeViewController{
         
     }
     
+    func cancelAll(){
+        if captureSession!.isRunning{
+            captureSession?.stopRunning()
+        }
+        motionManager.stopAccelerometer()
+    }
+    
     func pushViewControllerWithImage(cgImage:CGImage,_ image:UIImage,orientation:CGImagePropertyOrientation?){
         let vc = MainFaceViewController()
         vc.figureImage = cgImage
         vc.displayImage = image
         vc.orientation = orientation
+        indicatorView.stopAnimating()
         navigationController?.pushViewController(vc, animated: true)
     }
     
     //照片背景模糊化
     func processCGImageAndPushVC(cgImage:CGImage,orientation:CGImagePropertyOrientation? = .up){
         //2.人像切割
-        indicatorView.stopAnimating()
         let ciFace = visionManager.personSegmentation(in:cgImage,orientation: orientation)
         guard let ciFace = ciFace else {
             print("无法获取分割后的ciImage")
@@ -243,10 +243,10 @@ extension FaceAnalyzeViewController{
     
     //翻转镜头
     @objc func flipCamera(){
-        self.detectCameraPermission()
-        self.buttonIsEnabled(isEnabled: false)
-        self.cameraTool.flipCamera()
-        self.buttonIsEnabled(isEnabled: true)
+        detectCameraPermission()
+        buttonIsEnabled(isEnabled: false)
+        cameraTool.flipCamera()
+        buttonIsEnabled(isEnabled: true)
     }
 }
 
@@ -308,9 +308,7 @@ extension FaceAnalyzeViewController:AVCapturePhotoCaptureDelegate,CameraToolDele
 extension FaceAnalyzeViewController:PHPickerViewControllerDelegate{
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         //当前的相册只能选择一张照片
-        indicatorView.startAnimating()
         guard let itemProvider = results.first?.itemProvider else{
-            indicatorView.stopAnimating()
             dismiss(animated: true, completion: nil)
             return
         }
@@ -331,8 +329,6 @@ extension FaceAnalyzeViewController:PHPickerViewControllerDelegate{
                         if let cgImage = image.cgImage{
                             self.processCGImageAndPushVC(cgImage: cgImage, orientation: image.cgImageOrientation)
                         }
-                    }else{
-                        self.indicatorView.stopAnimating()
                     }
                 }
             }

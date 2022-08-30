@@ -19,7 +19,9 @@ class MakeupStepView: UIView {
         didSet{
             titleView.title = step!.title
             titleView.setTitleColor(BlackColor, for: .normal)
-            colorImageView.image = UIImage(color:step!.color ?? .white)
+            colorImageView.color = step!.color!
+            colorImageView.location = quarterCircleLocation(by: step!.number)
+            colorImageView.setNeedsDisplay()
             toolImageView.image = UIImage(named: step!.toolImage ?? "error")
             stepContentLabel.text = step!.stepContent
             colorLabel.text = step!.colorName
@@ -43,14 +45,7 @@ class MakeupStepView: UIView {
         return label
     }()
     
-    private lazy var colorImageView:UIImageView = {
-        let view = UIImageView()
-        view.layer.cornerRadius = 35
-        view.layer.masksToBounds = true
-        view.layer.borderWidth = 2
-        view.layer.borderColor = UIColor.white.cgColor
-        return view
-    }()
+    private lazy var colorImageView:ColorCircleView = ColorCircleView()
     
     private lazy var colorLabel:UILabel = {
         let label = UILabel()
@@ -91,7 +86,7 @@ private extension MakeupStepView{
         colorImageView.snp.makeConstraints { make in
             make.centerX.equalTo(toolImageView)
             make.top.equalTo(toolImageView.snp.bottom).offset(20)
-            make.height.width.equalTo(70)
+            make.height.width.equalTo(50)
         }
         
         colorLabel.snp.makeConstraints { make in

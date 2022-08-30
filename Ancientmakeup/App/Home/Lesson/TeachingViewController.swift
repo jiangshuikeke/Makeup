@@ -17,9 +17,11 @@ class TeachingViewController: BaseViewController {
     convenience init(makeup:Makeup){
         self.init()
         self.makeup = makeup
+        setStepImageName()
     }
-
     //MARK: - 懒加载以及变量
+    public var backImageName:String?
+    
     private lazy var scrollView:UIScrollView = {
         let view = UIScrollView(frame: CGRect(x: 0, y: StatusHeight + NavBarViewHeight, width: ScreenWidth, height: ScreenHeight))
         view.showsVerticalScrollIndicator = false
@@ -31,7 +33,7 @@ class TeachingViewController: BaseViewController {
     }()
     
     private lazy var figureImageView:UIImageView = {
-        let view = UIImageView(image: UIImage(named: "chenlitaohua2"))
+        let view = UIImageView(frame: view.frame)
         return view
     }()
     
@@ -62,9 +64,7 @@ class TeachingViewController: BaseViewController {
         return button
     }()
     
-    private lazy var steps:[String] = {
-        return ["step1","step2","step3","step5"]
-    }()
+    private lazy var steps = [String]()
     
     private var makeup:Makeup?
 }
@@ -82,19 +82,17 @@ private extension TeachingViewController{
         view.addSubview(beginMakeupButton)
         scrollView.addSubview(blurView)
         initLayout()
-        view.layoutIfNeeded()
+        navBarView.configureRightButton(imageName: "home", name: nil)
+        navBarView.rightButton.addTarget(self, action: #selector(backToHome), for: .touchUpInside)
         configurationScrollView()
     }
     
     func initLayout(){
-        figureImageView.snp.makeConstraints { make in
-            make.edges.equalTo(view)
-        }
         blurView.snp.makeConstraints { make in
             make.left.equalTo(view).offset(fitWidth(width: 20))
             make.right.equalTo(view).offset(-fitWidth(width: 20))
-            make.top.equalTo(navBarView.snp.bottom).offset(50)
-            make.bottom.equalTo(view).offset(-150)
+            make.top.equalTo(navBarView.snp.bottom).offset(fitHeight(height: 50))
+            make.bottom.equalTo(view).offset(-fitHeight(height: 150))
         }
         
         pageController.snp.makeConstraints { make in
@@ -105,16 +103,24 @@ private extension TeachingViewController{
         beginMakeupButton.snp.makeConstraints { make in
             make.left.equalTo(fitWidth(width: 20))
             make.right.equalTo(-fitWidth(width: 20))
-            make.top.equalTo(pageController.snp.bottom).offset(7)
-            make.bottom.equalTo(view).offset(-13)
+            make.height.equalTo(fitHeight(height: 64))
+            make.bottom.equalTo(view).offset(-fitHeight(height: 24))
+        }
+    }
+    
+    //获取每一个步骤的图片名
+    func setStepImageName(){
+        for i in 0 ..< makeup!.step{
+            let makeupName = makeup!.figureImage!
+            steps.append(makeupName + "_step\(i)")
         }
     }
     
     func configurationScrollView(){
         scrollView.contentSize = CGSize(width: ScreenWidth * CGFloat(steps.count), height: ScreenHeight)
-        let itemY:CGFloat = 50
+        let itemY:CGFloat = 0
         let itemWidth = ScreenWidth - fitWidth(width: 50)
-        let itemHeight = blurView.frame.height
+        let itemHeight = ScreenHeight - fitHeight(height: 150) - NavBarViewHeight
         for (index,step) in steps.enumerated(){
             let itemX = CGFloat(index) * ScreenWidth + fitWidth(width: 25)
             let imageView = UIImageView(image: UIImage(named: step))
@@ -149,5 +155,11 @@ extension TeachingViewController{
         let data = makeup.mutableCopy()
         let vc = BeginMakeupViewController(makeup: data as! Makeup)
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc
+    func backToHome(){
+        navigationController?.popToRootViewController(animated: true)
+        hiddenTabbar(isHidden: false, tag: 0)
     }
 }

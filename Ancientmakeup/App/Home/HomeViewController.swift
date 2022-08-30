@@ -45,6 +45,7 @@ class HomeViewController: UIViewController {
         //20,105
        let label = UILabel(frame: CGRect(x: 0, y: 0, width: fitWidth(width: 330), height: fitHeight(height: 41)))
         label.font = UIFont.boldSystemFont(ofSize: 34)
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -71,10 +72,6 @@ class HomeViewController: UIViewController {
         return view
     }()
     
-    private lazy var bottomView:RoundedRectView = {
-        return RoundedRectView(frame: CGRect(x: 0, y: ScreenHeight - fitHeight(height: 30) - DIYTabBarHeight, width: ScreenWidth, height: DIYTabBarHeight + fitHeight(height: 30)), type: .TopRounded, radius: 30, color: SkinColor)
-    }()
-    
     private lazy var iconImageView:UIImageView = {
         let view = UIImageView(image: UIImage(named: "icon"))
         view.contentMode = .scaleAspectFit
@@ -90,8 +87,8 @@ class HomeViewController: UIViewController {
         var datas = [MakeupStory]()
         let winter = MakeupStory(dict: ["name":"梅花妆","content":"「寿阳公主人日卧于含章殿檐下，梅花落公主额上，成五出花，拂之不去。……宫女奇其异，竞效之，今梅花妆是也」","image":"page1"])
         let fly = MakeupStory(dict: ["name":"飞霞妆","content":"「美人妆，面既施粉，复以燕支晕掌中，施之两颊，浓者为酒晕妆，浅者为桃花妆，薄薄施朱，以粉罩之，为飞霞妆」","image":"page0"])
-        let white = MakeupStory(dict: ["name":"白妆","content":"「寿阳公主人日卧于含章殿檐下，梅花落公主额上，成五出花，拂之不去。……宫女奇其异，竞效之，今梅花妆是也」","image":"page2"])
-        let flower = MakeupStory(dict: ["name":"花钿","content":"「寿阳公主人日卧于含章殿檐下，梅花落公主额上，成五出花，拂之不去。……宫女奇其异，竞效之，今梅花妆是也」","image":"page3"])
+        let white = MakeupStory(dict: ["name":"白妆","content":"单以白粉涂敷面颊，不施胭脂，也叫玉颜。这如玉一般的素洁颜容之美，代表美好品德的玉的光润莹洁和肤色融合在一起。","image":"page2"])
+        let flower = MakeupStory(dict: ["name":"花钿","content":"花钿是古时汉族妇女脸上的一种花饰，即用金翠珠宝制成的花形首饰。花钿有红、绿、黄三种颜色，以红色为最多，以金、银等制成花形，蔽于脸上，是唐代比较流行的一种首饰。","image":"page3"])
         datas.append(winter)
         datas.append(fly)
         datas.append(white)
@@ -119,7 +116,7 @@ private extension HomeViewController{
         //妆容部分UI
         view.addSubview(cardView)
         
-        view.addSubview(bottomView)
+//        view.addSubview(bottomView)
         
         countNowQuantum()
         initLayout()
@@ -139,6 +136,7 @@ private extension HomeViewController{
         
         helloLabel.snp.makeConstraints { make in
             make.left.equalTo(view).offset(fitWidth(width: 20))
+            make.right.equalTo(-fitWidth(width: 20))
             make.bottom.equalTo(faceComponent.snp.top).offset(-15)
         }
         
@@ -148,7 +146,6 @@ private extension HomeViewController{
             make.top.equalTo(roundedRect.snp.bottom).offset(-offset)
             make.left.equalTo(view).offset(fitWidth(width: 20))
         }
-        print(ScreenWidth)
         nationalComponent.snp.makeConstraints { make in
             make.width.equalTo(fitWidth(width: 165))
             make.height.equalTo(fitHeight(height: 97))

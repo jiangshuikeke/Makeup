@@ -51,6 +51,10 @@ class BaseTabBarController: UITabBarController {
         return bar
     }()
     
+    public lazy var bottomView:RoundedRectView = {
+        return RoundedRectView(frame: CGRect(x: 0, y: ScreenHeight - BottomViewHeight, width: ScreenWidth, height: BottomViewHeight), type: .TopRounded, radius: 30, color: SkinColor)
+    }()
+    
     //items
     var items:[DIYTabBarItem]? {
         didSet{
@@ -69,6 +73,7 @@ extension BaseTabBarController{
         //2.注册通知
         registerNotification()
         //3.
+        view.addSubview(bottomView)
         view.addSubview(diyTabBar)
         view.addSubview(navBarView)
         setTabBarLayout()
@@ -129,6 +134,7 @@ extension BaseTabBarController{
         diyTabBar.snp.updateConstraints { make in
             make.bottom.equalTo(view).offset(-fitHeight(height: 20))
         }
+        bottomView.frame.origin.y = ScreenHeight - BottomViewHeight
         animateLayout()
     }
     
@@ -136,6 +142,7 @@ extension BaseTabBarController{
         diyTabBar.snp.updateConstraints { make in
             make.bottom.equalTo(view.snp.bottom).offset(DIYTabBarHeight + fitHeight(height: 20))
         }
+        bottomView.frame.origin.y = ScreenHeight
         animateLayout()
     }
     

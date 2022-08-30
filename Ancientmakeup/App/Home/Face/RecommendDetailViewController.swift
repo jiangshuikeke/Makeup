@@ -180,7 +180,7 @@ extension RecommendDetailViewController{
         let attr = [NSAttributedString.Key.font:MainBodyFont,NSAttributedString.Key.paragraphStyle : line]
         contentLabel.attributedText =  NSAttributedString.init(string: content, attributes: attr)
         contentLabel.sizeToFit()
-        contentScrollView.contentSize = CGSize(width: ScreenWidth, height: contentLabel.frame.maxY + 12.0)
+        contentScrollView.contentSize = CGSize(width: ScreenWidth, height: contentLabel.frame.maxY + DIYTabBarHeight + fitHeight(height: 20))
     }
     
 }
@@ -189,15 +189,27 @@ extension RecommendDetailViewController{
 extension RecommendDetailViewController{
     @objc
     func enterLessonPage(sender:UITapGestureRecognizer){
+        //判断当前是否有step
+        guard ((makeup?.parts) != nil) else{
+            let alert = UIAlertController(errorMessage: "当前妆容教程正在开发中")
+            present(alert, animated: true, completion: nil)
+            return
+        }
         let vc = TeachingViewController(makeup: makeup!)
         navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc
     func tryMakeuping(sender:UITapGestureRecognizer){
+        guard let filter = makeup?.filter else{
+            let alert = UIAlertController(errorMessage: "设计师正在设计妆容滤镜...")
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
         let vc = TryMakeupViewController()
         //TODO: - 更换贴图
-        vc.imageName = "wireframeTexture"
+        vc.filterName = filter
         navigationController?.pushViewController(vc, animated: true)
     }
 }

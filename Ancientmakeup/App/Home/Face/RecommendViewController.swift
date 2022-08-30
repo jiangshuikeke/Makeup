@@ -18,46 +18,34 @@ class RecommendViewController: UIViewController {
     
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-    
-    deinit{
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //显示推荐妆容
+        contentTableView.reloadData()
+        contentTableView.drawTopCurve(height: fitHeight(height: 300) * CGFloat(cellNum) + fitHeight(height: 100) + NavBarViewHeight, color: .white)
     }
     
     //MARK: - 懒加载以及变量
-    private lazy var backView:UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: StatusHeight + NavBarViewHeight, width: ScreenWidth, height: 10))
-        view.addCurve(color: SkinColor)
-        return view
-    }()
+    public var landmark:FaceLandmark?
+    private var cellNum:NSInteger = 1
     
     //内容
     private lazy var contentTableView:UITableView = {
-        let view = UITableView(frame: .zero, style: .plain )
+        let view = UITableView(frame: CGRect(x: 0, y: NavBarViewHeight, width: ScreenWidth, height: ScreenHeight - NavBarViewHeight), style: .plain )
         view.showsVerticalScrollIndicator = false
         view.separatorStyle = .none
         view.register(RecommendViewCell.self, forCellReuseIdentifier: RecommendCellID)
         view.dataSource = self
         view.delegate = self
         view.estimatedRowHeight = 300
-        view.tableHeaderView = RecommendHeaderView(type: .analysis)
         return view
     }()
     
     
     private let RecommendCellID = "RecommendCellID"
     
-    private lazy var datas:[Makeup] = {
-        var datas = [Makeup]()
-        let winter = modelForMakeup()
-        datas.append(winter)
-        let dict = ["name":"酒晕妆","content":"24","recommendationRate":4,"figureImage":"wine"] as [String : Any]
-        let other = Makeup(dict: dict)
-        datas.append(other)
-        return datas
-    }()
+    private lazy var datas = [Makeup]()
+    private lazy var plistManager = PlistManager()
 
 }
 
@@ -65,18 +53,13 @@ extension RecommendViewController{
     func initView(){
         navigationController?.isNavigationBarHidden = true
         view.backgroundColor = SkinColor
-        view.addSubview(backView)
         view.addSubview(contentTableView)
         view.sendSubviewToBack(contentTableView)
         initLayout()
+        processLandmark()
     }
     
     func initLayout(){
-        contentTableView.snp.makeConstraints { make in
-            make.top.equalTo(backView.snp.bottom)
-            make.bottom.equalTo(view)
-            make.left.right.equalTo(view)
-        }
     }
     
     func pushViewControllerWith(makeup:Makeup){
@@ -86,11 +69,25 @@ extension RecommendViewController{
         detail.isPreHasTab = true
         navigationController?.pushViewController(detail, animated: true)
     }
+    
+    func processLandmark(){
+        guard let landmark = landmark else{
+            print("推荐妆容中的lanmark为空")
+            return
+        }
+        //获取妆容风格
+        let style = landmark.style
+        let makeups = plistManager.loadMakeups(style: style)
+        //根据热点进行排序
+        datas = makeups.sorted{$0.recommendationRate > $1.recommendationRate}
+        contentTableView.tableHeaderView = RecommendHeaderView(title: style)
+    }
 }
 
 extension RecommendViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datas.count
+        cellNum = datas.count
+        return cellNum
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -108,7 +105,7 @@ extension RecommendViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 300
+        return fitHeight(height: 290)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

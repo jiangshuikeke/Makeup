@@ -94,7 +94,7 @@ extension MakeupCardView{
         }
         insertSubview(item, at: 0)
         if index == numberOfItmes() - 1{
-            shadowView.frame = CGRect(x:2 * edge.left + 10, y: -0.1 * edge.top, width: frame.width - 4 * edge.left, height: frame.height - 4 * edge.top)
+            shadowView.frame = CGRect(x:2 * edge.left + 10, y: 5, width: frame.width - 4 * edge.left, height: frame.height - 4 * edge.top)
             addSubview(shadowView)
             sendSubviewToBack(shadowView)
         }

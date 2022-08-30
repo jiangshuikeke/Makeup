@@ -46,7 +46,7 @@
 	<key>大气</key>
 	<array>
 		<string>仙蛾妆</string>
-		<string>胡妆</string>
+		<string>分梢眉妆</string>
 		<string>吊梢眉妆</string>
 		<string>桃花妆</string>
 		<string>酒晕妆</string>
@@ -56,19 +56,19 @@
 		<string>远山眉妆</string>
 		<string>广眉妆</string>
 		<string>仙蛾妆</string>
-		<string>胡妆</string>
+		<string>分梢眉妆</string>
 		<string>吊梢眉妆</string>
 	</array>
 	<key>摩登</key>
 	<array>
-		<string>胡妆</string>
+		<string>分梢眉妆</string>
 		<string>吊梢眉妆</string>
 		<string>仙蛾妆</string>
 		<string>广眉妆</string>
 	</array>
 	<key>戏剧</key>
 	<array>
-		<string>胡妆</string>
+		<string>分梢眉妆</string>
 		<string>吊梢眉妆</string>
 		<string>仙蛾妆</string>
 		<string>广眉妆</string>
